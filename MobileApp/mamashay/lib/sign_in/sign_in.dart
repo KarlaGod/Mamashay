@@ -31,6 +31,9 @@ class _SignInState extends State<SignIn> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
+              SizedBox(
+                    height: 50,
+                  ),
               Center(
                 child: Image.asset(
                   'assets/center.png',
@@ -41,37 +44,59 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
 
+              SizedBox(
+                    height: 50,
+                  ),
+
               Form(
               key: _SignInKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Name',
-                    ),
+                  Container(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color.fromRGBO(172, 194, 112, 1)),
+                          borderRadius: BorderRadius.circular(15.0),
+                        ), 
+                        border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color.fromRGBO(172, 194, 112, 1)),
+                        borderRadius: BorderRadius.circular(15.0),
+                         ),
+                        labelText: 'Username',
+                      ),
                     validator: (value) {
                       if (value == null) {
-                        return 'Please enter your name';
+                        return 'Please enter your password';
                       }
                       return null;
                     },
                     onSaved: (value) {
                       _name = value;
                     },
+                  ),)),
+
+                  SizedBox(
+                    height: 20,
                   ),
 
                   Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10.0),
                     child: TextFormField(
                       decoration: InputDecoration(
-                        hintText: 'Enter your text here',
-                        border: InputBorder.none,
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color.fromRGBO(172, 194, 112, 1)),
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                         border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color.fromRGBO(172, 194, 112, 1)),
+                        borderRadius: BorderRadius.circular(15.0),
+                         ),
+                        labelText: 'Password',
                       ),
                     validator: (value) {
                       if (value == null) {
@@ -85,7 +110,7 @@ class _SignInState extends State<SignIn> {
                   ),)),
 
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 32.0),
+                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                     child: Center(
                       child:Container(
                       width: 400,
@@ -116,22 +141,47 @@ class _SignInState extends State<SignIn> {
                         ])
                     ))),
 
-                  Center(
-                  child: Image.asset(
+                  Container(
+                    height: 300,
+                  child: Column(
+
+                  children: [
+                    Center(
+                    child: Image.asset(
                     'assets/sign.png',
                     width: 400,
-                    height: 50, // Set width to cover the entire screen width
+                    height: 60, // Set width to cover the entire screen width
                     // fit: BoxFit.cover, // Set how the image should be inscribed into the box
                     alignment: Alignment.topLeft, // Set the alignment of the image within its bounds
                   ),
                 ),
-                ],
-              ),
+                
+
+                Container(
+                          width: 150,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              
+                              Image.asset(
+                              'assets/google.png',
+                              width: 50, // Set width to cover the entire screen width
+                              height: 50, // Set how the image should be inscribed into the box
+                              alignment: Alignment.bottomLeft, // Set the alignment of the image within its bounds
+                            ),
+
+                              Image.asset(
+                              'assets/twitter.png',
+                              width: 50, // Set width to cover the entire screen width
+                              height: 50, // Set how the image should be inscribed into the box
+                              alignment: Alignment.bottomLeft, // Set the alignment of the image within its bounds
+                            ),
+                            ]))
+                        // ))),
+
+                ]
+                  ))])
             )
-            
-            ]
-          )
-        )
-    );
+        ])));
     }
     }
