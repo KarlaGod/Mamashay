@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.circle {
+  background-image: url('../public/sign-up-img/circle.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: fit-content;
+  width: fit-content;
+}
+
+.bg {
+  background-image: url('../public/sign-up-img/Screen1.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.bg2 {
+  background-image: url('../public/sign-up-img/Screen2.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
