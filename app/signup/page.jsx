@@ -20,7 +20,7 @@ const Page = () => {
           </div>
           <form action="" className='grid gap-5 py-10 relative'>
               <div className='flex flex-col text-xs'>
-                  <label htmlFor="username" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Username(johnrobot)</label>
+                  <label htmlFor="username" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Username(blacdav)</label>
                   <input type="text" name="username" id="username" className='border border-colort p-2 rounded-full text-colort' />
               </div>
               <div className='flex flex-col text-xs'>
