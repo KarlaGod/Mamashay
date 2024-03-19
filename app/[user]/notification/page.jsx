@@ -14,8 +14,8 @@ const page = () => {
           {
             navLinks.map((link) => {
               return(
-                <div className='flex' key={1}>
-                  <Link href={link.link} key={link.link} className='p-2 bg-colort rounded-full flex justify-center h-fit'><Image src={link.icon} alt='...' width={13} height={13} /></Link><div className='h-2 w-2 -ml-2 bg-yellow rounded-full'></div>
+                <div className='flex' key={link.link}>
+                  <Link href={link.link} className='p-2 bg-colort rounded-full flex justify-center h-fit'><Image src={link.icon} alt='...' width={13} height={13} /></Link><div className='h-2 w-2 -ml-2 bg-yellow rounded-full'></div>
                 </div>
               )
             })

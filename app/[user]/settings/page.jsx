@@ -5,8 +5,12 @@ import Image from 'next/image'
 import back from '@/public/homepage-img/back.svg'
 import { navLinks } from '../data'
 import name from '@/public/sign-up-img/greyname.svg'
+import { usePathname } from 'next/navigation'
 
-const page = () => {
+const Page = () => {
+  const pathname = usePathname()
+  const path = pathname === '../settings'
+
   return (
     <main className='min-h-screen grid bg-secondary text-colort'>
       <div className='flex justify-between pt-5 bg-tertiary h-[12%] w-screen fixed'>
@@ -15,8 +19,8 @@ const page = () => {
           {
             navLinks.map((link) => {
               return(
-                <div className='flex' key={1}>
-                  <Link href={link.link} key={link.link} className='p-2 bg-colort rounded-full flex justify-center h-fit'><Image src={link.icon} alt='...' width={13} height={13} /></Link><div className='h-2 w-2 -ml-2 bg-yellow rounded-full'></div>
+                <div className='flex' key={link.link}>
+                  <Link href={link.link} className='p-2 bg-colort rounded-full flex justify-center h-fit'><Image src={link.icon} alt='...' width={13} height={13} /></Link><div className={`h-2 w-2 -ml-2 bg-yellow rounded-full ${path ? 'bg-transparent' : null }`}></div>
                 </div>
               )
             })
@@ -45,4 +49,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
