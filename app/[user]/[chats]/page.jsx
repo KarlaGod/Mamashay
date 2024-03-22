@@ -3,18 +3,21 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import back from '@/public/homepage-img/back.svg'
-import { chats, navLinks, notifications } from '../data'
+import { chats, navLinks2 } from '../data'
+import { usePathname } from 'next/navigation'
 
 const page = () => {
+  const pathname = usePathname();
+  const path = pathname === '@'
   return (
     <main className='min-h-screen bg-secondary text-colort'>
       <div className='flex justify-between items-center pt-5 bg-tertiary h-[12%] w-screen fixed'>
         <h1 className='flex items-center text-primary text-xl font-semibold pl-2'><Link href='../'><Image src={back} alt='...' width={25} height={25} className='pr-3' /></Link> Chats</h1>
         <div className='flex gap-2 p-3'>
           {
-            navLinks.map((link) => {
+            navLinks2.map((link, index) => {
               return(
-                <div className='flex' key={link.link}>
+                <div className='flex' key={index}>
                   <Link href={link.link} className='p-2 bg-colort rounded-full flex justify-center h-fit'><Image src={link.icon} alt='...' width={13} height={13} /></Link><div className='h-2 w-2 -ml-2 bg-yellow rounded-full'></div>
                 </div>
               )
@@ -28,9 +31,9 @@ const page = () => {
         {/* <h1 className='flex items-center text-sm font-bold my-2'><div className='h-2 w-2 bg-yellow rounded-full mr-1'></div> Recent Notifications</h1> */}
         <div>
           {
-            chats.map((chat) => {
+            chats.map((chat, index) => {
               return(
-                <div className='rounded-lg flex justify-between items-center pt-3 my-1' key={1}>
+                <div className='rounded-lg flex justify-between items-center pt-3 my-1' key={index}>
                   <div className='flex'>
                     <p className='rounded-full flex justify-center h-fit w-fit mr-2'><Image src={chat.icon} alt='...' width={40} height={40} className='rounded-full' /></p> 
                     <div className='flex justify-between items-center border-b pb-3'>

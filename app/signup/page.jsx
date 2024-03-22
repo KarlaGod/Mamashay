@@ -51,7 +51,7 @@ const Page = () => {
           <div className='p-2 border border-colort rounded-full flex justify-center'><Image src={twitter} alt='...' width={20} height={20} /></div>
         </div>
       </main>
-      <Print isVisible = {showModal} onClose = {()=> setShowModal(false)} />
+      <Print isVisible = {showModal} onClose = {() => setShowModal(false)} />
     </Fragment>
   )
 }

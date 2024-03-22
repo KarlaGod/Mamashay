@@ -12,10 +12,10 @@ const page = () => {
         <h1 className='flex items-center text-primary text-xl font-semibold pl-2'><Link href='./'><Image src={back} alt='...' width={25} height={25} className='pr-3' /></Link> Orders</h1>
         <div className='flex gap-2 p-3'>
           {
-            navLinks.map((link) => {
+            navLinks.map((link, index) => {
               return(
-                <div className='flex' key={link.link}>
-                  <Link href={link.link} key={link.link} className='p-2 bg-colort rounded-full flex justify-center h-fit'><Image src={link.icon} alt='...' width={13} height={13} /></Link><div className='h-2 w-2 -ml-2 bg-yellow rounded-full'></div>
+                <div className='flex' key={index}>
+                  <Link href={link.link} className='p-2 bg-colort rounded-full flex justify-center h-fit'><Image src={link.icon} alt='...' width={13} height={13} /></Link><div className='h-2 w-2 -ml-2 bg-yellow rounded-full'></div>
                 </div>
               )
             })
@@ -25,9 +25,9 @@ const page = () => {
 
       <div className='px-3 pt-20 pb-4'>
           {
-            orders.map((order) => {
+            orders.map((order, index) => {
               return(
-                <div key={order.food} className='flex bg-black p-3 mb-2 rounded-lg'>
+                <div key={index} className='flex bg-black p-3 mb-2 rounded-lg'>
                   <Image src={order.img} alt='...' width={100} height={100} />
                   <div className='ml-2'>
                     <div className='flex items-center'>

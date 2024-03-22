@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { Fragment, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import profile from '@/public/homepage-img/profile.png'
@@ -14,9 +14,13 @@ import food from '@/public/homepage-img/goatmeatsoup.png'
 import arrow from '@/public/homepage-img/arrow.svg'
 import join from '@/public/homepage-img/join.svg'
 import { products, vendors } from './data'
+import Showcase from '../modals/Showcase'
 
-const page = () => {
+const Page = () => {
+  const [showModal, setShowModal] = useState(false);
+
   return (
+    <Fragment>
     <main className="min-h-screen bg-secondary text-colort">
       {/* Header of the Page */}
       <header className='flex justify-between bg-tertiary h-[12%] w-screen px-3 pt-5 items-end fixed'>
@@ -53,9 +57,9 @@ const page = () => {
         <h1 className='flex items-center text-sm font-bold'><div className='h-2 w-2 bg-yellow rounded-full mr-1'></div> Favourite Vendors</h1>
         <div className='flex py-2 overflow-x-scroll'>
           {
-            vendors.map((vendor) => {
+            vendors.map((vendor, index) => {
               return(
-                <div className='flex-none bg-tertiary mx-1 px-2 py-3 w-16 grid justify-center text-center rounded-lg' key={vendor.id}>
+                <div className='flex-none bg-tertiary mx-1 px-2 py-3 w-16 grid justify-center text-center rounded-lg' key={index}>
                   <Image src={vendor.profile} alt='...' width={40} height={40} className='rounded-full flex justify-center' />
                   <p className='text-xs mt-2'>{vendor.name}</p>
                 </div>
@@ -76,9 +80,9 @@ const page = () => {
         <h1 className='flex items-center text-sm font-bold'><div className='h-2 w-2 bg-yellow rounded-full mr-1'></div> Favourite Products</h1>
         <div className='flex py-2 overflow-x-scroll'>
           {
-            products.map((product) => {
+            products.map((product, index) => {
               return(
-                <div key={product.price} className='flex-none bg-black p-2 mx-1 rounded-lg w-[130px]'>
+                <div key={index} className='flex-none bg-black p-2 mx-1 rounded-lg w-[130px]'>
                   <div className='flex items-center mb-2'>
                     <Image src={product.profile} alt='...' width={15} height={15} className='rounded-full' />
                     <p className='text-[10px] font-semibold ml-2'>{product.user}</p>
@@ -95,7 +99,7 @@ const page = () => {
                       <p className='text-[8px]'>{product.bonus}</p>
                     </div>
                     <p className='text-[10px] font-semibold text-tertiary'>N{product.price}.00</p>
-                    <button className='text-center bg-tertiary w-full py-1 mt-2 text-secondary rounded-md'>Buy</button>
+                    <button className='text-center bg-tertiary w-full py-1 mt-2 text-secondary rounded-md' onClick={() => setShowModal(true)}>Buy</button>
                   </div>
                 </div>
               )
@@ -125,7 +129,9 @@ const page = () => {
         </div>
       </div>
     </main>
+    <Showcase isVisible = {showModal} onClose = {() => setShowModal(false)} />
+    </Fragment>
   )
 }
 
-export default page
+export default Page
