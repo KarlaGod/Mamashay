@@ -1,4 +1,5 @@
 import profile from '@/public/homepage-img/profile.png'
+import back from '@/public/homepage-img/back.svg'
 
 export const vendors = [
     {
@@ -370,4 +371,33 @@ export const showcase = [
         calender: calender,
         like: heart,
     },
+]
+
+import shop from '@/public/homepage-img/store.svg'
+import down from '@/public/homepage-img/down.svg'
+import plus from '@/public/homepage-img/add.svg'
+import placeholder from '@/public/homepage-img/img-placeholder.svg'
+import send from '@/public/homepage-img/send.svg'
+import up from '@/public/homepage-img/up.svg'
+
+export const chat = [
+    {
+        profile: profile,
+        user: 'Blacdav',
+        status: 'Online',
+        store: shop,
+        more: more,
+        calender: calender,
+        tel: phone,
+        teln: '+2348077116265',
+        location: place,
+        address: 'Rumoudara, Port Harcourt',
+        down: down,
+        description: 'We sell homemade food, drinks and snacks, we also have event packages as well..',
+        add_doc: plus,
+        placeholderimg: placeholder,
+        send: send,
+        up: up,
+        back: back
+    }
 ]

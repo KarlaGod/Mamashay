@@ -9,7 +9,7 @@ import { usePathname } from 'next/navigation'
 
 const Page = () => {
   const pathname = usePathname()
-  const path = pathname === '../settings'
+  const link = pathname === './settings'
 
   return (
     <main className='min-h-screen grid bg-secondary text-colort'>
@@ -17,10 +17,10 @@ const Page = () => {
         <h1 className='flex items-center text-primary text-xl font-semibold pl-2'><Link href=''><Image src={back} alt='...' width={25} height={25} className='pr-3' /></Link> Settings</h1>
         <div className='flex gap-2 p-3'>
           {
-            navLinks.map((link) => {
+            navLinks.map((link, index) => {
               return(
-                <div className='flex' key={link.link}>
-                  <Link href={link.link} className='p-2 bg-colort rounded-full flex justify-center h-fit'><Image src={link.icon} alt='...' width={13} height={13} /></Link><div className={`h-2 w-2 -ml-2 bg-yellow rounded-full ${path ? 'bg-transparent' : null }`}></div>
+                <div className='flex' key={index}>
+                  <Link href={link.link} className='p-2 bg-colort rounded-full flex justify-center h-fit'><Image src={link.icon} alt='...' width={13} height={13} /></Link><div className={`h-2 w-2 -ml-2 bg-yellow rounded-full ${link ? 'hidden' : null }`}></div>
                 </div>
               )
             })

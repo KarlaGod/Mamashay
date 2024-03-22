@@ -33,7 +33,7 @@ const Page = ({isVisible, onClose}) => {
                                     </div>
                                 </div>
                             </div>
-                            <Image src={show.img} alt='...' width={400} height={400} className='h-[40%]' />
+                            <Image src={show.img} alt='...' width={400} height={400} className='h-[40%] w-full' />
 
                             <div className='flex items-baseline justify-between'>
                                 <div className='flex gap-2 items-baseline'>

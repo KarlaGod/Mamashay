@@ -6,9 +6,10 @@ import back from '@/public/homepage-img/back.svg'
 import { chats, navLinks2 } from '../data'
 import { usePathname } from 'next/navigation'
 
-const page = () => {
+const Page = () => {
   const pathname = usePathname();
-  const path = pathname === '@'
+  const path = pathname === '@/app/modals/Showcase'
+
   return (
     <main className='min-h-screen bg-secondary text-colort'>
       <div className='flex justify-between items-center pt-5 bg-tertiary h-[12%] w-screen fixed'>
@@ -18,7 +19,7 @@ const page = () => {
             navLinks2.map((link, index) => {
               return(
                 <div className='flex' key={index}>
-                  <Link href={link.link} className='p-2 bg-colort rounded-full flex justify-center h-fit'><Image src={link.icon} alt='...' width={13} height={13} /></Link><div className='h-2 w-2 -ml-2 bg-yellow rounded-full'></div>
+                  <Link href={link.link} className='p-2 bg-colort rounded-full flex justify-center h-8 w-8'><Image src={link.icon} alt='...' width={13} height={13} /></Link><div className='h-2 w-2 -ml-2 bg-yellow rounded-full'></div>
                 </div>
               )
             })
@@ -56,4 +57,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
