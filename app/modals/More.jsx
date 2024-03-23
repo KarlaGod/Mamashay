@@ -5,7 +5,7 @@ const More = ({isVisible, onClose}) => {
     if(!isVisible) return null;
 
     const handleClose = (event) => {
-        if(event.targer.id === "wrapper") onClose();
+        if(event.target.id === "wrapper") onClose();
     }
 
     return (
