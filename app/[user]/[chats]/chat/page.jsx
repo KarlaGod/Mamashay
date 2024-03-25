@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { chat, products } from '../../data'
 
 const Page = () => {
-    // const [toggle, setToggle] = useState()
+    const [toggle, setToggle] = useState(false)
     
   return (
     // <Fragment>
@@ -49,10 +49,10 @@ const Page = () => {
                         </div>
 
                         <div className='text-xs flex justify-between items-center pb-3 gap-3'>
-                            <p className='w-4/5'><span className='font-bold'>Desciption: </span>{c.description}</p>
-                            <button className='flex gap-1 p-2 bg-tertiary items-center text-secondary h-7 rounded-full w-1/5'>More <Image src={c.down} alt='...' width={10} height={10} className='animate-bounce' /></button>
+                            <p className={`${toggle ? 'w-full' : 'w-4/5'}`}><span className='font-bold'>Desciption: </span>{c.description}</p>
+                            <button onClick={() => setToggle(!toggle)} className={`${toggle ? 'hidden' : 'flex'} gap-1 p-2 bg-tertiary items-center text-secondary h-7 rounded-full w-1/5`}>More <Image src={c.down} alt='...' width={10} height={10} className='animate-bounce' /></button>
                         </div>
-                        <div className='grid'>
+                        <div className={`${toggle ? 'hidden' : 'grid'}`}>
                             <h1 className='flex items-center text-sm text-black font-semibold'><div className='h-2 w-2 bg-yellow rounded-full mr-1'></div> Other Products</h1>
                             <div className='flex gap-2 py-2 overflow-x-scroll'>
                             {
@@ -65,7 +65,7 @@ const Page = () => {
                                             <p>{product.ingredients}</p>
                                             <div className='flex'>
                                                 <Image src={product.star} alt='...' width={10} height={10} className='mr-1' />
-                                                <p className='[5px]'>{product.rating}</p>
+                                                <p>{product.rating}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -73,6 +73,7 @@ const Page = () => {
                                 })
                             }
                             </div>
+                            <div></div>
                         </div>
 
                     </header>
