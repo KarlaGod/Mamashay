@@ -386,6 +386,7 @@ export const chat = [
         user: 'Blacdav',
         status: 'Online',
         store: shop,
+        star: star,
         more: more,
         calender: calender,
         tel: phone,

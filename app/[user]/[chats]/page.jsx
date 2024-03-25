@@ -17,8 +17,8 @@ const Page = () => {
 
   return (
     <main className='min-h-screen bg-secondary text-colort'>
-      <div className='bg-fborder pb-3'>
-        <div className='flex justify-between items-center py-5 h-[12%] w-screen'>
+      <div className='bg-fborder pb-3 fixed'>
+        <div className='flex justify-between items-center pt-5 pb-3 h-[12%] w-screen'>
           <h1 className='flex items-center text-primary text-xl font-semibold pl-2'><Link href='../'><Image src={back} alt='...' width={25} height={25} className='pr-3' /></Link> Chats</h1>
           <div className='flex gap-2 p-3'>
             {
@@ -39,7 +39,7 @@ const Page = () => {
       </div>
 
       {/* Chat Lists */}
-      <div className='px-3 pt-2 pb-4 md:pt-28'>
+      <div className='px-3 pt-32 pb-4 md:pt-28'>
         <div>
           {
             chats.map((chat, index) => {

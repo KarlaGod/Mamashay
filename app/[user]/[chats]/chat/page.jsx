@@ -5,11 +5,11 @@ import Image from 'next/image'
 import { chat, products } from '../../data'
 
 const Page = () => {
-    const [toggle, setToggle] = useState(false)
+    const [toggle, setToggle] = useState(true)
     
   return (
     // <Fragment>
-    <main className="min-h-screen bg-secondary text-colort">
+    <main className="min-h-screen bg-fborder text-colort chatbg">
       {
         chat.map((c, index) => {
             return(
@@ -28,12 +28,12 @@ const Page = () => {
                                 </div>
                             </div>
                             <div className='flex gap-2'>
-                                <Link href='#' className='p-1 border border-primary bg-transparent rounded-full grid justify-center items-center h-7 w-7'><Image src={c.store} alt='...' width={13} height={13} /></Link>
-                                <Link href='#' className='p-1 border border-primary bg-transparent rounded-full grid justify-center items-center h-7 w-7'><Image src={c.more} alt='...' width={3} height={3} /></Link>
+                                <Link href='#' className='p-1 border-2 border-primary bg-transparent rounded-full grid justify-center items-center h-7 w-7'><Image src={c.store} alt='...' width={13} height={13} /></Link>
+                                <Link href='#' className='p-1 border-2 border-primary bg-transparent rounded-full grid justify-center items-center h-7 w-7'><Image src={c.more} alt='...' width={3} height={3} /></Link>
                             </div>
                         </div>
 
-                        <div className='flex gap-2 py-5 overflow-x-scroll text-xs'>
+                        <div className={`flex gap-2 py-5 overflow-x-scroll text-[8px] ${!toggle ? 'flex-wrap' : ''}`}>
                             <Link href='#' className='flex flex-none py-1 px-3 w-fit rounded-full bg-secondary gap-2'>
                                 <Image src={c.calender} alt='...' width={10} height={10} />
                                 <p className='border-l pl-2'>{c.address}</p>
@@ -49,10 +49,10 @@ const Page = () => {
                         </div>
 
                         <div className='text-xs flex justify-between items-center pb-3 gap-3'>
-                            <p className={`${toggle ? 'w-full' : 'w-4/5'}`}><span className='font-bold'>Desciption: </span>{c.description}</p>
-                            <button onClick={() => setToggle(!toggle)} className={`${toggle ? 'hidden' : 'flex'} gap-1 p-2 bg-tertiary items-center text-secondary h-7 rounded-full w-1/5`}>More <Image src={c.down} alt='...' width={10} height={10} className='animate-bounce' /></button>
+                            <p className={`text-[9px] ${!toggle ? 'w-full' : 'w-4/5'}`}><span className='font-bold'>Desciption: </span>{c.description}</p>
+                            <button onClick={() => setToggle(!toggle)} className={`${!toggle ? 'hidden' : 'flex'} gap-1 p-2 bg-tertiary items-center text-secondary h-7 rounded-full w-1/5`}>More <Image src={c.down} alt='...' width={10} height={10} className='animate-bounce' /></button>
                         </div>
-                        <div className={`${toggle ? 'hidden' : 'grid'}`}>
+                        <div className={`${toggle ? 'hidden' : 'grid pb-3'}`}>
                             <h1 className='flex items-center text-sm text-black font-semibold'><div className='h-2 w-2 bg-yellow rounded-full mr-1'></div> Other Products</h1>
                             <div className='flex gap-2 py-2 overflow-x-scroll'>
                             {
@@ -73,7 +73,13 @@ const Page = () => {
                                 })
                             }
                             </div>
-                            <div></div>
+                            <div className='flex gap-2 pt-4'>
+                                <div href='#' className='flex flex-none items-center py-1 px-3 w-fit rounded-full bg-secondary gap-2'>
+                                    <Image src={c.star} alt='...' width={10} height={10} />
+                                    <p className='border-l pl-2 text-xs'>See reviews</p>
+                                </div>
+                                <button onClick={() => setToggle(!toggle)} className='flex gap-1 p-2 bg-tertiary items-center text-secondary h-7 rounded-full w-fit'>Less <Image src={c.up} alt='...' width={10} height={10} className='animate-bounce' /></button>
+                            </div>
                         </div>
 
                     </header>
