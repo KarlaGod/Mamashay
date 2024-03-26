@@ -3,12 +3,16 @@ import React, { Fragment, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { chat, products } from '../../data'
+import More from '../../../modals/More'
+import Options from '@/app/modals/Options'
 
 const Page = () => {
     const [toggle, setToggle] = useState(true)
+    const [toggle1, setToggle1] = useState(false)
+    const [toggle2, setToggle2] = useState(false)
     
   return (
-    // <Fragment>
+    <Fragment>
     <main className="min-h-screen bg-fborder text-colort chatbg">
       {
         chat.map((c, index) => {
@@ -29,7 +33,7 @@ const Page = () => {
                             </div>
                             <div className='flex gap-2'>
                                 <Link href='#' className='p-1 border-2 border-primary bg-transparent rounded-full grid justify-center items-center h-7 w-7'><Image src={c.store} alt='...' width={13} height={13} /></Link>
-                                <Link href='#' className='p-1 border-2 border-primary bg-transparent rounded-full grid justify-center items-center h-7 w-7'><Image src={c.more} alt='...' width={3} height={3} /></Link>
+                                <Link href='#' onClick={() => setToggle1(true)} className='p-1 border-2 border-primary bg-transparent rounded-full grid justify-center items-center h-7 w-7'><Image src={c.more} alt='...' width={3} height={3} /></Link>
                             </div>
                         </div>
 
@@ -73,10 +77,10 @@ const Page = () => {
                                 })
                             }
                             </div>
-                            <div className='flex gap-2 pt-4'>
+                            <div className='flex gap-2 pt-4 text-xs'>
                                 <div href='#' className='flex flex-none items-center py-1 px-3 w-fit rounded-full bg-secondary gap-2'>
                                     <Image src={c.star} alt='...' width={10} height={10} />
-                                    <p className='border-l pl-2 text-xs'>See reviews</p>
+                                    <p className='border-l pl-2'>See reviews</p>
                                 </div>
                                 <button onClick={() => setToggle(!toggle)} className='flex gap-1 p-2 bg-tertiary items-center text-secondary h-7 rounded-full w-fit'>Less <Image src={c.up} alt='...' width={10} height={10} className='animate-bounce' /></button>
                             </div>
@@ -87,7 +91,7 @@ const Page = () => {
                     <div className='bg-fborder absolute bottom-0 pt-4 pb-6 px-3 z-10 gap-2 flex items-center w-screen justify-between'>
                         <div className='flex justify-between bg-secondary p-1 rounded-full w-full'>
                             <div className='flex gap-2'>
-                                <button className='bg-fborder rounded-full p-2'><Image src={c.add_doc} alt='...' width={15} height={15} /></button>
+                                <button className='bg-fborder rounded-full p-2' onClick={() => setToggle2(true)}><Image src={c.add_doc} alt='...' width={15} height={15} /></button>
                                 <input type="text" placeholder='Type message here' className='outline-none w-full ' />
                             </div>
                             <Image src={c.placeholderimg} alt='...' width={20} height={15} className='mr-3' />
@@ -99,8 +103,9 @@ const Page = () => {
         })
       }
     </main>
-    // <Showcase isVisible = {showModal} onClose = {() => setShowModal(false)} />
-    // </Fragment>
+    <More isVisible = {toggle1} onClose = {() => setToggle1(false)} />
+    <Options isVisible = {toggle2} onClose = {() => setToggle2(false)} />
+    </Fragment>
   )
 }
 

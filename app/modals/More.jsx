@@ -1,5 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
+import share from '@/public/homepage-img/share2.svg'
+import profile from '@/public/homepage-img/img-placeholder.svg'
+import block from '@/public/homepage-img/block.svg'
+import del from '@/public/homepage-img/delete.svg'
 
 const More = ({isVisible, onClose}) => {
     if(!isVisible) return null;
@@ -9,16 +13,24 @@ const More = ({isVisible, onClose}) => {
     }
 
     return (
-        <div className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex text-xs text-colort justify-center items-end z-20' id="wrapper" onClick={handleClose}>
-            <section className='w-[90%] h-[35%] py-5 px-5 bg-white flex flex-col justify-center items-center rounded-3xl mb-8'>
-                <div className='flex justify-between items-center'>
-                    <h1>Use <span className='font-bold'>Biometrics </span>to sign in next time</h1>
-                    <div className={`h-3 w-8 bg-tertiary rounded-full flex items-center px-1 py-2`}>
-                        <div className='h-3 w-3 bg-primary rounded-full'></div>
-                    </div>
+        <div className='fixed shadow-2xl inset-0 flex text-xs text-colort justify-end items-start z-20' id="wrapper" onClick={handleClose}>
+            <section className='w-[50%] h-[35%] py-2 px-5 bg-white grid rounded-2xl mt-7 mr-2'>
+                <div className='flex gap-2 items-center py-1 border-b'>
+                    <Image src={share} alt='...' width={15} height={15} />
+                    <p>Share</p>
                 </div>
-                <Image src={printf} alt='...' width={40} height={40} className='my-8' />
-                <p className='text-center w-[80%]'>Place your finger on the fingerprint scanner</p>
+                <div className='flex gap-2 items-center py-1 border-b'>
+                    <Image src={profile} alt='...' width={15} height={15} />
+                    <p>Vendor Profile</p>
+                </div>
+                <div className='flex gap-2 items-center py-1 border-b'>
+                    <Image src={block} alt='...' width={15} height={15} />
+                    <p>Block Vendor</p>
+                </div>
+                <div className='flex gap-2 items-center py-1'>
+                    <Image src={del} alt='...' width={15} height={15} />
+                    <p>Delete Chat</p>
+                </div>
             </section>
         </div>
     )
