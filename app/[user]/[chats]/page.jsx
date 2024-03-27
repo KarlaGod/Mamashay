@@ -7,7 +7,7 @@ import { chats, navLinks2 } from '../data'
 import { usePathname } from 'next/navigation'
 import search from '@/public/homepage-img/search2.svg'
 import { useRouter } from 'next/navigation'
-// import { useRouter } from 'next/router'
+// import { vendors } from '../data'
 
 const Page = () => {
   const pathname = usePathname();

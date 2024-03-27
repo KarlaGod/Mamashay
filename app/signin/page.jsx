@@ -31,11 +31,11 @@ const Page = () => {
           <form action="" className='grid gap-5 py-10'>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="username" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Username(blacdav)</label>
-                  <input type="text" name="username" id="username" value={signin.username} onChange={(e) => setSignin({...signin, username: e.target.value})} className='border border-colort text-colort p-2 rounded-full' />
+                  <input type="text" name="username" id="username" value={signin.username} onChange={(e) => setSignin({...signin, username: e.target.value.trim()})} className='border border-colort text-colort p-2 rounded-full' />
               </div>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="password" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Password</label>
-                  <input type="text" name="password" id="password" value={signin.password} onChange={(e) => setSignin({...signin, password: e.target.value})} className='border border-colort text-colort p-2 rounded-full' />
+                  <input type="text" name="password" id="password" value={signin.password} onChange={(e) => setSignin({...signin, password: e.target.value.trim()})} className='border border-colort text-colort p-2 rounded-full' />
               </div>
               <div className='flex gap-3'>
                   <button type="submit" onClick={(e) => {e.preventDefault(); console.log(signin)}} className='bg-tertiary py-2 px-5 w-4/5 rounded-full'>Sign In</button>

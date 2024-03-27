@@ -17,7 +17,7 @@ const Page = () => {
       {
         chat.map((c, index) => {
             return(
-                <div className='w-screen h-screen' key={index}>
+                <div className='w-screen h-screen flex flex-col' key={index}>
                     {/* Header of the Page */}
                     <header className='grid px-3 z-10 bg-fborder'>
                         <div className='flex justify-between pt-5 items-center'>
@@ -85,8 +85,11 @@ const Page = () => {
                                 <button onClick={() => setToggle(!toggle)} className='flex gap-1 p-2 bg-tertiary items-center text-secondary h-7 rounded-full w-fit'>Less <Image src={c.up} alt='...' width={10} height={10} className='animate-bounce' /></button>
                             </div>
                         </div>
-
                     </header>
+
+                    <div className='overflow-y-scroll bg-tertiary pt-3 px-3'>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora non cumque hic, ab fugit eligendi alias provident corporis rem eaque at quasi maiores ut earum culpa in laudantium nulla delectus, labore similique doloribus iste. Placeat animi quasi amet quia, sapiente earum dicta similique natus. Distinctio obcaecati quasi, iste culpa reiciendis dolorum magni, ut, officia aspernatur expedita sequi. Maiores rerum dolorem harum excepturi. Quam consequuntur veritatis libero blanditiis sequi labore quae aut ullam voluptate ex perspiciatis architecto dignissimos, eligendi natus est reiciendis cupiditate consectetur. Ab suscipit sint non velit at omnis perferendis est fugiat id eveniet unde explicabo amet qui, labore minus earum cum distinctio aliquid? Voluptatem, perspiciatis nemo molestias saepe aliquam sunt unde est! Quis, ullam sed, reprehenderit velit corrupti accusamus natus repellat necessitatibus enim dignissimos voluptatibus aperiam. Autem quae pariatur tempora voluptate distinctio eveniet officiis sed nostrum modi magni tempore ea accusamus, blanditiis unde fugit cum quas aliquam voluptatibus nobis nulla voluptatem quo praesentium eum repellendus. Dolore incidunt voluptatibus necessitatibus in maiores beatae molestias ducimus nemo quidem, repudiandae quibusdam dignissimos unde sunt, impedit aperiam, eos quia et? Similique, praesentium! Similique quia impedit laborum ex! Eius explicabo officia earum voluptates. Dolores voluptatibus nisi incidunt iste? Ab molestiae cupiditate numquam. Ut?</p>
+                    </div>
 
                     <div className='bg-fborder absolute bottom-0 pt-4 pb-6 px-3 z-10 gap-2 flex items-center w-screen justify-between'>
                         <div className='flex justify-between bg-secondary p-1 rounded-full w-full'>
