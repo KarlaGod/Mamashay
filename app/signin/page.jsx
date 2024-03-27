@@ -12,6 +12,8 @@ import Print from '../modals/Printsi'
 const Page = () => {
   const [showModal, setShowModal] = useState(false);
 
+  const [signin, setSignin] = useState({username: '', password: ''});
+
   return (
     <Fragment>
       <main className='min-h-screen flex flex-col items-center justify-center bg-secondary'>
@@ -19,6 +21,7 @@ const Page = () => {
           <Image src={name} alt='...' width={200} height={200} className='h-20 w-36 p-2' />
           {/* <Image src={circle} alt='...'  /> */}
         </div>
+        {/* <div className='z-10 text-purple-700'>{input.username} <br /> {input.password}</div> */}
 
         <div className='border-b border-colort w-4/5'>
           <div className='flex gap-10 justify-center pt-10'>
@@ -28,14 +31,14 @@ const Page = () => {
           <form action="" className='grid gap-5 py-10'>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="username" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Username(blacdav)</label>
-                  <input type="text" name="username" id="username" className='border border-colort text-colort p-2 rounded-full' />
+                  <input type="text" name="username" id="username" value={signin.username} onChange={(e) => setSignin({...signin, username: e.target.value})} className='border border-colort text-colort p-2 rounded-full' />
               </div>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="password" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Password</label>
-                  <input type="text" name="password" id="password" className='border border-colort text-colort p-2 rounded-full' />
+                  <input type="text" name="password" id="password" value={signin.password} onChange={(e) => setSignin({...signin, password: e.target.value})} className='border border-colort text-colort p-2 rounded-full' />
               </div>
               <div className='flex gap-3'>
-                  <button type="submit" className='bg-tertiary py-2 px-5 w-4/5 rounded-full'>Sign In</button>
+                  <button type="submit" onClick={(e) => {e.preventDefault(); console.log(signin)}} className='bg-tertiary py-2 px-5 w-4/5 rounded-full'>Sign In</button>
                   <div className='bg-tertiary flex lg:hidden rounded-full' onClick={() => setShowModal(true)}><Image src={sprint} alt='...' width={20} height={20} className='h-10 w-10 p-2' /></div>
               </div>
           </form>

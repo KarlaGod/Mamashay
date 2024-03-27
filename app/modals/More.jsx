@@ -13,8 +13,8 @@ const More = ({isVisible, onClose}) => {
     }
 
     return (
-        <div className='fixed shadow-2xl inset-0 flex text-xs text-colort justify-end items-start z-20' id="wrapper" onClick={handleClose}>
-            <section className='w-[50%] h-[35%] py-2 px-5 bg-white grid rounded-2xl mt-7 mr-2'>
+        <div className='fixed inset-0 flex text-xs text-colort justify-end items-start z-20' id="wrapper" onClick={handleClose}>
+            <section className='w-[50%] h-[35%] py-2 px-5 bg-secondary grid shadow-lg rounded-2xl mt-7 mr-2'>
                 <div className='flex gap-2 items-center py-1 border-b'>
                     <Image src={share} alt='...' width={15} height={15} />
                     <p>Share</p>
