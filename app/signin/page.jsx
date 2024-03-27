@@ -8,11 +8,14 @@ import sprint from '@/public/sign-up-img/finger.svg'
 import google from '@/public/sign-up-img/google+.svg'
 import twitter from '@/public/sign-up-img/twitter.svg'
 import Print from '../modals/Printsi'
+import { useRouter } from 'next/navigation'
 
 const Page = () => {
   const [showModal, setShowModal] = useState(false);
 
   const [signin, setSignin] = useState({username: '', password: ''});
+
+  const router = useRouter();
 
   return (
     <Fragment>
@@ -38,7 +41,7 @@ const Page = () => {
                   <input type="text" name="password" id="password" value={signin.password} onChange={(e) => setSignin({...signin, password: e.target.value.trim()})} className='border border-colort text-colort p-2 rounded-full' />
               </div>
               <div className='flex gap-3'>
-                  <button type="submit" onClick={(e) => {e.preventDefault(); console.log(signin)}} className='bg-tertiary py-2 px-5 w-4/5 rounded-full'>Sign In</button>
+                  <button type="submit" onClick={(e) => {e.preventDefault(); console.log(signin); router.push('./user')}} className='bg-tertiary py-2 px-5 w-4/5 rounded-full'>Sign In</button>
                   <div className='bg-tertiary flex lg:hidden rounded-full' onClick={() => setShowModal(true)}><Image src={sprint} alt='...' width={20} height={20} className='h-10 w-10 p-2' /></div>
               </div>
           </form>

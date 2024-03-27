@@ -6,11 +6,14 @@ import sprint from '@/public/sign-up-img/finger.svg'
 import google from '@/public/sign-up-img/google+.svg'
 import twitter from '@/public/sign-up-img/twitter.svg'
 import Print from '../modals/Printsu'
+import { useRouter } from 'next/navigation'
 
 const Page = () => {
   const [showModal, setShowModal] = useState(false);
 
-  const [signup, setSignup] = useState({username: '', telephone: '', email: '', password: '', cpassword: ''})
+  const [signup, setSignup] = useState({username: '', telephone: '', email: '', password: '', cpassword: ''});
+
+  const router = useRouter();
 
   return (
     <Fragment>
@@ -42,7 +45,7 @@ const Page = () => {
                   <input type="password" name="cpassword" id="cpassword" value={signup.cpassword} onChange={(e) => setSignup({...signup, cpassword: e.target.value.trim()})} className='border border-colort p-2 rounded-full text-colort' />
               </div>
               <div className='flex gap-3'>
-                  <button type="submit" onClick={(e) => {e.preventDefault(); console.log(signup)}} className='bg-tertiary py-2 px-5 w-4/5 rounded-full'>Sign Up</button>
+                  <button type="submit" onClick={(e) => {e.preventDefault(); console.log(signup); router.push('../signin')}} className='bg-tertiary py-2 px-5 w-4/5 rounded-full'>Sign Up</button>
                   <div className='bg-tertiary flex lg:hidden rounded-full' onClick={() => setShowModal(true)}><Image src={sprint} alt='...' width={20} height={20} className='h-10 w-10 p-2' /></div>
               </div>
           </form>

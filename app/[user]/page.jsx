@@ -59,7 +59,7 @@ const Page = () => {
           {
             vendors.map((vendor, index) => {
               return(
-                <div className='flex-none bg-fborder mx-1 px-2 py-3 w-16 grid justify-center text-center rounded-lg' key={index}>
+                <div className='flex-none bg-fborder place-items-center mx-1 px-2 py-3 w-16 grid rounded-lg' key={index}>
                   <Image src={vendor.profile} alt='...' width={40} height={40} className='rounded-full flex justify-center' />
                   <p className='text-xs mt-2'>{vendor.name}</p>
                 </div>
