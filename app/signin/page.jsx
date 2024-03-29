@@ -9,6 +9,7 @@ import google from '@/public/sign-up-img/google+.svg'
 import twitter from '@/public/sign-up-img/twitter.svg'
 import Print from '../modals/Printsi'
 import { useRouter } from 'next/navigation'
+import { register } from '../[user]/data'
 
 const Page = () => {
   const [showModal, setShowModal] = useState(false);
@@ -24,7 +25,7 @@ const Page = () => {
           <Image src={name} alt='...' width={200} height={200} className='h-20 w-36 p-2' />
           {/* <Image src={circle} alt='...'  /> */}
         </div>
-        {/* <div className='z-10 text-purple-700'>{input.username} <br /> {input.password}</div> */}
+        <div className='z-10 text-purple-700'>{signin.username} <br /> {signin.password}</div>
 
         <div className='border-b border-colort w-4/5'>
           <div className='flex gap-10 justify-center pt-10'>
@@ -41,15 +42,16 @@ const Page = () => {
                   <input type="text" name="password" id="password" value={signin.password} onChange={(e) => setSignin({...signin, password: e.target.value.trim()})} className='border border-colort text-colort p-2 rounded-full' />
               </div>
               <div className='flex gap-3'>
-                  <button type="submit" onClick={(e) => {e.preventDefault(); console.log(signin); router.push('./user')}} className='bg-tertiary py-2 px-5 w-4/5 rounded-full'>Sign In</button>
+                  <button type="submit" onClick={(e) => {e.preventDefault(); register.find((reg) => { reg.username === signin.username && reg.password === signin.password ? (router.push('user')) : (console.log('failed')) }); }} className='bg-tertiary py-2 px-5 w-4/5 rounded-full'>Sign In</button>
                   <div className='bg-tertiary flex lg:hidden rounded-full' onClick={() => setShowModal(true)}><Image src={sprint} alt='...' width={20} height={20} className='h-10 w-10 p-2' /></div>
               </div>
           </form>
-          <p className='text-primary text-xs text-center font-bold bg-secondary w-fit px-1 -mb-2'>Sign in with</p>
+          <p className='text-primary text-xs font-bold bg-secondary w-fit px-1 -mb-2'>Sign in with</p>
         </div>
         <div className='flex gap-3 mt-5'>
           <div className='p-2 border border-colort rounded-full flex justify-center'><Image src={google} alt='...' width={20} height={20} /></div>
           <div className='p-2 border border-colort rounded-full flex justify-center'><Image src={twitter} alt='...' width={20} height={20} /></div>
+ 
         </div>
       </main>
       <Print isVisible = {showModal} onClose = {() => setShowModal(false)} />

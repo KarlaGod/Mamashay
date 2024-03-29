@@ -18,12 +18,13 @@ import Showcase from '../modals/Showcase'
 
 const Page = () => {
   const [showModal, setShowModal] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   return (
     <Fragment>
     <main className="min-h-screen bg-secondary text-colort">
       {/* Header of the Page */}
-      <header className='flex justify-between bg-fborder h-[12%] w-screen px-3 pt-5 items-end fixed'>
+      <header className={`${visible ? 'hidden' : 'flex'} justify-between bg-fborder h-[12%] w-screen px-3 pt-5 items-end fixed`}>
         <div className='flex items-center'>
             <div className='p-3'>
                 <Image src={profile} alt='...' width={40} height={40} className='rounded-full' />
@@ -41,19 +42,26 @@ const Page = () => {
       </header>
 
       {/* Logo Container */}
-      <div className='flex justify-center items-center pt-24 min-h-56'>
+      <div className={`${visible ? 'hidden' : 'flex'} justify-center items-center pt-24 min-h-56`}>
           <Image src={name} alt='...' width={200} height={200} className='h-20 w-44 p-2' />
       </div>
 
       {/* Filter and Search */}
-      <div className='flex p-3 gap-2'>
-        <div className='p-2 bg-primary rounded-full flex justify-center w-8 h-8'><Image src={filter} alt='...' width={15} height={15} /></div>
-        <input type="text" placeholder='Search for food or any organic product...' className='p-2 w-full rounded-full outline-none bg-fborder text-colort text-xs' />
-        <div className='p-2 bg-primary rounded-full flex justify-center w-8 h-8'><Image src={search} alt='...' width={15} height={15} /></div>
+      <div className={`${visible ? 'pt-10 bg-fborder' : ''}`} onClick={() => setVisible(true)}>
+        <div className='flex p-3 gap-2'>
+          <div className='p-2 bg-primary rounded-full flex justify-center w-8 h-8'><Image src={filter} alt='...' width={15} height={15} /></div>
+          <input type="text" placeholder='Search for food or any organic product...' className={`p-2 w-full rounded-full outline-none ${visible ? 'bg-secondary' : 'bg-fborder'} text-colort text-xs`} />
+          <div className='p-2 bg-primary rounded-full flex justify-center w-8 h-8'><Image src={search} alt='...' width={15} height={15} /></div>
+        </div>
+        <div className={`flex p-3 ${!visible ? 'hidden' : ''} gap-3`}>
+          <button className='p-2 border-2 border-tertiary outline-tertiary bg-secondary w-fit text-xs rounded-full'>Regulars</button>
+          <button className='p-2 border-2 border-tertiary outline-tertiary bg-secondary w-fit text-xs rounded-full'>Event</button>
+          <button className='p-2 border-2 border-tertiary outline-tertiary bg-secondary w-fit text-xs rounded-full'>Special</button>
+        </div>
       </div>
 
       {/* Favourite Vendors */}
-      <div className='p-3'>
+      <div className={`${!visible ? 'p-3' : 'hidden'}`} onClick={() => setVisible(false)}>
         <h1 className='flex items-center text-sm font-bold'><div className='h-2 w-2 bg-yellow rounded-full mr-1'></div> Favourite Vendors</h1>
         <div className='flex py-2 overflow-x-scroll'>
           {
@@ -69,14 +77,14 @@ const Page = () => {
         </div>
 
         {/* Buttons for message and orders */}
-        <div className='flex gap-3 pt-8'>
+        <div className={`${!visible ? 'flex gap-3 pt-8' : 'hidden'}`} onClick={() => setVisible(false)}>
           <Link href='../user/chats' className='flex px-5 py-2 items-center bg-fborder w-1/2 rounded-lg'><Image src={message} alt='...' width={13} height={13} /><p className='border-l border-colort text-sm text-primary ml-2 pl-2'>Messages</p></Link>
           <Link href='../user/orders' className='flex px-5 py-2 items-center bg-fborder w-1/2 rounded-lg'><Image src={cart} alt='...' width={13} height={13} /><p className='border-l border-colort text-sm text-primary ml-2 pl-2'>Orders</p></Link>
         </div>
       </div>
 
       {/* Favourite Products */}
-      <div className='px-3 pt-4'>
+      <div className={`${!visible ? 'px-3 pt-4' : 'hidden'}`} onClick={() => setVisible(false)}>
         <h1 className='flex items-center text-sm font-bold'><div className='h-2 w-2 bg-yellow rounded-full mr-1'></div> Favourite Products</h1>
         <div className='flex py-2 overflow-x-scroll'>
           {
@@ -109,7 +117,7 @@ const Page = () => {
       </div>
 
       {/* For You */}
-      <div className='px-3 pt-8 pb-4'>
+      <div className={`${!visible ? 'px-3 pt-8 pb-4' : 'hidden'}`} onClick={() => setVisible(false)}>
         <h1 className='flex items-center text-sm font-bold'><div className='h-2 w-2 bg-yellow rounded-full mr-1'></div> For You</h1>
         <div>
           <div className='w-[140px] py-2'>
@@ -127,6 +135,40 @@ const Page = () => {
             <Image src={join} alt='...' width={50} height={50} />
           </div>
         </div>
+      </div>
+
+      <div  className={`${visible ? 'p-3' : 'hidden'}`} onClick={() => setVisible(false)}>
+      <div className={`${visible ? 'px-3 pt-4' : 'hidden'}`} onClick={() => setVisible(false)}>
+        <h1 className='flex items-center text-sm font-bold'><div className='h-2 w-2 bg-yellow rounded-full mr-1'></div> Favourite Products</h1>
+        <div className='flex py-2 overflow-x-scroll'>
+          {
+            products.map((product, index) => {
+              return(
+                <div key={index} className='flex-none bg-fborder p-2 mx-1 rounded-lg w-[130px]'>
+                  <div className='flex items-center mb-2'>
+                    <Image src={product.profile} alt='...' width={15} height={15} className='rounded-full' />
+                    <p className='text-[10px] font-semibold ml-2 text-primary'>{product.user}</p>
+                  </div>
+                  <Image src={product.img} alt='...' width={130} height={130} />
+                  <div>
+                    <p className='text-[11px] font-bold mt-1 text-primary'>{product.food}</p>
+                    <div className='flex items-center mt-1'>
+                      <p className='text-[9px] font-bol pr-1 border-r mr-1 overflow-hidden'>{product.ingredients}</p>
+                      <p className='flex items-center text-[8px]'><Image src={product.star} alt='...' width={13} height={13} className='pr-1' /> {product.rating}</p>
+                    </div>
+                    <div className='flex items-center'>
+                      <div className='px-1 mr-2 text-[8px] my-2 font-semibol text-secondary bg-tertiary rounded-sm'>BONUS</div>
+                      <p className='text-[8px]'>{product.bonus}</p>
+                    </div>
+                    <p className='text-sm font-semibold text-black'>N{product.price}.00</p>
+                    <button className='text-center bg-tertiary w-full py-1 mt-2 text-secondary rounded-md' onClick={() => setShowModal(true)}>Buy</button>
+                  </div>
+                </div>
+              )
+            })
+          }
+        </div>
+      </div>
       </div>
     </main>
     <Showcase isVisible = {showModal} onClose = {() => setShowModal(false)} />

@@ -1,10 +1,11 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link';
 import { showcase } from '../[user]/data';
 
 const Page = ({isVisible, onClose}) => {
+    const [visible, setVisible] = useState(false)
 
     if (!isVisible) return null;
 
@@ -18,7 +19,7 @@ const Page = ({isVisible, onClose}) => {
             {
                 showcase.map((show, index) => {
                     return(
-                        <div className='overflow-y-scroll' key={index}>
+                        <div className='overflow-y-scroll overflow-x-none w-full' key={index}>
                             <div className='flex justify-between mb-2'>
                                 <div className='flex items-center'>
                                     <Image src={show.profile} alt='...' width={30} height={30} className='rounded-full' />
@@ -37,17 +38,17 @@ const Page = ({isVisible, onClose}) => {
 
                             <div className='flex items-baseline justify-between'>
                                 <div className='flex gap-2 items-baseline'>
-                                    <p className='font-bold text-primary text-xl'>N{show.price}.00</p>
-                                    <p className='line-through'>N{show.price}.00</p>
+                                    <p className='font-bold text-primary text-lg'>N{show.price}.00</p>
+                                    <p className='line-through text-xs'>N{show.price}.00</p>
                                 </div>
                                 <div className='flex items-baseline gap-1'>
-                                    <p>Rating: </p>
+                                    <p className='text-xs'>Rating: </p>
                                     <div className='flex'>
-                                    <Image src={show.star} alt='...' width={12} height={12} />
-                                    <Image src={show.star} alt='...' width={12} height={12} />
-                                    <Image src={show.star} alt='...' width={12} height={12} />
-                                    <Image src={show.star} alt='...' width={12} height={12} />
-                                    <Image src={show.star} alt='...' width={12} height={12} />
+                                    <Image src={show.star} alt='...' width={8} height={8} />
+                                    <Image src={show.star} alt='...' width={8} height={8} />
+                                    <Image src={show.star} alt='...' width={8} height={8} />
+                                    <Image src={show.star} alt='...' width={8} height={8} />
+                                    <Image src={show.star} alt='...' width={8} height={8} />
                                     </div>
                                 </div>
                             </div>
@@ -56,10 +57,10 @@ const Page = ({isVisible, onClose}) => {
 
                             <div className='flex items-center my-2'>
                                 <div className='px-1 mr-2 text-xs my-2 font-semibol text-secondary bg-tertiary rounded-sm'>BONUS</div>
-                                <p className='text-xs'>{show.bonus}</p>
+                                <p className='text-[10px]'>{show.bonus}</p>
                             </div>
 
-                            <div className='flex gap-2 overflow-x-scroll'>
+                            <div className='flex gap-2 overflow-x-scroll' onClick={() => setVisible(false)}>
                                 <div className='flex flex-none p-2 w-fit rounded-full bg-primary gap-2'>
                                     <Image src={show.location} alt='...' width={10} height={10} />
                                     <p className='border-l border-colort pl-2'>{show.address}</p>
@@ -74,9 +75,19 @@ const Page = ({isVisible, onClose}) => {
                                 </div>
                             </div>
 
-                            <div className='flex gap-2 my-4'>
+                            <div className={`${!visible ? 'flex gap-2 mt-4' : 'hidden'}`} onClick={() => setVisible(true)}>
                                 <button className='bg-tertiary p-2 rounded-xl w-1/5 flex justify-center items-center'><Image src={show.like} alt='...' width={20} height={20} /></button>
                                 <button className='bg-tertiary text-secondary text-lg font-bold p-2 w-4/5 flex justify-center items-center rounded-xl'>Message</button>
+                            </div>
+                            <div className={`${visible ? 'flex my-4 gap-2 items-center w-full' : 'hidden'}`}>
+                                <div className='flex justify-between bg-fborder p-1 rounded-full w-full'>
+                                    <div className='bg-fborder flex gap-2'>
+                                        <button className='bg-secondary rounded-full p-2' onClick={() => setToggle2(true)}><Image src={show.add_doc} alt='...' width={15} height={15} /></button>
+                                        <input type="text" placeholder='Type message here' className='outline-none bg-fborder w-full ' />
+                                    </div>
+                                    <Image src={show.placeholderimg} alt='...' width={20} height={15} className='mr-3' />
+                                </div>
+                                <div className='bg-tertiary p-2 rounded-full flex items-center justify-center w-fit'><Image src={show.send} alt='...' width={20} height={20} /></div>
                             </div>
                         </div>
                     )

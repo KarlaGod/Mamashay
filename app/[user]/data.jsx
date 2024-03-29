@@ -1,3 +1,18 @@
+export const register = [
+    {
+        username: 'blacdav',
+        password: '12345'
+    },
+    {
+        username: 'blac',
+        password: '123'
+    },
+    {
+        username: 'saggio',
+        password: '2468'
+    }
+]
+
 import profile from '@/public/homepage-img/profile.png'
 import back from '@/public/homepage-img/back.svg'
 
@@ -370,6 +385,9 @@ export const showcase = [
         teln: '+2348077116265',
         calender: calender,
         like: heart,
+        add_doc: plus,
+        placeholderimg: placeholder,
+        send: send,
     },
 ]
 
