@@ -1,20 +1,25 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../main.dart'; // Import your main screen
 import 'dart:ui';
 import 'package:go_router/go_router.dart';
-import './_custom_button_widget.dart';
+import 'widgets/_custom_button_widget.dart';
+import 'widgets/_button_switch_widget.dart';
+import 'textSpan.dart';
 
-class SignIn extends StatefulWidget {
+class SignUp extends StatefulWidget {
   @override
-  _SignInState createState() => _SignInState();
+  _SignUpState createState() => _SignUpState();
 }
 
-class _SignInState extends State<SignIn> {
-  final _SignInKey = GlobalKey<FormState>();
+class _SignUpState extends State<SignUp> {
+  final _SignUpKey = GlobalKey<FormState>();
   String? _name = '';
   String? _password = '';
+  String? _phone_number = '';
+  String? _email = '';
 
   @override
   Widget build(BuildContext context) {
@@ -37,20 +42,7 @@ class _SignInState extends State<SignIn> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                   SizedBox(
-                    height: 120,
-                  ),
-                  Center(
-                    child: Image.asset(
-                      'assets/center.png',
-                      width: 200,
-                      height: 200, // Set width to cover the entire screen width
-                      // fit: BoxFit.cover, // Set how the image should be inscribed into the box
-                      alignment: Alignment
-                          .center, // Set the alignment of the image within its bounds
-                    ),
-                  ),
-                  SizedBox(
-                    height: 25,
+                    height: 80,
                   ),
                   Container(
                     width: 200,
@@ -59,16 +51,16 @@ class _SignInState extends State<SignIn> {
                       children: [
                         HalfBorderButton(
                           text: "Sign In",
-                          isActive: true,
+                          isActive: false,
                           onPressed: () {
-                            GoRouter.of(context).go('/SignIn');
+                            GoRouter.of(context).go('/signIn');
                           },
                         ),
                         HalfBorderButton(
-                            text: "SIgn Up",
-                            isActive: false,
+                            text: "Sign Up",
+                            isActive: true,
                             onPressed: () {
-                              GoRouter.of(context).go('/SignUP');
+                              GoRouter.of(context).go('SignUP');
                             })
                       ],
                     ),
@@ -77,7 +69,7 @@ class _SignInState extends State<SignIn> {
                     height: 20,
                   ),
                   Form(
-                      key: _SignInKey,
+                      key: _SignUpKey,
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
@@ -145,7 +137,130 @@ class _SignInState extends State<SignIn> {
                                             Color.fromRGBO(172, 194, 112, 1)),
                                     borderRadius: BorderRadius.circular(15.0),
                                   ),
+                                  labelText: 'Phone Number',
+                                  labelStyle: TextStyle(
+                                      color: Color.fromRGBO(172, 194, 112, 1)),
+                                ),
+                                validator: (value) {
+                                  if (value == null) {
+                                    return 'Please enter your mobile number';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  _phone_number = value;
+                                },
+                              ),
+                            )),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                                child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10.0),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color:
+                                            Color.fromRGBO(172, 194, 112, 1)),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ), // Change unfocused border color
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color:
+                                            Color.fromRGBO(172, 194, 112, 1)),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color:
+                                            Color.fromRGBO(172, 194, 112, 1)),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  labelText: 'Email Address',
+                                  labelStyle: TextStyle(
+                                      color: Color.fromRGBO(172, 194, 112, 1)),
+                                ),
+                                validator: (value) {
+                                  if (value == null) {
+                                    return 'Please enter your email address';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  _email = value;
+                                },
+                              ),
+                            )),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                                child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10.0),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color:
+                                            Color.fromRGBO(172, 194, 112, 1)),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ), // Change unfocused border color
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color:
+                                            Color.fromRGBO(172, 194, 112, 1)),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color:
+                                            Color.fromRGBO(172, 194, 112, 1)),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
                                   labelText: 'Password',
+                                  labelStyle: TextStyle(
+                                      color: Color.fromRGBO(172, 194, 112, 1)),
+                                ),
+                                validator: (value) {
+                                  if (value == null) {
+                                    return 'Please enter your password';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  _password = value;
+                                },
+                              ),
+                            )),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                                child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10.0),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color:
+                                            Color.fromRGBO(172, 194, 112, 1)),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ), // Change unfocused border color
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color:
+                                            Color.fromRGBO(172, 194, 112, 1)),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color:
+                                            Color.fromRGBO(172, 194, 112, 1)),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  labelText: 'Confirm Password',
                                   labelStyle: TextStyle(
                                       color: Color.fromRGBO(172, 194, 112, 1)),
                                 ),
@@ -176,13 +291,13 @@ class _SignInState extends State<SignIn> {
                                                           24.0),
                                                   child: ElevatedButton(
                                                     onPressed: () {
-                                                      if (_SignInKey
+                                                      if (_SignUpKey
                                                                   .currentState !=
                                                               null &&
-                                                          _SignInKey
+                                                          _SignUpKey
                                                               .currentState!
                                                               .validate()) {
-                                                        _SignInKey.currentState!
+                                                        _SignUpKey.currentState!
                                                             .save();
                                                         // Process the form data
 
@@ -279,18 +394,23 @@ class _SignInState extends State<SignIn> {
                                                                         MainAxisSize
                                                                             .min,
                                                                     children: <Widget>[
-                                                                      Text(
-                                                                        'Biometrics',
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                20,
-                                                                            fontWeight: FontWeight
-                                                                                .bold,
-                                                                            color: Color.fromRGBO(
-                                                                                02,
-                                                                                102,
-                                                                                102,
-                                                                                1)),
+                                                                      Center(
+                                                                        // width:
+                                                                        // 300,
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          children: [
+                                                                            TextHighlight(),
+                                                                            ButtonSwitch(
+                                                                              value: false,
+                                                                              onChanged: (value) {
+                                                                                // Handle switch value change here
+                                                                              },
+                                                                            ),
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                       SizedBox(
                                                                           height:
