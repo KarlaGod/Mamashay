@@ -32,7 +32,7 @@ const Page = () => {
               <Link href='../signin' className='font-bold text-primary border-b-2 pb-1 border-primary'>Sign In</Link>
               <Link href='../signup' className='font-bold text-colort'>Sign Up</Link>
           </div>
-          <form action="" className='grid gap-5 py-10'>
+          <form action="" className='grid gap-5 py-10' method='POST'>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="username" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Username(blacdav)</label>
                   <input type="text" name="username" id="username" value={signin.username} onChange={(e) => setSignin({...signin, username: e.target.value.trim()})} className='border border-colort text-colort p-2 rounded-full' />

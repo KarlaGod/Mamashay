@@ -15,17 +15,20 @@ import arrow from '@/public/homepage-img/arrow.svg'
 import join from '@/public/homepage-img/join.svg'
 import { products, vendors } from './data'
 import Showcase from '../modals/Showcase'
+import { useRouter } from 'next/navigation'
 
 const Page = () => {
   const [showModal, setShowModal] = useState(false);
   const [visible, setVisible] = useState(false);
+
+  const router = useRouter();
 
   return (
     <Fragment>
     <main className="min-h-screen bg-secondary text-colort">
       {/* Header of the Page */}
       <header className={`${visible ? 'hidden' : 'flex'} justify-between bg-fborder h-[12%] w-screen px-3 pt-5 items-end fixed`}>
-        <div className='flex items-center'>
+        <div className='flex items-center' onClick={router.push('../user/profile')}>
             <div className='p-3'>
                 <Image src={profile} alt='...' width={40} height={40} className='rounded-full' />
             </div>
@@ -50,7 +53,7 @@ const Page = () => {
       <div className={`${visible ? 'pt-10 bg-fborder' : ''}`} onClick={() => setVisible(true)}>
         <div className='flex p-3 gap-2'>
           <div className='p-2 bg-primary rounded-full flex justify-center w-8 h-8'><Image src={filter} alt='...' width={15} height={15} /></div>
-          <input type="text" placeholder='Search for food or any organic product...' className={`p-2 w-full rounded-full outline-none ${visible ? 'bg-secondary' : 'bg-fborder'} text-colort text-xs`} />
+          <input type="search" placeholder='Search for food or any organic product...' className={`p-2 w-full rounded-full outline-none ${visible ? 'bg-secondary' : 'bg-fborder'} text-colort text-xs`} />
           <div className='p-2 bg-primary rounded-full flex justify-center w-8 h-8'><Image src={search} alt='...' width={15} height={15} /></div>
         </div>
         <div className={`flex p-3 ${!visible ? 'hidden' : ''} gap-3`}>
@@ -119,56 +122,69 @@ const Page = () => {
       {/* For You */}
       <div className={`${!visible ? 'px-3 pt-8 pb-4' : 'hidden'}`} onClick={() => setVisible(false)}>
         <h1 className='flex items-center text-sm font-bold'><div className='h-2 w-2 bg-yellow rounded-full mr-1'></div> For You</h1>
-        <div>
-          <div className='w-[140px] py-2'>
-            <Image src={food} alt='...' width={140} height={100} />
-            <div className='bg-primary -mt-2 px-2 rounded-b-lg'>
-              <div className='flex justify-between'>
-                <h1 className='text-tertiary text-xs font-bold mt-4'>Explore</h1>
-                <p className='bg-secondary p-3 justify-center items-center -mt-4 rounded-full'><Image src={arrow} alt='...' width={15} height={5} /></p>
+        <div className='grid grid-cols-2 mt-2 gap-2'>
+          <div className='grid gap-2 w-full'>
+            <div className='w-full bg-primary rounded-lg overflow-hidden'>
+              <Image src={food} alt='...' width={140} height={100} className='w-full h-32' />
+              <div className='px-2'>
+                <div className='flex justify-between'>
+                  <h1 className='text-tertiary text-xs font-bold mt-4'>Explore</h1>
+                  <p className='bg-secondary p-1 flex justify-center items-center -mt-4 h-8 w-8 rounded-full'><Image src={arrow} alt='...' width={15} height={5} /></p>
+                </div>
+                <p className='text-secondary text-xs py-2'>View The Top Selling Products Now!</p>
               </div>
-              <p className='text-secondary text-xs py-2'>View The Top Selling Products Now!</p>
             </div>
+
+            <Link href='#' className='bg-fborder p-2 w-full rounded-lg'>
+              <p className='text-xs font-semibold text-primary mb-2'>Join Our Community</p>
+              <Image src={join} alt='...' width={50} height={50} />
+            </Link>
           </div>
-          <div className='bg-fborder p-2 w-[140px] rounded-lg'>
-            <p className='text-[13px] font-semibold text-primary mb-2'>Join Our Community</p>
-            <Image src={join} alt='...' width={50} height={50} />
+
+          <div className='grid gap-y-2'>
+            <div className='h-full w-full bg-fborder rounded-lg overflow-hidden'>
+
+            </div>
+
+            <div className='h-full w-full bg-primary rounded-lg'>
+
+            </div>
           </div>
         </div>
       </div>
 
-      <div  className={`${visible ? 'p-3' : 'hidden'}`} onClick={() => setVisible(false)}>
-      <div className={`${visible ? 'px-3 pt-4' : 'hidden'}`} onClick={() => setVisible(false)}>
-        <h1 className='flex items-center text-sm font-bold'><div className='h-2 w-2 bg-yellow rounded-full mr-1'></div> Favourite Products</h1>
-        <div className='flex py-2 overflow-x-scroll'>
-          {
-            products.map((product, index) => {
-              return(
-                <div key={index} className='flex-none bg-fborder p-2 mx-1 rounded-lg w-[130px]'>
-                  <div className='flex items-center mb-2'>
-                    <Image src={product.profile} alt='...' width={15} height={15} className='rounded-full' />
-                    <p className='text-[10px] font-semibold ml-2 text-primary'>{product.user}</p>
-                  </div>
-                  <Image src={product.img} alt='...' width={130} height={130} />
-                  <div>
-                    <p className='text-[11px] font-bold mt-1 text-primary'>{product.food}</p>
-                    <div className='flex items-center mt-1'>
-                      <p className='text-[9px] font-bol pr-1 border-r mr-1 overflow-hidden'>{product.ingredients}</p>
-                      <p className='flex items-center text-[8px]'><Image src={product.star} alt='...' width={13} height={13} className='pr-1' /> {product.rating}</p>
+      <div  className={`${visible ? 'p-3' : 'hidden'}`}>
+        <div className={`${visible ? 'px-3 pt-4' : 'hidden'}`} onClick={() => setVisible(false)}>
+          <h1 className='flex items-center text-sm font-bold'><div className='h-2 w-2 bg-yellow rounded-full mr-1'></div> Favourite Products</h1>
+          <div className='flex py-2 overflow-x-scroll'>
+            {
+              products.map((product, index) => {
+                return(
+                  <div key={index} className='flex-none bg-fborder p-2 mx-1 rounded-lg w-[130px]'>
+                    <div className='flex items-center mb-2'>
+                      <Image src={product.profile} alt='...' width={15} height={15} className='rounded-full' />
+                      <p className='text-[10px] font-semibold ml-2 text-primary'>{product.user}</p>
                     </div>
-                    <div className='flex items-center'>
-                      <div className='px-1 mr-2 text-[8px] my-2 font-semibol text-secondary bg-tertiary rounded-sm'>BONUS</div>
-                      <p className='text-[8px]'>{product.bonus}</p>
+                    <Image src={product.img} alt='...' width={130} height={130} />
+                    <div>
+                      <p className='text-[11px] font-bold mt-1 text-primary'>{product.food}</p>
+                      <div className='flex items-center mt-1'>
+                        <p className='text-[9px] font-bol pr-1 border-r mr-1 overflow-hidden'>{product.ingredients}</p>
+                        <p className='flex items-center text-[8px]'><Image src={product.star} alt='...' width={13} height={13} className='pr-1' /> {product.rating}</p>
+                      </div>
+                      <div className='flex items-center'>
+                        <div className='px-1 mr-2 text-[8px] my-2 font-semibol text-secondary bg-tertiary rounded-sm'>BONUS</div>
+                        <p className='text-[8px]'>{product.bonus}</p>
+                      </div>
+                      <p className='text-sm font-semibold text-black'>N{product.price}.00</p>
+                      <button className='text-center bg-tertiary w-full py-1 mt-2 text-secondary rounded-md' onClick={() => setShowModal(true)}>Buy</button>
                     </div>
-                    <p className='text-sm font-semibold text-black'>N{product.price}.00</p>
-                    <button className='text-center bg-tertiary w-full py-1 mt-2 text-secondary rounded-md' onClick={() => setShowModal(true)}>Buy</button>
                   </div>
-                </div>
-              )
-            })
-          }
+                )
+              })
+            }
+          </div>
         </div>
-      </div>
       </div>
     </main>
     <Showcase isVisible = {showModal} onClose = {() => setShowModal(false)} />

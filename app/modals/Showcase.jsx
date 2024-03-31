@@ -15,7 +15,7 @@ const Page = ({isVisible, onClose}) => {
 
   return ( 
     <div className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex text-xs text-colort justify-center items-end z-20' id="wrapper" onClick={handleClose}>
-        <section className='w-[100%] h-[85%] py-5 px-5 bg-secondary grid rounded-t-3xl'>
+        <section className='w-[100%] h-[75%] py-5 px-5 bg-secondary grid rounded-t-3xl'>
             {
                 showcase.map((show, index) => {
                     return(
@@ -34,7 +34,7 @@ const Page = ({isVisible, onClose}) => {
                                     </div>
                                 </div>
                             </div>
-                            <Image src={show.img} alt='...' width={400} height={400} className='h-[40%] w-full' />
+                            <Image src={show.img} alt='...' width={400} height={400} className='h-[35%] w-full' />
 
                             <div className='flex items-baseline justify-between'>
                                 <div className='flex gap-2 items-baseline'>
@@ -82,8 +82,8 @@ const Page = ({isVisible, onClose}) => {
                             <div className={`${visible ? 'flex my-4 gap-2 items-center w-full' : 'hidden'}`}>
                                 <div className='flex justify-between bg-fborder p-1 rounded-full w-full'>
                                     <div className='bg-fborder flex gap-2'>
-                                        <button className='bg-secondary rounded-full p-2' onClick={() => setToggle2(true)}><Image src={show.add_doc} alt='...' width={15} height={15} /></button>
-                                        <input type="text" placeholder='Type message here' className='outline-none bg-fborder w-full ' />
+                                        {/* <button className='bg-secondary rounded-full p-2' onClick={() => setToggle2(true)}><Image src={show.add_doc} alt='...' width={15} height={15} /></button> */}
+                                        <input type="text" placeholder='Type message here' className='outline-none bg-fborder w-full pl-2 py-1 ' />
                                     </div>
                                     <Image src={show.placeholderimg} alt='...' width={20} height={15} className='mr-3' />
                                 </div>
