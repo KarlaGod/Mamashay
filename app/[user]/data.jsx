@@ -56,6 +56,7 @@ export const vendors = [
 
 import star from '@/public/homepage-img/star.svg'
 import food from '@/public/homepage-img/ricenchicken.png'
+import soup from '@/public/homepage-img/goatmeatsoup.png'
 
 export const products = [
     {
@@ -72,8 +73,8 @@ export const products = [
     {
         profile: profile,
         user: 'KarlaGod',
-        img: food ,
-        food: 'Jollof Rice & Chicken',
+        img: soup ,
+        food: 'Goat meat Pepper',
         ingredients: 'Vegetable, Salad',
         rating: 4.5,
         star: star,
@@ -84,7 +85,7 @@ export const products = [
         profile: profile,
         user: 'KarlaGod',
         img: food ,
-        food: 'Jollof Rice & Chicken',
+        food: 'Fuit Juice',
         ingredients: 'Vegetable, Salad',
         rating: 4.5,
         star: star,
@@ -95,7 +96,7 @@ export const products = [
         profile: profile,
         user: 'KarlaGod',
         img: food ,
-        food: 'Jollof Rice & Chicken',
+        food: 'Vegetable Shawarma',
         ingredients: 'Vegetable, Salad',
         rating: 4.5,
         star: star,
@@ -106,7 +107,7 @@ export const products = [
         profile: profile,
         user: 'KarlaGod',
         img: food ,
-        food: 'Jollof Rice & Chicken',
+        food: 'Coconut Rice',
         ingredients: 'Vegetable, Salad',
         rating: 4.5,
         star: star,

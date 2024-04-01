@@ -42,7 +42,7 @@ const Page = () => {
                   <input type="text" name="password" id="password" value={signin.password} onChange={(e) => setSignin({...signin, password: e.target.value.trim()})} className='border border-colort text-colort p-2 rounded-full' />
               </div>
               <div className='flex gap-3'>
-                  <button type="submit" onClick={(e) => {e.preventDefault(); register.find((reg) => { reg.username === signin.username && reg.password === signin.password ? (router.push('user')) : (console.log('failed')) }); }} className='bg-tertiary py-2 px-5 w-4/5 rounded-full'>Sign In</button>
+                  <button type="submit" onClick={(e) => {e.preventDefault(); register.find((reg) => { reg.username === signin.username && reg.password === signin.password ? (router.push('./user')) : (console.log('failed')) }); }} className='bg-tertiary py-2 px-5 w-4/5 rounded-full'>Sign In</button>
                   <div className='bg-tertiary flex lg:hidden rounded-full' onClick={() => setShowModal(true)}><Image src={sprint} alt='...' width={20} height={20} className='h-10 w-10 p-2' /></div>
               </div>
           </form>

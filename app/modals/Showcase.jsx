@@ -15,7 +15,7 @@ const Page = ({isVisible, onClose}) => {
 
   return ( 
     <div className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex text-xs text-colort justify-center items-end z-20' id="wrapper" onClick={handleClose}>
-        <section className='w-[100%] h-[75%] py-5 px-5 bg-secondary grid rounded-t-3xl'>
+        <section className='w-[100%] h-[75%] pt-5 px-5 bg-secondary grid rounded-t-3xl'>
             {
                 showcase.map((show, index) => {
                     return(

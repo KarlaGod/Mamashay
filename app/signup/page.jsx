@@ -36,7 +36,7 @@ const Page = () => {
               </div>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="password" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Phone Number</label>
-                  <input type="tel" name="telephone" id="telepFhone" value={signup.telephone} onChange={(e) => setSignup({...signup, telephone: e.target.value.trim()})} className='border border-colort p-2 rounded-full text-colort' />
+                  <input type="tel" name="telephone" id="telephone" value={signup.telephone} onChange={(e) => setSignup({...signup, telephone: e.target.value.trim()})} className='border border-colort p-2 rounded-full text-colort' />
               </div>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="password" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Email Address</label>

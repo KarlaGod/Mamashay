@@ -52,7 +52,7 @@ const Page = () => {
                             <h1 className='text-sm text-black font-semibold'>{chat.title}</h1>
                             <p className='text-xs'>{chat.message}</p>
                         </div>
-                        <div className='text-xs flex'><p>{chat.time}</p><p className='h-4 w-4 bg-yellow text-xs text-center text-secondary rounded-full ml-1'>1</p></div>
+                        <div className='text-xs grid place-items-end'><p>{chat.time}</p><p className='h-4 w-4 bg-yellow text-xs text-center text-secondary rounded-full ml-1'>1</p></div>
                     </div>
                   </div>
                </div>

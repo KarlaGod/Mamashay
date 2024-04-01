@@ -8,7 +8,7 @@ import notification from '@/public/homepage-img/notification.svg'
 import setting from '@/public/homepage-img/settings.svg'
 import name from '@/public/sign-up-img/greyname.svg'
 import filter from '@/public/homepage-img/filter.svg'
-import search from '@/public/homepage-img/search.svg'
+import searc from '@/public/homepage-img/search.svg'
 import cart from '@/public/homepage-img/cart.svg'
 import food from '@/public/homepage-img/goatmeatsoup.png'
 import arrow from '@/public/homepage-img/arrow.svg'
@@ -20,6 +20,8 @@ import { useRouter } from 'next/navigation'
 const Page = () => {
   const [showModal, setShowModal] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [search, setSearch] = useState('');
+  const [searchResult, setSearchResult] = useState(products);
 
   const router = useRouter();
 
@@ -28,7 +30,7 @@ const Page = () => {
     <main className="min-h-screen bg-secondary text-colort">
       {/* Header of the Page */}
       <header className={`${visible ? 'hidden' : 'flex'} justify-between bg-fborder h-[12%] w-screen px-3 pt-5 items-end fixed`}>
-        <div className='flex items-center' onClick={router.push('../user/profile')}>
+        <div className='flex items-center' onClick={() => router.push('../user/profile')}>
             <div className='p-3'>
                 <Image src={profile} alt='...' width={40} height={40} className='rounded-full' />
             </div>
@@ -53,8 +55,8 @@ const Page = () => {
       <div className={`${visible ? 'pt-10 bg-fborder' : ''}`} onClick={() => setVisible(true)}>
         <div className='flex p-3 gap-2'>
           <div className='p-2 bg-primary rounded-full flex justify-center w-8 h-8'><Image src={filter} alt='...' width={15} height={15} /></div>
-          <input type="search" placeholder='Search for food or any organic product...' className={`p-2 w-full rounded-full outline-none ${visible ? 'bg-secondary' : 'bg-fborder'} text-colort text-xs`} />
-          <div className='p-2 bg-primary rounded-full flex justify-center w-8 h-8'><Image src={search} alt='...' width={15} height={15} /></div>
+          <input type="search" placeholder='Search for food or any organic product...' value={search} onChange={(e) => {setSearch(e.target.value); setSearchResult(products.filter((product) => product.food.toLowerCase().includes(search.toLowerCase())))}} className={`p-2 w-full rounded-full outline-none ${visible ? 'bg-secondary' : 'bg-fborder'} text-colort text-xs`} />
+          <div onClick={() => {setSearchResult(products.filter((product) => product.food.toLowerCase().includes(search.toLowerCase())))}} className='p-2 bg-primary rounded-full flex justify-center w-8 h-8'><Image src={searc} alt='...' width={15} height={15} /></div>
         </div>
         <div className={`flex p-3 ${!visible ? 'hidden' : ''} gap-3`}>
           <button className='p-2 border-2 border-tertiary outline-tertiary bg-secondary w-fit text-xs rounded-full'>Regulars</button>
@@ -98,7 +100,7 @@ const Page = () => {
                     <Image src={product.profile} alt='...' width={15} height={15} className='rounded-full' />
                     <p className='text-[10px] font-semibold ml-2 text-primary'>{product.user}</p>
                   </div>
-                  <Image src={product.img} alt='...' width={130} height={130} />
+                  <Image src={product.img} alt='...' width={130} height={130} className='h-16 w-32' />
                   <div>
                     <p className='text-[11px] font-bold mt-1 text-primary'>{product.food}</p>
                     <div className='flex items-center mt-1'>
@@ -153,37 +155,30 @@ const Page = () => {
         </div>
       </div>
 
-      <div  className={`${visible ? 'p-3' : 'hidden'}`}>
-        <div className={`${visible ? 'px-3 pt-4' : 'hidden'}`} onClick={() => setVisible(false)}>
-          <h1 className='flex items-center text-sm font-bold'><div className='h-2 w-2 bg-yellow rounded-full mr-1'></div> Favourite Products</h1>
-          <div className='flex py-2 overflow-x-scroll'>
-            {
-              products.map((product, index) => {
-                return(
-                  <div key={index} className='flex-none bg-fborder p-2 mx-1 rounded-lg w-[130px]'>
-                    <div className='flex items-center mb-2'>
-                      <Image src={product.profile} alt='...' width={15} height={15} className='rounded-full' />
-                      <p className='text-[10px] font-semibold ml-2 text-primary'>{product.user}</p>
+      <div  className={`${visible ? '' : 'hidden'}`}>
+        <div className={`${visible ? 'px-3 py-4' : 'hidden'}`} onClick={() => setVisible()}>
+          {
+            searchResult.map((order, index) => {
+              return(
+                <div onClick={() => setShowModal(true)} key={index} className='flex bg-fborder p-3 mb-2 rounded-lg'>
+                  <Image src={order.img} alt='...' width={100} height={100} />
+                  <div className='ml-2'>
+                    <div className='flex items-center'>
+                      <Image src={order.profile} alt='...' width={20} height={20} className='rounded-full' />
+                      <p className='border-x text-[8px] font-semibold mx-2 px-2'>{order.user}s Kitchen</p>
+                      <p className='flex items-center text-[10px]'><Image src={order.star} alt='...' width={13} height={13} className='pr-1' /> {order.rating}</p>
                     </div>
-                    <Image src={product.img} alt='...' width={130} height={130} />
-                    <div>
-                      <p className='text-[11px] font-bold mt-1 text-primary'>{product.food}</p>
-                      <div className='flex items-center mt-1'>
-                        <p className='text-[9px] font-bol pr-1 border-r mr-1 overflow-hidden'>{product.ingredients}</p>
-                        <p className='flex items-center text-[8px]'><Image src={product.star} alt='...' width={13} height={13} className='pr-1' /> {product.rating}</p>
-                      </div>
-                      <div className='flex items-center'>
-                        <div className='px-1 mr-2 text-[8px] my-2 font-semibol text-secondary bg-tertiary rounded-sm'>BONUS</div>
-                        <p className='text-[8px]'>{product.bonus}</p>
-                      </div>
-                      <p className='text-sm font-semibold text-black'>N{product.price}.00</p>
-                      <button className='text-center bg-tertiary w-full py-1 mt-2 text-secondary rounded-md' onClick={() => setShowModal(true)}>Buy</button>
+                    <p className='text-[10px] font-bold mt-2'>{order.food}</p>
+                    <div className='flex items-center'>
+                      <div className='px-1 mr-2 text-[8px] my-2 font-semibol text-secondary bg-tertiary rounded-sm'>BONUS</div>
+                      <p className='text-[8px]'>{order.bonus}</p>
                     </div>
+                    <p className='text-[10px] font-semibold text-tertiary'>N{order.price}.00</p>
                   </div>
-                )
-              })
-            }
-          </div>
+                </div>
+              )
+            })
+          }
         </div>
       </div>
     </main>
