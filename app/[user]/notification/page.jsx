@@ -9,7 +9,7 @@ const page = () => {
   return (
     <main className='min-h-screen bg-secondary text-colort'>
       <div className='flex justify-between items-center pt-5 bg-fborder h-[12%] w-screen fixed'>
-        <h1 className='flex items-center text-primary text-xl font-semibold pl-2'><Link href='../'><Image src={back} alt='...' width={25} height={25} className='pr-3' /></Link> Notifications</h1>
+        <h1 className='flex items-center text-primary text-xl font-semibold pl-2'><div onClick={() => window.history.back()}><Image src={back} alt='...' width={25} height={25} className='pr-3' /></div> Notifications</h1>
         <div className='flex gap-2 p-3'>
           {
             navLinks.map((link, index) => {

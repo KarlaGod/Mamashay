@@ -23,7 +23,7 @@ const Page = () => {
                         <div className='flex justify-between pt-5 items-center'>
                             <div className='flex items-center'>
                                 <div className='flex gap-3 py-3'>
-                                    <Image src={c.back} alt='...' width={15} height={15} className='' />
+                                    <Image src={c.back} alt='...' width={15} height={15} className='' onClick={() => window.history.back()} />
                                     <Image src={c.profile} alt='...' width={40} height={40} className='rounded-full' />
                                 </div>
                                 <div className='border-l-2 h-fit pl-2 ml-3'>
