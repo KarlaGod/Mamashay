@@ -15,7 +15,7 @@ const Page = ({isVisible, onClose}) => {
 
   return ( 
     <div className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex text-xs text-colort justify-center items-end z-20' id="wrapper" onClick={handleClose}>
-        <section className='w-[100%] h-[75%] pt-5 px-5 bg-secondary grid rounded-t-3xl'>
+        <section className='w-[100%] h-[65%] pt-5 px-5 absolute bottom-0 bg-secondary grid rounded-t-3xl'>
             {
                 showcase.map((show, index) => {
                     return(
@@ -34,7 +34,7 @@ const Page = ({isVisible, onClose}) => {
                                     </div>
                                 </div>
                             </div>
-                            <Image src={show.img} alt='...' width={400} height={400} className='h-[35%] w-full' />
+                            <Image src={show.img} alt='...' width={400} height={400} className='h-[45%] w-full' />
 
                             <div className='flex items-baseline justify-between'>
                                 <div className='flex gap-2 items-baseline'>

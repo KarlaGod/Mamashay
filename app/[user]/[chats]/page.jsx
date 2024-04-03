@@ -45,9 +45,9 @@ const Page = () => {
             chats.map((chat, index) => {
               return(
                 <div className='rounded-lg flex justify-between items-center pt-3 my-1' onClick={() => router.push('/user/chats/chat')} key={index}>
-                  <div className='flex'>
+                  <div className='flex w-full justify-between'>
                     <p className='rounded-full flex justify-center h-fit w-fit mr-2'><Image src={chat.icon} alt='...' width={40} height={40} className='rounded-full' /></p> 
-                    <div className='flex justify-between items-center border-b pb-3'>
+                    <div className='flex justify-between w-full items-center border-b pb-3'>
                         <div className='mr-2'>
                             <h1 className='text-sm text-black font-semibold'>{chat.title}</h1>
                             <p className='text-xs'>{chat.message}</p>

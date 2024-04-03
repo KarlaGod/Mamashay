@@ -5,9 +5,12 @@
 
 .circle {
   background-image: url('../public/sign-up-img/circle.png');
-  background-size: cover;
+  /* background-size: cover; */
+  background-size: contain;
+  /* background-clip: border-box; */
   background-repeat: no-repeat;
   background-position: center;
+  background-attachment: fixed;
   height: fit-content;
   width: fit-content;
 }

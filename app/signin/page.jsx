@@ -21,11 +21,10 @@ const Page = () => {
   return (
     <Fragment>
       <main className='min-h-screen flex flex-col items-center justify-center bg-secondary'>
-        <div className='circle'>
+        <div className='circle rounded-full overflow-hidden'>
           <Image src={name} alt='...' width={200} height={200} className='h-20 w-36 p-2' />
           {/* <Image src={circle} alt='...'  /> */}
         </div>
-        <div className='z-10 text-purple-700'>{signin.username} <br /> {signin.password}</div>
 
         <div className='border-b border-colort w-4/5'>
           <div className='flex gap-10 justify-center pt-10'>

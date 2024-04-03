@@ -109,7 +109,9 @@ const Page = () => {
                 setSearch(e.target.value);
                 setSearchResult(
                   products.filter((product) =>
-                    product.food.toLowerCase().includes(search.toLowerCase().trim())
+                    product.food
+                      .toLowerCase()
+                      .includes(search.toLowerCase().trim())
                   )
                 );
               }}
@@ -121,7 +123,9 @@ const Page = () => {
               onClick={() => {
                 setSearchResult(
                   products.filter((product) =>
-                    product.food.toLowerCase().includes(search.toLowerCase().trim())
+                    product.food
+                      .toLowerCase()
+                      .includes(search.toLowerCase().trim())
                   )
                 );
               }}
@@ -179,7 +183,7 @@ const Page = () => {
           >
             <Link
               href="../user/chats"
-              className="flex px-5 py-2 items-center bg-fborder w-1/2 rounded-lg"
+              className="flex px-5 py-2 justify-center items-center bg-fborder w-1/2 rounded-lg"
             >
               <Image src={message} alt="..." width={13} height={13} />
               <p className="border-l border-colort text-sm text-primary ml-2 pl-2">
@@ -188,7 +192,7 @@ const Page = () => {
             </Link>
             <Link
               href="../user/orders"
-              className="flex px-5 py-2 items-center bg-fborder w-1/2 rounded-lg"
+              className="flex px-5 py-2 justify-center items-center bg-fborder w-1/2 rounded-lg"
             >
               <Image src={cart} alt="..." width={13} height={13} />
               <p className="border-l border-colort text-sm text-primary ml-2 pl-2">
@@ -335,7 +339,13 @@ const Page = () => {
                   key={index}
                   className="flex bg-fborder p-3 mb-2 rounded-lg"
                 >
-                  <Image src={order.img} alt="..." width={100} height={100} className="h-24 w-24" />
+                  <Image
+                    src={order.img}
+                    alt="..."
+                    width={100}
+                    height={100}
+                    className="h-24 w-24"
+                  />
                   <div className="ml-2">
                     <div className="flex items-center">
                       <Image

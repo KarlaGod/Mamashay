@@ -10,7 +10,7 @@ const page = () => {
     <main className='min-h-screen bg-secondary text-colort'>
       <div className='flex justify-between items-center pt-5 bg-fborder h-[12%] w-screen fixed'>
         <h1 className='flex items-center text-primary text-xl font-semibold pl-2'><div onClick={() => window.history.back()}><Image src={back} alt='...' width={25} height={25} className='pr-3' /></div> Notifications</h1>
-        <div className='flex gap-2 p-3'>
+        <div className='flex gap-2 px-3'>
           {
             navLinks.map((link, index) => {
               return(
@@ -24,7 +24,7 @@ const page = () => {
       </div>
 
       {/* Recent Notification */}
-      <div className='px-3 pt-20 md:pt-28'>
+      <div className='px-3 pt-28 md:pt-28'>
         <h1 className='flex items-center text-sm font-bold my-2'><div className='h-2 w-2 bg-yellow rounded-full mr-1'></div> Recent Notifications</h1>
         <div>
           {
@@ -38,7 +38,7 @@ const page = () => {
                     <p className='text-xs'>{notify.message}</p>
                   </div>
                   </div>
-                  <div className='text-xs flex'><p>{notify.time}</p><p className='h-2 w-2 bg-tertiary rounded-full ml-1'></p></div>
+                  <div className='text-xs grid place-items-end'><p>{notify.time}</p><p className='h-2 w-2 bg-tertiary rounded-full ml-1'></p></div>
                </div>
               )
             })
@@ -63,7 +63,7 @@ const page = () => {
                     <p className='text-xs'>{notify.message}</p>
                   </div>
                   </div>
-                  <div className='text-xs flex'><p>{notify.time}</p><p className='h-2 w-2 bg-tertiary rounded-full ml-1'></p></div>
+                  <div className='text-xs grid place-items-end'><p>{notify.time}</p><p className='h-2 w-2 bg-tertiary rounded-full ml-1'></p></div>
                </div>
               )
             })
