@@ -65,6 +65,25 @@ flutter:
     - assets/twitter.png
     - assets/sign.png
     - assets/fingerprint_green.png
+    - assets/man.png
+    - assets/message.png
+    - assets/notification.png
+    - assets/setting.png
+    - assets/mama.png
+    - assets/search.png
+    - assets/Icons.png
+    - assets/Cart.png
+    - assets/chicken.png
+    - assets/star.png
+    - assets/bonus.png
+    - assets/footer.png
+    - assets/arrow.png
+    - assets/arrowdown.png
+    - assets/seniorita.png
+    - assets/senior.png
+    - assets/dots.png
+    - assets/image.png
+    - assets/home.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

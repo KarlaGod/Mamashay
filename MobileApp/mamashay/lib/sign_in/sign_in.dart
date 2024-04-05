@@ -185,7 +185,8 @@ class _SignInState extends State<SignIn> {
                                                         _SignInKey.currentState!
                                                             .save();
                                                         // Process the form data
-
+                                                        GoRouter.of(context)
+                                                            .go('/dashboard');
                                                         print(_name);
                                                         print(_password);
                                                       }
