@@ -17,7 +17,7 @@ class NotificationDiv extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          GoRouter.of(context).go('/settings');
+          GoRouter.of(context).go('/test');
         },
         child: Container(
             child: Padding(

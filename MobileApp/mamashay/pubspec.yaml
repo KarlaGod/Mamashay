@@ -84,6 +84,12 @@ flutter:
     - assets/dots.png
     - assets/image.png
     - assets/home.png
+    - assets/share.png
+    - assets/half_star.png
+    - assets/location.png
+    - assets/calandar.png
+    - assets/call.png
+    - assets/love.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

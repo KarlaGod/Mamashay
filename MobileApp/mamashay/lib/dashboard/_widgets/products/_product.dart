@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mamashay/dashboard/_widgets/products/_popup.dart';
 
 class Product extends StatelessWidget {
   // final String ImageUrl;
@@ -124,17 +126,40 @@ class Product extends StatelessWidget {
                             color: Color.fromRGBO(102, 102, 102, 1)),
                       ),
                     ]),
-                    ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromRGBO(172, 194, 112, 1),
-                          padding: const EdgeInsets.fromLTRB(45, 10, 45,
-                              10), // Change the background color here
-                        ),
-                        child: Text(
-                          'Buy',
-                          style: TextStyle(color: Colors.white),
-                        )),
+                    SizedBox(
+                        width: 200.0, // Set the width here
+                        child: Material(
+                          borderRadius: BorderRadius.circular(
+                              10.0), // Adjust the radius as needed
+                          elevation: 3.0,
+                          color: Color.fromRGBO(172, 194, 112,
+                              1), // You can adjust the elevation as needed
+                          child: ElevatedButton(
+                              onPressed: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    builder: (BuildContext context) {
+                                      return FractionallySizedBox(
+                                        heightFactor:
+                                            0.7, // Half of the screen height
+                                        child: PopUp(),
+                                      );
+                                    });
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    Color.fromRGBO(172, 194, 112, 1),
+                                shadowColor: Color.fromRGBO(172, 194, 112, 0),
+                                padding: const EdgeInsets.fromLTRB(15, 5, 15,
+                                    5), // Change the background color here
+                              ),
+                              child: Text(
+                                'Buy',
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        ))
                   ])))),
     );
   }

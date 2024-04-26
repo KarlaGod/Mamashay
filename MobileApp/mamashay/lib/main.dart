@@ -9,6 +9,7 @@ import './dashboard/_widgets/settings/settings.dart';
 import 'notifications/notifications.dart';
 import './chat/chat_notifications.dart';
 import './chat/chat.dart';
+import './test/test.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,6 +18,12 @@ void main() {
 final router = GoRouter(
   initialLocation: '/',
   routes: [
+    GoRoute(
+      path: '/test',
+      builder: (context, state) {
+        return MyHomePage();
+      },
+    ),
     GoRoute(
       path: '/',
       builder: (context, state) {
