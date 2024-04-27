@@ -175,7 +175,7 @@ class PopUp extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.w700,
-                                color: Color.fromRGBO(172, 194, 112, 1)),
+                                color: Color.fromRGBO(107, 123, 66, 0.8)),
                           ),
                           // Container(
                           //     // decoration: BoxDecoration(border: Border),
@@ -425,50 +425,90 @@ class PopUp extends StatelessWidget {
                         ),
                       ])))),
           Padding(
-              padding: const EdgeInsets.fromLTRB(15, 5, 15, 0),
+              padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
               child: Center(
                   child: Container(
                       // width: 400,
                       child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                    ClipRRect(
-                      // Adjust size as needed
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromRGBO(172, 194, 112, 1),
-                          padding: const EdgeInsets.fromLTRB(
-                              10, 0, 10, 0), // Change the background color here
-                        ),
-                        child: CircleAvatar(
-                          radius: 27,
-                          backgroundColor: Color.fromRGBO(172, 194, 112,
-                              0), // Background color of the circle
-                          child: Image.asset(
-                            'assets/love.png',
-                            width:
-                                25, // Set width to cover the entire screen width
-                            height:
-                                30, // Set how the image should be inscribed into the box
-                            alignment: Alignment
-                                .bottomLeft, // Set the alignment of the image within its bounds
-                          ),
-                        ),
-                      ),
-                    ),
                     ClipRRect(
                         // borderRadius: BorderRadius.circular(0),
                         child: ElevatedButton(
                       onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromRGBO(172, 194, 112, 1),
-                        padding: const EdgeInsets.fromLTRB(100, 20, 100,
-                            20), // Change the background color here
+                      style: ButtonStyle(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                            // Adjust the radius as per your requirement
+                          ),
+                        ),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          Color.fromRGBO(172, 194, 112, 1),
+                        ), // Background color
+                        padding: MaterialStateProperty.resolveWith((states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            return EdgeInsets.symmetric(
+                                vertical: 13.0,
+                                horizontal: 8.0); // Padding when pressed
+                          }
+                          return EdgeInsets.symmetric(
+                              vertical: 13.0,
+                              horizontal: 8.0); // Default padding
+                        }),
                       ),
+                      // ElevatedButton.styleFrom(
+                      //   backgroundColor: Color.fromRGBO(172, 194, 112, 1),
+                      //   padding: const EdgeInsets.fromLTRB(100, 20, 100,
+                      //       20), // Change the background color here
+                      // ),
+                      child: Image.asset(
+                        'assets/love.png',
+                        width: 30, // Set width to cover the entire screen width
+                        height:
+                            25, // Set how the image should be inscribed into the box
+                        alignment: Alignment
+                            .bottomLeft, // Set the alignment of the image within its bounds
+                      ),
+                    )),
+                    ClipRRect(
+                        // borderRadius: BorderRadius.circular(0),
+                        child: ElevatedButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                            // Adjust the radius as per your requirement
+                          ),
+                        ),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          Color.fromRGBO(172, 194, 112, 1),
+                        ), // Background color
+                        padding: MaterialStateProperty.resolveWith((states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            return EdgeInsets.symmetric(
+                                vertical: 16.0,
+                                horizontal: 100.0); // Padding when pressed
+                          }
+                          return EdgeInsets.symmetric(
+                              vertical: 16.0,
+                              horizontal: 100.0); // Default padding
+                        }),
+                      ),
+                      // ElevatedButton.styleFrom(
+                      //   backgroundColor: Color.fromRGBO(172, 194, 112, 1),
+                      //   padding: const EdgeInsets.fromLTRB(100, 20, 100,
+                      //       20), // Change the background color here
+                      // ),
                       child: Text(
-                        'Submit',
-                        style: TextStyle(color: Colors.white),
+                        'Message',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600),
                       ),
                     )),
                   ]))))

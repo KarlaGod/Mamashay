@@ -90,6 +90,8 @@ flutter:
     - assets/calandar.png
     - assets/call.png
     - assets/love.png
+    - assets/arrow_down.png
+    - assets/arrow_up.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

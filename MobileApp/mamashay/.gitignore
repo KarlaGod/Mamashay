@@ -31,8 +31,12 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-./MamaToken/node_modules
-
+./Mama_token/node_modules
+./Mama_token/node_modules/.gitmodules
+./Mama_token/node_modules/.gitignore
+./Mama_token/node_modules/README.md
+./Mama_token/node_modules/package-lock.json
+./Mama_token/lib/
 # Symbolication related
 app.*.symbols
 
