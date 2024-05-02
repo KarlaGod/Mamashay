@@ -10,7 +10,7 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       router.push('./start')
-    })
+    }, 1000)
   }, [router])
   
   return (

@@ -34,7 +34,7 @@ const Page = () => {
         </div>
         <div className='bg-secondary p-2 mx-2 flex rounded-full text-xs items-center text-colort'>
           <Image src={search} alt='...' width={15} height={15} className='mx-3 stroke-[#999999]' />
-          <input type="search" name="search" id="search" placeholder='Search any message here' className='outline-none w-full' />
+          <input type="search" name="search" id="search" placeholder='Search any message here' className='outline-none w-full bg-secondary' />
         </div>
       </div>
 

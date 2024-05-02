@@ -9,12 +9,15 @@ module.exports = {
     extend: {
       colors: {
         primary: "#6B7B42",
-        secondary: '#FFFFFF',
+        secondary: '#F2F2F2',
         tertiary: '#ACC270',
         sign: '#CCCCCC',
         colort: '#999999',
-        fborder: '#F2F2F2',
+        fborder: '#FFFFFF',
         yellow: '#FBC134',
+      },
+      fontSize: {
+        sm: '14px'
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

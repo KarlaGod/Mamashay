@@ -26,7 +26,7 @@ import contact from "@/public/homepage-img/contacts.svg"
 
 const page = () => {
   return (
-    <main className="min-h-screen pb-1 bg2 bg-secondary text-colort">
+    <main className="min-h-screen pb-1 bg-secondary text-colort">
       <div className="pb-5 bg-primary h-32 grid items-center fixed">
         <div className="flex justify-between items-center pt-5 pb-3 h-[12%] w-screen">
           <div
@@ -90,14 +90,14 @@ const page = () => {
           {chat.map((c, index) => {
             return (
               <div key={index}>
-                <div className="text-xs flex justify-between items-center pb-3 gap-3">
-                  <p className="text-xs w-full">
+                <div className="text-sm flex justify-between items-center pb-3 gap-3">
+                  <p className="text-sm w-full">
                     <span className="font-bold">Desciption: </span>
                     {c.description}
                   </p>
                 </div>
 
-                <div className="grid gap-2 text-xs">
+                <div className="grid gap-2 text-sm">
                   <Link
                     href="tel:+2348077116265"
                     className="flex rounded-ful gap-2"
@@ -125,9 +125,9 @@ const page = () => {
           })}
         </div>
 
-        <div className="w-full flex gap-2 mt-3 h-36 border bg-fborder place-items-center items-center justify-center rounded-lg">
+        <div className="w-full flex gap-2 mt-3 h-36 bg-fborder place-items-center items-center justify-center rounded-lg">
           <Image src={scan} alt="..." width={25} height={25} />
-          <p className="grid items-start text-secondary text-xs">Upload business banner here</p>
+          <p className="grid items-start text-secondary text-sm">Upload business banner here</p>
         </div>
 
         <div className="hidden gap-2 w-full">
@@ -190,10 +190,10 @@ const page = () => {
       </div>
 
       {/* My Account */}
-      <div className="p-3 m-3 rounded-lg bg-fborder">
+      <div className="p-3 m-3 text-xs rounded-lg bg-fborder">
         <h1 className="text-sm font-bold">My Account</h1>
         <div className="grid grid-cols-4 justify-between pt-5">
-          <div className="grid place-items-center text-center text-xs w-20 items-baseline">
+          <div className="grid place-items-center text-center w-20 items-baseline">
             <p>
               <Image
                 src={profile2}
@@ -205,7 +205,7 @@ const page = () => {
             </p>
             <p>Personnal Data</p>
           </div>
-          <div className="grid place-items-center text-center text-xs w-20 items-baseline">
+          <div className="grid place-items-center text-center w-20 items-baseline">
             <p>
               <Image
                 src={heart}
@@ -217,7 +217,7 @@ const page = () => {
             </p>
             <p>Favourite</p>
           </div>
-          <div className="grid place-items-center text-center text-xs w-20 items-baseline">
+          <div className="grid place-items-center text-center w-20 items-baseline">
             <p>
               <Image
                 src={notify}
@@ -229,7 +229,7 @@ const page = () => {
             </p>
             <p>Notification Settings</p>
           </div>
-          <div className="grid place-items-center text-center text-xs w-20 items-baseline">
+          <div className="grid place-items-center text-center w-20 items-baseline">
             <p>
               <Image
                 src={setting}
@@ -245,10 +245,10 @@ const page = () => {
       </div>
 
       {/* Orders */}
-      <div className="p-3 mx-3 rounded-lg bg-fborder">
+      <div className="p-3 mx-3 text-xs rounded-lg bg-fborder">
         <h1 className="text-sm font-bold">Orders</h1>
         <div className="grid grid-cols-4 justify-between pt-5">
-          <div className="grid place-items-center text-center text-xs w-20 items-baseline">
+          <div className="grid place-items-center text-center w-20 items-baseline">
             <p>
               <Image
                 src={cart}
@@ -260,7 +260,7 @@ const page = () => {
             </p>
             <p>My Orders</p>
           </div>
-          <div className="grid place-items-center text-center text-xs w-20 items-baseline">
+          <div className="grid place-items-center text-center w-20 items-baseline">
             <p>
               <Image
                 src={location}
@@ -272,7 +272,7 @@ const page = () => {
             </p>
             <p>Delivery Address</p>
           </div>
-          <div className="grid place-items-center text-center text-xs w-20 items-baseline">
+          <div className="grid place-items-center text-center w-20 items-baseline">
             <p>
               <Image
                 src={reviews}
@@ -284,7 +284,7 @@ const page = () => {
             </p>
             <p>My Reveiws</p>
           </div>
-          <div className="hidden place-items-center text-center text-xs w-20 items-baseline">
+          <div className="hidden place-items-center text-center w-20 items-baseline">
             <p>
               <Image
                 src={order_man}
@@ -300,10 +300,10 @@ const page = () => {
       </div>
 
       {/* Service */}
-      <div className="p-3 m-3 mb-8 rounded-lg bg-fborder">
+      <div className="p-3 m-3 mb-8 rounded-lg text-xs bg-fborder">
         <h1 className="text-sm font-bold">Services</h1>
         <div className="grid grid-cols-4 justify-between pt-5">
-          <div className="grid place-items-center text-center text-xs w-20 items-baseline">
+          <div className="grid place-items-center text-center w-20 items-baseline">
             <p>
               <Image
                 src={help}
@@ -315,7 +315,7 @@ const page = () => {
             </p>
             <p>Help Center</p>
           </div>
-          <div className="grid place-items-center text-center text-xs w-20 items-baseline">
+          <div className="grid place-items-center text-center w-20 items-baseline">
             <p>
               <Image
                 src={faq}
@@ -327,7 +327,7 @@ const page = () => {
             </p>
             <p>FAQ</p>
           </div>
-          <div className="grid place-items-center text-center text-xs w-20 items-baseline">
+          <div className="grid place-items-center text-center w-20 items-baseline">
             <p>
               <Image
                 src={suggest}
@@ -339,7 +339,7 @@ const page = () => {
             </p>
             <p>Suggestions</p>
           </div>
-          <div className="grid place-items-center text-center text-xs w-20 items-baseline">
+          <div className="grid place-items-center text-center w-20 items-baseline">
             <p>
               <Image
                 src={contact}

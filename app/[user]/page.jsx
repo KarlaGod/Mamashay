@@ -81,7 +81,7 @@ const Page = () => {
         <div
           className={`${
             visible ? "hidden" : "flex"
-          } justify-center items-center pt-24 min-h-56`}
+          } justify-center items-center pt-24 min-h-60`}
         >
           <Image
             src={name}
