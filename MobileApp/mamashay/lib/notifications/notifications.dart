@@ -85,18 +85,17 @@ class _NotificationState extends State<Notifications> {
                                                 66,
                                                 0.1), // Background color of the circle
                                             child: Image.asset(
-                                              'assets/message.png',
+                                              'assets/order.png',
                                               width:
-                                                  17, // Set width to cover the entire screen width
+                                                  20, // Set width to cover the entire screen width
                                               height:
-                                                  15, // Set how the image should be inscribed into the box
+                                                  20, // Set how the image should be inscribed into the box
                                               alignment: Alignment
                                                   .bottomLeft, // Set the alignment of the image within its bounds
                                             ),
                                           ),
                                           onPressed: () {
-                                            GoRouter.of(context)
-                                                .go('/chat_notifications');
+                                            GoRouter.of(context).go('/order');
                                           }),
                                     ),
                                     Positioned(

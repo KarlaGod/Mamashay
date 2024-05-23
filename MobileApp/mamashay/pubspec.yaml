@@ -43,6 +43,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  image_picker: ^0.8.5+3
+  permission_handler: ^10.2.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -92,7 +94,22 @@ flutter:
     - assets/love.png
     - assets/arrow_down.png
     - assets/arrow_up.png
-
+    - assets/Splash_screen.png
+    - assets/Chat_background.png
+    - assets/splash_arrow.png
+    - assets/splash_arrow_back.png
+    - assets/order.png
+    - assets/feedback.png
+    - assets/attachment.png
+    - assets/invoice.png
+    - assets/share_.png
+    - assets/block_vendor.png
+    - assets/delete_chat.png
+    - assets/vendor_profile.png
+    - assets/add_product.png
+    - assets/invoice_frame.png
+    - assets/message_white.png
+    - assets/Generate_Invoice.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

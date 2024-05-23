@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class PopUp extends StatelessWidget {
+class PopUp extends StatefulWidget {
+  @override
+  PopUpWidgetState createState() => PopUpWidgetState();
+}
+
+class PopUpWidgetState extends State<PopUp> {
+  bool message = false;
+  final ScrollController _scrollController = ScrollController();
+  TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -424,94 +432,239 @@ class PopUp extends StatelessWidget {
                           ],
                         ),
                       ])))),
-          Padding(
-              padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-              child: Center(
-                  child: Container(
-                      // width: 400,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                    ClipRRect(
-                        // borderRadius: BorderRadius.circular(0),
-                        child: ElevatedButton(
-                      onPressed: () {},
-                      style: ButtonStyle(
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                            // Adjust the radius as per your requirement
+          SizedBox(
+            height: 20,
+          ),
+          message == false
+              ? Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                  child: Center(
+                      child: Container(
+                          // width: 400,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                        ClipRRect(
+                            // borderRadius: BorderRadius.circular(0),
+                            child: ElevatedButton(
+                          onPressed: () {},
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                                // Adjust the radius as per your requirement
+                              ),
+                            ),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              Color.fromRGBO(172, 194, 112, 1),
+                            ), // Background color
+                            padding:
+                                MaterialStateProperty.resolveWith((states) {
+                              if (states.contains(MaterialState.pressed)) {
+                                return EdgeInsets.symmetric(
+                                    vertical: 13.0,
+                                    horizontal: 8.0); // Padding when pressed
+                              }
+                              return EdgeInsets.symmetric(
+                                  vertical: 13.0,
+                                  horizontal: 8.0); // Default padding
+                            }),
                           ),
-                        ),
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                          Color.fromRGBO(172, 194, 112, 1),
-                        ), // Background color
-                        padding: MaterialStateProperty.resolveWith((states) {
-                          if (states.contains(MaterialState.pressed)) {
-                            return EdgeInsets.symmetric(
-                                vertical: 13.0,
-                                horizontal: 8.0); // Padding when pressed
-                          }
-                          return EdgeInsets.symmetric(
-                              vertical: 13.0,
-                              horizontal: 8.0); // Default padding
-                        }),
-                      ),
-                      // ElevatedButton.styleFrom(
-                      //   backgroundColor: Color.fromRGBO(172, 194, 112, 1),
-                      //   padding: const EdgeInsets.fromLTRB(100, 20, 100,
-                      //       20), // Change the background color here
-                      // ),
-                      child: Image.asset(
-                        'assets/love.png',
-                        width: 30, // Set width to cover the entire screen width
-                        height:
-                            25, // Set how the image should be inscribed into the box
-                        alignment: Alignment
-                            .bottomLeft, // Set the alignment of the image within its bounds
-                      ),
-                    )),
-                    ClipRRect(
-                        // borderRadius: BorderRadius.circular(0),
-                        child: ElevatedButton(
-                      onPressed: () {},
-                      style: ButtonStyle(
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                            // Adjust the radius as per your requirement
+                          // ElevatedButton.styleFrom(
+                          //   backgroundColor: Color.fromRGBO(172, 194, 112, 1),
+                          //   padding: const EdgeInsets.fromLTRB(100, 20, 100,
+                          //       20), // Change the background color here
+                          // ),
+                          child: Image.asset(
+                            'assets/love.png',
+                            width:
+                                30, // Set width to cover the entire screen width
+                            height:
+                                25, // Set how the image should be inscribed into the box
+                            alignment: Alignment
+                                .bottomLeft, // Set the alignment of the image within its bounds
                           ),
-                        ),
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                          Color.fromRGBO(172, 194, 112, 1),
-                        ), // Background color
-                        padding: MaterialStateProperty.resolveWith((states) {
-                          if (states.contains(MaterialState.pressed)) {
-                            return EdgeInsets.symmetric(
-                                vertical: 16.0,
-                                horizontal: 100.0); // Padding when pressed
-                          }
-                          return EdgeInsets.symmetric(
-                              vertical: 16.0,
-                              horizontal: 100.0); // Default padding
-                        }),
-                      ),
-                      // ElevatedButton.styleFrom(
-                      //   backgroundColor: Color.fromRGBO(172, 194, 112, 1),
-                      //   padding: const EdgeInsets.fromLTRB(100, 20, 100,
-                      //       20), // Change the background color here
-                      // ),
-                      child: Text(
-                        'Message',
-                        style: TextStyle(
+                        )),
+                        ClipRRect(
+                            // borderRadius: BorderRadius.circular(0),
+                            child: ElevatedButton(
+                          onPressed: () {
+                            _message(true);
+                          },
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                                // Adjust the radius as per your requirement
+                              ),
+                            ),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              Color.fromRGBO(172, 194, 112, 1),
+                            ), // Background color
+                            padding:
+                                MaterialStateProperty.resolveWith((states) {
+                              if (states.contains(MaterialState.pressed)) {
+                                return EdgeInsets.symmetric(
+                                    vertical: 16.0,
+                                    horizontal: 100.0); // Padding when pressed
+                              }
+                              return EdgeInsets.symmetric(
+                                  vertical: 16.0,
+                                  horizontal: 100.0); // Default padding
+                            }),
+                          ),
+                          // ElevatedButton.styleFrom(
+                          //   backgroundColor: Color.fromRGBO(172, 194, 112, 1),
+                          //   padding: const EdgeInsets.fromLTRB(100, 20, 100,
+                          //       20), // Change the background color here
+                          // ),
+                          child: Text(
+                            'Message',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        )),
+                      ]))))
+              : Container(
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(107, 123, 66, 0.06),
+                  ),
+                  height: 80,
+                  padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+                  child: Column(children: [
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                            child: Container(
+                          height: 40,
+                          decoration: BoxDecoration(
                             color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    )),
-                  ]))))
+                            borderRadius: BorderRadius.circular(32),
+                          ),
+                          padding: EdgeInsets.all(0),
+                          child: Row(
+                            children: [
+                              IconButton(
+                                  iconSize: 20,
+                                  padding: EdgeInsets.all(
+                                      4), // Adjust size as needed
+                                  icon: CircleAvatar(
+                                    radius: 20,
+                                    backgroundColor: Color.fromRGBO(53, 54, 51,
+                                        0.098), // Background color of the circle
+                                    child: Icon(
+                                      Icons.add,
+                                      color: Color.fromRGBO(107, 123, 66, 1),
+                                      size: 15,
+                                    ),
+                                  ),
+                                  onPressed: () {}),
+
+                              SizedBox(
+                                  width: 8), // Adding spacing between icons
+                              Expanded(
+                                child: Container(
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(32),
+                                  ),
+                                  // padding: EdgeInsets.all(8),
+                                  child: TextFormField(
+                                    controller: _controller,
+                                    textAlign: TextAlign.left,
+                                    decoration: InputDecoration(
+                                      contentPadding:
+                                          EdgeInsets.fromLTRB(10, 3, 10, 0),
+                                      hintText: 'Type messages here...',
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      hintStyle: TextStyle(
+                                        color: Color.fromRGBO(
+                                            0, 0, 0, 0.2), // Placeholder text
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent),
+                                        borderRadius:
+                                            BorderRadius.circular(25.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent),
+                                        borderRadius:
+                                            BorderRadius.circular(25.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent),
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                      // Border style
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                  width:
+                                      8), // Adding spacing between TextFormField and IconButton
+                              IconButton(
+                                  iconSize: 15, // Adjust size as needed
+                                  icon: CircleAvatar(
+                                    radius: 20,
+                                    backgroundColor: Colors
+                                        .white, // Background color of the circle
+                                    child: Image.asset(
+                                      'assets/image.png',
+                                      width:
+                                          25, // Set width to cover the entire screen width
+                                      height:
+                                          25, // Set how the image should be inscribed into the box
+                                      alignment: Alignment
+                                          .bottomLeft, // Set the alignment of the image within its bounds
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    GoRouter.of(context).go('/settings');
+                                  }),
+                            ],
+                          ),
+                        )),
+                        IconButton(
+                            iconSize: 40,
+                            padding: EdgeInsets.all(4), // Adjust size as needed
+                            icon: CircleAvatar(
+                              radius: 20,
+                              backgroundColor: Color.fromRGBO(172, 194, 112,
+                                  1), // Background color of the circle
+                              child: Icon(
+                                Icons.send,
+                                color: Colors.white,
+                                size: 25,
+                              ),
+                            ),
+                            onPressed: () {}),
+                      ],
+                    ),
+                  ])),
         ]));
+  }
+
+  void _message(bool value) {
+    setState(() {
+      message = value;
+    });
+  }
+
+  void sendMessage(String message) {
+    setState(() {});
   }
 }

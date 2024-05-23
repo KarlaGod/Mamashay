@@ -10,6 +10,14 @@ import 'notifications/notifications.dart';
 import './chat/chat_notifications.dart';
 import './chat/chat.dart';
 import './test/test.dart';
+import './splash_screen/screen1.dart';
+import './splash_screen/screen2.dart';
+import './splash_screen/screen3.dart';
+import './splash_screen/screen4.dart';
+import './splash_screen/screen5.dart';
+import './splash_screen/screen6.dart';
+import './orders/main.dart';
+import './orders/search.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,6 +32,59 @@ final router = GoRouter(
         return MyHomePage();
       },
     ),
+
+    //---SPLASH SCREEN ROUTES-----//
+    GoRoute(
+      path: '/screen1',
+      builder: (context, state) {
+        return Screen1();
+      },
+    ),
+    GoRoute(
+      path: '/screen2',
+      builder: (context, state) {
+        return Screen2();
+      },
+    ),
+    GoRoute(
+      path: '/screen3',
+      builder: (context, state) {
+        return Screen3();
+      },
+    ),
+    GoRoute(
+      path: '/screen4',
+      builder: (context, state) {
+        return Screen4();
+      },
+    ),
+    GoRoute(
+      path: '/screen5',
+      builder: (context, state) {
+        return Screen5();
+      },
+    ),
+    GoRoute(
+      path: '/screen6',
+      builder: (context, state) {
+        return Screen6();
+      },
+    ),
+
+    //----ORDER ROUTES----//
+    GoRoute(
+      path: '/order',
+      builder: (context, state) {
+        return Orders();
+      },
+    ),
+    GoRoute(
+      path: '/order_search',
+      builder: (context, state) {
+        return SearchProduct();
+      },
+    ),
+
     GoRoute(
       path: '/',
       builder: (context, state) {

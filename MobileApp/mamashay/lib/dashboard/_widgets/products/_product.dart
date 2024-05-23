@@ -143,7 +143,7 @@ class Product extends StatelessWidget {
                                     builder: (BuildContext context) {
                                       return FractionallySizedBox(
                                         heightFactor:
-                                            0.7, // Half of the screen height
+                                            0.75, // Half of the screen height
                                         child: PopUp(),
                                       );
                                     });

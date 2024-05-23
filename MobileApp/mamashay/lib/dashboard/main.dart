@@ -249,45 +249,52 @@ class _DashboardState extends State<Dashboard> {
                           onPressed: () {}),
                     ),
                     Expanded(
-                        child: Container(
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: Color.fromRGBO(
-                                  107, 123, 66, 0.06), // Background color
-                              borderRadius:
-                                  BorderRadius.circular(25), // Border radius
-                              border: null,
-                            ),
-                            child: Center(
-                                child: Padding(
-                              padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                              child: TextFormField(
-                                textAlign: TextAlign.center,
-                                decoration: InputDecoration(
-                                  hintText:
-                                      'Search for food or any organic product...',
-                                  hintStyle: TextStyle(
-                                      color: Color.fromRGBO(179, 179, 179,
-                                          1)), // Placeholder text
-                                  border: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.transparent),
-                                    borderRadius: BorderRadius.circular(25.0),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.transparent),
-                                    borderRadius: BorderRadius.circular(25.0),
-                                  ), // Ch
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.transparent),
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  // Border style
+                        child: GestureDetector(
+                            onTap: () {
+                              GoRouter.of(context).go('/order_search');
+                            },
+                            child: Container(
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: Color.fromRGBO(
+                                      107, 123, 66, 0.06), // Background color
+                                  borderRadius: BorderRadius.circular(
+                                      25), // Border radius
+                                  border: null,
                                 ),
-                              ),
-                            )))),
+                                child: Center(
+                                    child: Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                                  child: TextFormField(
+                                    textAlign: TextAlign.center,
+                                    decoration: InputDecoration(
+                                      hintText:
+                                          'Search for food or any organic product...',
+                                      hintStyle: TextStyle(
+                                          color: Color.fromRGBO(179, 179, 179,
+                                              1)), // Placeholder text
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent),
+                                        borderRadius:
+                                            BorderRadius.circular(25.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent),
+                                        borderRadius:
+                                            BorderRadius.circular(25.0),
+                                      ), // Ch
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent),
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                      // Border style
+                                    ),
+                                  ),
+                                ))))),
                     Padding(
                       padding: EdgeInsets.fromLTRB(
                           0, 0, 10, 0), // Add padding of 20.0 to all sides
@@ -307,7 +314,9 @@ class _DashboardState extends State<Dashboard> {
                                   .bottomLeft, // Set the alignment of the image within its bounds
                             ),
                           ),
-                          onPressed: () {}),
+                          onPressed: () {
+                            GoRouter.of(context).go('/order_search');
+                          }),
                     ),
                   ],
                 ),
@@ -337,7 +346,11 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       ],
                     )),
-                Vendors(),
+                GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).go('/chat_notifications');
+                    },
+                    child: Vendors()),
                 SizedBox(
                   height: 30,
                 ),
@@ -347,76 +360,84 @@ class _DashboardState extends State<Dashboard> {
                     SizedBox(
                       width: 10,
                     ),
-                    Container(
-                        width: 150,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Color.fromRGBO(107, 123, 66, 0.06),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Row(
-                            children: [
-                              IconButton(
-                                  iconSize: 15, // Adjust size as needed
-                                  icon: Image.asset(
-                                    'assets/message.png',
-                                    width:
-                                        20, // Set width to cover the entire screen width
-                                    height:
-                                        17, // Set how the image should be inscribed into the box
-                                    alignment: Alignment
-                                        .bottomLeft, // Set the alignment of the image within its bounds
-                                  ),
-                                  onPressed: () {}),
-                              Text(
-                                textAlign: TextAlign.center,
-                                'Messages',
-                                style: TextStyle(
-                                  color: Color.fromRGBO(107, 123, 66, 1),
-                                  fontSize: 16,
-                                ),
-                              )
-                            ],
-                          ),
-                        )),
-                    Container(
-                        width: 150,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Color.fromRGBO(107, 123, 66, 0.06),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Row(
-                            children: [
-                              IconButton(
-                                  iconSize: 15, // Adjust size as needed
-                                  icon: Image.asset(
-                                    'assets/Cart.png',
-                                    width:
-                                        20, // Set width to cover the entire screen width
-                                    height:
-                                        17, // Set how the image should be inscribed into the box
-                                    alignment: Alignment
-                                        .bottomLeft, // Set the alignment of the image within its bounds
-                                  ),
-                                  onPressed: () {}),
-                              Container(
-                                  // decoration: BoxDecoration(border: Border),
-                                  child: Text(
-                                textAlign: TextAlign.center,
-                                'Orders',
-                                style: TextStyle(
-                                  color: Color.fromRGBO(107, 123, 66, 1),
-                                  fontSize: 16,
-                                ),
-                              ))
-                            ],
-                          ),
-                        )),
+                    GestureDetector(
+                        onTap: () {
+                          GoRouter.of(context).go('/chat_notifications');
+                        },
+                        child: Container(
+                            width: 150,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color.fromRGBO(107, 123, 66, 0.06),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                      iconSize: 15, // Adjust size as needed
+                                      icon: Image.asset(
+                                        'assets/message.png',
+                                        width:
+                                            20, // Set width to cover the entire screen width
+                                        height:
+                                            17, // Set how the image should be inscribed into the box
+                                        alignment: Alignment
+                                            .bottomLeft, // Set the alignment of the image within its bounds
+                                      ),
+                                      onPressed: () {}),
+                                  Text(
+                                    textAlign: TextAlign.center,
+                                    'Messages',
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(107, 123, 66, 1),
+                                      fontSize: 16,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ))),
+                    GestureDetector(
+                        onTap: () {
+                          GoRouter.of(context).go('/order');
+                        },
+                        child: Container(
+                            width: 150,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color.fromRGBO(107, 123, 66, 0.06),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                      iconSize: 15, // Adjust size as needed
+                                      icon: Image.asset(
+                                        'assets/Cart.png',
+                                        width:
+                                            20, // Set width to cover the entire screen width
+                                        height:
+                                            17, // Set how the image should be inscribed into the box
+                                        alignment: Alignment
+                                            .bottomLeft, // Set the alignment of the image within its bounds
+                                      ),
+                                      onPressed: () {}),
+                                  Container(
+                                      // decoration: BoxDecoration(border: Border),
+                                      child: Text(
+                                    textAlign: TextAlign.center,
+                                    'Orders',
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(107, 123, 66, 1),
+                                      fontSize: 16,
+                                    ),
+                                  ))
+                                ],
+                              ),
+                            ))),
                     SizedBox(
                       width: 10,
                     ),
