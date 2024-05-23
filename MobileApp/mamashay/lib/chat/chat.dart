@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '_widgets/bio.dart';
 import '../invoice/_invoice_popup.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class Message {
   final String text;
@@ -27,6 +29,18 @@ class ChatWidgetState extends State<Chat> {
   ];
   final ScrollController _scrollController = ScrollController();
   TextEditingController _controller = TextEditingController();
+  File? _image;
+
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
 
   void _showSlideTransitionDialog(BuildContext context) {
     showGeneralDialog(
@@ -714,7 +728,7 @@ class ChatWidgetState extends State<Chat> {
                                           ),
                                         ),
                                         onPressed: () {
-                                          GoRouter.of(context).go('/settings');
+                                          _pickImage();
                                         }),
                                   ],
                                 ),

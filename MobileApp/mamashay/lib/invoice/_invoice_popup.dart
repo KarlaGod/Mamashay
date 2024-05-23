@@ -120,38 +120,187 @@ class PopUpWidgetState extends State<InvoicePopUp> {
           Padding(
               padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
               child: Container(
-                // width: 200,
-                height: 150,
-
-                decoration: BoxDecoration(
-                  border: Border(
-                    left: BorderSide(
-                      color: Color.fromARGB(125, 231, 230, 230),
-                      width: 1.0,
+                  // width: 200,
+                  height: 130,
+                  decoration: BoxDecoration(
+                    border: Border(
+                      left: BorderSide(
+                        color: Color.fromARGB(125, 231, 230, 230),
+                        width: 1.0,
+                      ),
+                      right: BorderSide(
+                        color: Color.fromARGB(125, 231, 230, 230),
+                        width: 1.0,
+                      ),
+                      top: BorderSide(
+                        color: Color.fromARGB(125, 231, 230, 230),
+                        width: 1.0,
+                      ),
+                      bottom: BorderSide(
+                        color: Color.fromARGB(125, 231, 230, 230),
+                        width: 1.0,
+                      ),
                     ),
-                    right: BorderSide(
-                      color: Color.fromARGB(125, 231, 230, 230),
-                      width: 1.0,
-                    ),
-                    top: BorderSide(
-                      color: Color.fromARGB(125, 231, 230, 230),
-                      width: 1.0,
-                    ),
-                    bottom: BorderSide(
-                      color: Color.fromARGB(125, 231, 230, 230),
-                      width: 1.0,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                      bottomRight: Radius.circular(15),
+                      bottomLeft: Radius.circular(15),
                     ),
                   ),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    topRight: Radius.circular(15),
-                    bottomRight: Radius.circular(15),
-                    bottomLeft: Radius.circular(15),
-                  ),
-                ),
-              )),
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          " Total",
+                          style: TextStyle(
+                              color: const Color.fromRGBO(128, 128, 128, 1),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14),
+                        ),
+                        Container(
+                          // width: 200,
+                          height: 5,
+                          width: 80,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: const Color.fromRGBO(128, 128, 128, 0.1),
+                                width: 1.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          // textAlign: TextAlign.left,
+                          'N17000',
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w500,
+                              color: Color.fromRGBO(172, 194, 112, 1)),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Product Name",
+                                  style: TextStyle(
+                                      color: const Color.fromRGBO(
+                                          128, 128, 128, 1),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14),
+                                ),
+                                Container(
+                                    width: 180,
+                                    child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          RichText(
+                                            text: TextSpan(
+                                              style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    0, 0, 0, 0.3),
+                                                fontSize: 12,
+                                              ),
+                                              children: [
+                                                TextSpan(
+                                                  text: "QTY: ",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: "05",
+                                                  style: TextStyle(
+                                                    color: Color.fromRGBO(
+                                                        0, 0, 0, 0.3),
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            // overflow: TextOverflow.ellipsis,
+                                          ),
+                                          RichText(
+                                            text: TextSpan(
+                                              style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    0, 0, 0, 0.3),
+                                                fontSize: 12,
+                                              ),
+                                              children: [
+                                                TextSpan(
+                                                  text: "Location: ",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: "Port Harcourt",
+                                                  style: TextStyle(
+                                                    color: Color.fromRGBO(
+                                                        0, 0, 0, 0.3),
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            // overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ])),
+                              ],
+                            ),
+                            Text(
+                              // textAlign: TextAlign.left,
+                              'N17000',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color.fromRGBO(172, 194, 112, 1)),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ))),
+          Padding(
+            padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+            child: AspectRatio(
+              aspectRatio: 16 / 10,
+              // Define your aspect ratio
+              child: GestureDetector(
+                  onTap: () {
+                    _pickImage();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                          15.0), // Optional: Add border radius
+                      image: DecorationImage(
+                        image: AssetImage(
+                            'assets/add_product.png'), // Replace 'your_image.jpg' with your image asset
+                        // fit: BoxFit.cover,
+                      ),
+                    ),
+                  )),
+            ),
+          ),
           SizedBox(
-            height: 20,
+            height: 10,
           ),
           Padding(
               padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
@@ -171,7 +320,7 @@ class PopUpWidgetState extends State<InvoicePopUp> {
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                   // Adjust the radius as per your requirement
                                 ),
                               ),
@@ -181,12 +330,12 @@ class PopUpWidgetState extends State<InvoicePopUp> {
                                   MaterialStateProperty.resolveWith((states) {
                                 if (states.contains(MaterialState.pressed)) {
                                   return EdgeInsets.symmetric(
-                                      vertical: 10.0,
-                                      horizontal: 30.0); // Padding when pressed
+                                      vertical: 12.0,
+                                      horizontal: 50.0); // Padding when pressed
                                 }
                                 return EdgeInsets.symmetric(
-                                    vertical: 10.0,
-                                    horizontal: 30.0); // Default padding
+                                    vertical: 12.0,
+                                    horizontal: 50.0); // Default padding
                               }),
                             ),
                             // ElevatedButton.styleFrom(
@@ -195,19 +344,11 @@ class PopUpWidgetState extends State<InvoicePopUp> {
                             //       20), // Change the background color here
                             // ),
                             child: Row(children: [
-                              Image.asset(
-                                'assets/splash_arrow_back.png',
-                                width: 2 * 7,
-                                height: 2 * 9,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
                               Text(
-                                'Back',
+                                'Cancel',
                                 style: TextStyle(
-                                    color: Color.fromRGBO(107, 123, 66, 1),
-                                    fontSize: 16,
+                                    color: Color.fromRGBO(143, 143, 142, 1),
+                                    fontSize: 18,
                                     fontWeight: FontWeight.w600),
                               ),
                             ]))),
@@ -221,7 +362,7 @@ class PopUpWidgetState extends State<InvoicePopUp> {
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                   // Adjust the radius as per your requirement
                                 ),
                               ),
@@ -232,12 +373,12 @@ class PopUpWidgetState extends State<InvoicePopUp> {
                                   MaterialStateProperty.resolveWith((states) {
                                 if (states.contains(MaterialState.pressed)) {
                                   return EdgeInsets.symmetric(
-                                      vertical: 10.0,
-                                      horizontal: 30.0); // Padding when pressed
+                                      vertical: 12.0,
+                                      horizontal: 50.0); // Padding when pressed
                                 }
                                 return EdgeInsets.symmetric(
-                                    vertical: 10.0,
-                                    horizontal: 30.0); // Default padding
+                                    vertical: 12.0,
+                                    horizontal: 50.0); // Default padding
                               }),
                             ),
                             // ElevatedButton.styleFrom(
@@ -248,19 +389,19 @@ class PopUpWidgetState extends State<InvoicePopUp> {
                             child: Row(
                               children: [
                                 Text(
-                                  'Next',
+                                  'Send',
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 16,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.w600),
                                 ),
                                 SizedBox(
                                   width: 5,
                                 ),
                                 Image.asset(
-                                  'assets/splash_arrow.png',
-                                  width: 2 * 7,
-                                  height: 2 * 9,
+                                  'assets/message_white.png',
+                                  width: 2 * 9,
+                                  height: 2 * 11,
                                 ),
                               ],
                             ))),
