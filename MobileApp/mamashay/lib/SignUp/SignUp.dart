@@ -8,6 +8,20 @@ import 'package:go_router/go_router.dart';
 import 'widgets/_custom_button_widget.dart';
 import 'widgets/_button_switch_widget.dart';
 import 'textSpan.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:twitter_login/twitter_login.dart';
+
+import './twitterAuth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class SignUp extends StatefulWidget {
   @override
@@ -20,6 +34,8 @@ class _SignUpState extends State<SignUp> {
   String? _password = '';
   String? _phone_number = '';
   String? _email = '';
+  // final GoogleSignInProvider _googleSignInProvider = GoogleSignInProvider();
+  final TwitterSignInProvider _twitterSignInProvider = TwitterSignInProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -484,15 +500,26 @@ class _SignUpState extends State<SignUp> {
                                               alignment: Alignment
                                                   .bottomLeft, // Set the alignment of the image within its bounds
                                             ),
-                                            Image.asset(
-                                              'assets/twitter.png',
-                                              width:
-                                                  50, // Set width to cover the entire screen width
-                                              height:
-                                                  50, // Set how the image should be inscribed into the box
-                                              alignment: Alignment
-                                                  .bottomLeft, // Set the alignment of the image within its bounds
-                                            ),
+                                            GestureDetector(
+                                                onTap: () async {
+                                                  User? user =
+                                                      await _twitterSignInProvider
+                                                          .signInWithTwitter(
+                                                              context);
+                                                  if (user != null) {
+                                                    print(
+                                                        'Google Sign-In Successful: ${user.email}');
+                                                  }
+                                                },
+                                                child: Image.asset(
+                                                  'assets/twitter.png',
+                                                  width:
+                                                      50, // Set width to cover the entire screen width
+                                                  height:
+                                                      50, // Set how the image should be inscribed into the box
+                                                  alignment: Alignment
+                                                      .bottomLeft, // Set the alignment of the image within its bounds
+                                                )),
                                           ]))
                                   // ))),
                                 ]))

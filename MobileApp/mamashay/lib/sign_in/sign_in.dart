@@ -5,6 +5,10 @@ import '../main.dart'; // Import your main screen
 import 'dart:ui';
 import 'package:go_router/go_router.dart';
 import './_custom_button_widget.dart';
+import '../SignUp/twitterAuth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_web_auth/flutter_web_auth.dart';
+import 'package:uni_links/uni_links.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -15,6 +19,43 @@ class _SignInState extends State<SignIn> {
   final _SignInKey = GlobalKey<FormState>();
   String? _name = '';
   String? _password = '';
+  final TwitterSignInProvider _twitterSignInProvider = TwitterSignInProvider();
+
+  Future<void> _authenticate(BuildContext context) async {
+    try {
+      // This is where you prewarm the Custom Tabs
+      // await FlutterWebAuth.authenticate(
+      //   url: '/dashboard', // Dummy URL for pre-warming
+      //   callbackUrlScheme: 'myapp',
+      // );
+
+      final user = await _twitterSignInProvider.signInWithTwitter(context);
+      if (user != null) {
+        await ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content:
+                  Text('Authentication successful! User: ${user.displayName}')),
+        );
+
+        String _user = '${user.displayName}';
+        List<String>? username;
+        user.displayName == ""
+            ? username = []
+            : username = user.displayName?.split(" ");
+        print(user.email);
+
+        GoRouter.of(context).go('/dashboard/${username?[0]}/${user.email}');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Authentication failed')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -365,15 +406,18 @@ class _SignInState extends State<SignIn> {
                                               alignment: Alignment
                                                   .bottomLeft, // Set the alignment of the image within its bounds
                                             ),
-                                            Image.asset(
-                                              'assets/twitter.png',
-                                              width:
-                                                  50, // Set width to cover the entire screen width
-                                              height:
-                                                  50, // Set how the image should be inscribed into the box
-                                              alignment: Alignment
-                                                  .bottomLeft, // Set the alignment of the image within its bounds
-                                            ),
+                                            GestureDetector(
+                                                onTap: () =>
+                                                    _authenticate(context),
+                                                child: Image.asset(
+                                                  'assets/twitter.png',
+                                                  width:
+                                                      50, // Set width to cover the entire screen width
+                                                  height:
+                                                      50, // Set how the image should be inscribed into the box
+                                                  alignment: Alignment
+                                                      .bottomLeft, // Set the alignment of the image within its bounds
+                                                )),
                                           ]))
                                   // ))),
                                 ]))

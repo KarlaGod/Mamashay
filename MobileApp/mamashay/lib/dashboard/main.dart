@@ -10,6 +10,11 @@ import '_widgets/products/productScroll.dart';
 class Dashboard extends StatefulWidget {
   @override
   _DashboardState createState() => _DashboardState();
+  final String? user;
+  final String? email;
+
+  const Dashboard({Key? key, required this.user, required this.email})
+      : super(key: key);
 }
 
 class _DashboardState extends State<Dashboard> {
@@ -59,12 +64,14 @@ class _DashboardState extends State<Dashboard> {
                                         fit: BoxFit.cover,
                                       )),
                                   Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Padding(
                                         padding: EdgeInsets.fromLTRB(8, 20, 10,
                                             0), // Add padding of 20.0 to all sides
                                         child: Text(
-                                          'Emeka Jordan',
+                                          "${widget.user}",
                                           style: TextStyle(
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,
@@ -73,10 +80,10 @@ class _DashboardState extends State<Dashboard> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.fromLTRB(0, 0, 75,
+                                        padding: EdgeInsets.fromLTRB(0, 0, 0,
                                             0), // Add padding of 20.0 to all sides
                                         child: Text(
-                                          'User',
+                                          '${widget.email}',
                                           style: TextStyle(
                                               fontSize: 14,
                                               color: Color.fromRGBO(

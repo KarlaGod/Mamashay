@@ -18,14 +18,46 @@ import './splash_screen/screen5.dart';
 import './splash_screen/screen6.dart';
 import './orders/main.dart';
 import './orders/search.dart';
+import './splash_screen/pageview.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:twitter_login/twitter_login.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import './splash_screen/loginSignupSlide.dart';
+import 'package:flutter_web_auth/flutter_web_auth.dart';
 
-void main() {
+void main() async {
+// ...
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
+
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp();
+//   runApp(MyApp());
+// }
 
 final router = GoRouter(
   initialLocation: '/',
   routes: [
+    GoRoute(
+      path: '/AuthenticateSlideView',
+      builder: (context, state) {
+        return AuthenticationSlideView();
+      },
+    ),
+    GoRoute(
+      path: '/SlideView',
+      builder: (context, state) {
+        return SlideView();
+      },
+    ),
     GoRoute(
       path: '/test',
       builder: (context, state) {
@@ -110,9 +142,11 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/dashboard',
+      path: '/dashboard/:user/:email',
       builder: (context, state) {
-        return Dashboard();
+        final user = state.pathParameters['user']!;
+        final email = state.pathParameters['email']!;
+        return Dashboard(user: user, email: email);
       },
     ),
     GoRoute(

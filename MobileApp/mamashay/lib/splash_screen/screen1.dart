@@ -111,7 +111,8 @@ class Screen1 extends StatelessWidget {
                                             // borderRadius: BorderRadius.circular(0),
                                             child: ElevatedButton(
                                           onPressed: () {
-                                            GoRouter.of(context).go('/SignUp');
+                                            GoRouter.of(context)
+                                                .go('/AuthenticateSlideView');
                                           },
                                           style: ButtonStyle(
                                             shape: MaterialStateProperty.all<
@@ -161,7 +162,7 @@ class Screen1 extends StatelessWidget {
                                             child: ElevatedButton(
                                                 onPressed: () {
                                                   GoRouter.of(context)
-                                                      .go('/screen2');
+                                                      .go('/SlideView');
                                                 },
                                                 style: ButtonStyle(
                                                   shape:

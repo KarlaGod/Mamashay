@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '_widgets/bio.dart';
 import '../invoice/_invoice_popup.dart';
 import 'package:image_picker/image_picker.dart';
+import '../review/_review/_review_buttom_sheet.dart';
 import 'dart:io';
 
 class Message {
@@ -84,7 +85,19 @@ class ChatWidgetState extends State<Chat> {
                               width: 70,
                             )),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  builder: (BuildContext context) {
+                                    return FractionallySizedBox(
+                                      heightFactor:
+                                          0.75, // Half of the screen height
+                                      child: ReviewPopUp(),
+                                    );
+                                  });
+                            },
                             icon: Image.asset(
                               "assets/feedback.png",
                               height: 70,

@@ -156,8 +156,8 @@ class Screen6 extends StatelessWidget {
                                             // borderRadius: BorderRadius.circular(0),
                                             child: ElevatedButton(
                                                 onPressed: () {
-                                                  GoRouter.of(context)
-                                                      .go('/SignUp');
+                                                  GoRouter.of(context).go(
+                                                      '/AuthenticateSlideView');
                                                 },
                                                 style: ButtonStyle(
                                                   shape:

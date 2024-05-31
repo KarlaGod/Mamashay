@@ -32,6 +32,13 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   go_router: ^13.2.0
+  firebase_core: ^2.17.0
+  firebase_auth: ^4.6.2
+  google_sign_in: ^6.2.0
+  twitter_login: ^4.2.1
+  cloud_firestore: ^4.17.4
+  flutter_web_auth: ^0.4.0
+  uni_links: ^0.5.1
 
 dev_dependencies:
   flutter_test:
@@ -110,6 +117,8 @@ flutter:
     - assets/invoice_frame.png
     - assets/message_white.png
     - assets/Generate_Invoice.png
+    - assets/add_product_icon.png
+    - assets/camera.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
