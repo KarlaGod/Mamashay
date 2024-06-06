@@ -12,8 +12,13 @@ class Dashboard extends StatefulWidget {
   _DashboardState createState() => _DashboardState();
   final String? user;
   final String? email;
+  final String? photoURL;
 
-  const Dashboard({Key? key, required this.user, required this.email})
+  const Dashboard(
+      {Key? key,
+      required this.user,
+      required this.email,
+      required this.photoURL})
       : super(key: key);
 }
 
@@ -57,18 +62,18 @@ class _DashboardState extends State<Dashboard> {
                                 children: [
                                   ClipRRect(
                                       borderRadius: BorderRadius.circular(15),
-                                      child: Image.asset(
-                                        'assets/man.png',
+                                      child: Image.network(
+                                        widget.photoURL!,
                                         width: 2 * 15,
                                         height: 2 * 15,
                                         fit: BoxFit.cover,
                                       )),
                                   Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsets.fromLTRB(8, 20, 10,
+                                        padding: EdgeInsets.fromLTRB(5, 20, 10,
                                             0), // Add padding of 20.0 to all sides
                                         child: Text(
                                           "${widget.user}",
@@ -80,12 +85,12 @@ class _DashboardState extends State<Dashboard> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.fromLTRB(0, 0, 0,
+                                        padding: EdgeInsets.fromLTRB(5, 0, 0,
                                             0), // Add padding of 20.0 to all sides
                                         child: Text(
                                           '${widget.email}',
                                           style: TextStyle(
-                                              fontSize: 14,
+                                              fontSize: 10,
                                               color: Color.fromRGBO(
                                                   153, 153, 153, 1)),
                                           textAlign: TextAlign.left,

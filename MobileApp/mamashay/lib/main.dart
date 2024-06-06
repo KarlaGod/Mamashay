@@ -146,7 +146,9 @@ final router = GoRouter(
       builder: (context, state) {
         final user = state.pathParameters['user']!;
         final email = state.pathParameters['email']!;
-        return Dashboard(user: user, email: email);
+        final String photoURL = state.extra as String;
+
+        return Dashboard(user: user, email: email, photoURL: photoURL);
       },
     ),
     GoRoute(

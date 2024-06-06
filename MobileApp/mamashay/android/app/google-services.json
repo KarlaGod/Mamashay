@@ -12,7 +12,20 @@
           "package_name": "com.example.mamashay"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "856735068586-gf53g669jenl1b30g837oms9m82tua68.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mamashay",
+            "certificate_hash": "0645e6a8d749e67c24aecff6ee25543911cef94e"
+          }
+        },
+        {
+          "client_id": "856735068586-4jq3rgo4ipqua9746opr2gk4n79kdu6l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDC9W2i7S_BcNv15jmVFXo1u_TtmeXN4vk"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "856735068586-4jq3rgo4ipqua9746opr2gk4n79kdu6l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "856735068586-n6a1jiha8rsibonch69b146hnus0b6sv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mamashay"
+              }
+            }
+          ]
         }
       }
     }

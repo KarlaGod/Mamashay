@@ -7,8 +7,9 @@ import 'package:go_router/go_router.dart';
 import './_custom_button_widget.dart';
 import '../SignUp/twitterAuth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
-import 'package:uni_links/uni_links.dart';
+import '../SignUp/GoogleAuth.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -20,6 +21,8 @@ class _SignInState extends State<SignIn> {
   String? _name = '';
   String? _password = '';
   final TwitterSignInProvider _twitterSignInProvider = TwitterSignInProvider();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleAuthService _authService = GoogleAuthService();
 
   Future<void> _authenticate(BuildContext context) async {
     try {
@@ -44,7 +47,8 @@ class _SignInState extends State<SignIn> {
             : username = user.displayName?.split(" ");
         print(user.email);
 
-        GoRouter.of(context).go('/dashboard/${username?[0]}/${user.email}');
+        GoRouter.of(context).go('/dashboard/${username?[0]}/${user.email}',
+            extra: user.photoURL);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Authentication failed')),
@@ -397,14 +401,44 @@ class _SignInState extends State<SignIn> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Image.asset(
-                                              'assets/google.png',
-                                              width:
-                                                  50, // Set width to cover the entire screen width
-                                              height:
-                                                  50, // Set how the image should be inscribed into the box
-                                              alignment: Alignment
-                                                  .bottomLeft, // Set the alignment of the image within its bounds
+                                            GestureDetector(
+                                              onTap: () async {
+                                                User? user = await _authService
+                                                    .signInWithGoogle();
+                                                print('\n\n\n ${user} \n\n\n');
+                                                if (user != null) {
+                                                  await ScaffoldMessenger.of(
+                                                          context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                        content: Text(
+                                                            'Signed in as ${user.displayName}')),
+                                                  );
+                                                  String? value =
+                                                      user.displayName;
+                                                  List<String>? username =
+                                                      value?.split(" ");
+                                                  GoRouter.of(context).go(
+                                                      '/dashboard/${username?[0]}/${user.email}',
+                                                      extra: user.photoURL);
+                                                } else {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                        content: Text(
+                                                            'Sign in failed')),
+                                                  );
+                                                }
+                                              },
+                                              child: Image.asset(
+                                                'assets/google.png',
+                                                width:
+                                                    50, // Set width to cover the entire screen width
+                                                height:
+                                                    50, // Set how the image should be inscribed into the box
+                                                alignment: Alignment
+                                                    .bottomLeft, // Set the alignment of the image within its bounds
+                                              ),
                                             ),
                                             GestureDetector(
                                                 onTap: () =>

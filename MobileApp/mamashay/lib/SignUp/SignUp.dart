@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'widgets/_custom_button_widget.dart';
 import 'widgets/_button_switch_widget.dart';
 import 'textSpan.dart';
+import '../SignUp/GoogleAuth.dart';
 // import 'package:firebase_core/firebase_core.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
@@ -34,8 +35,45 @@ class _SignUpState extends State<SignUp> {
   String? _password = '';
   String? _phone_number = '';
   String? _email = '';
-  // final GoogleSignInProvider _googleSignInProvider = GoogleSignInProvider();
   final TwitterSignInProvider _twitterSignInProvider = TwitterSignInProvider();
+  final GoogleAuthService _authService = GoogleAuthService();
+
+  Future<void> _authenticate(BuildContext context) async {
+    try {
+      // This is where you prewarm the Custom Tabs
+      // await FlutterWebAuth.authenticate(
+      //   url: '/dashboard', // Dummy URL for pre-warming
+      //   callbackUrlScheme: 'myapp',
+      // );
+
+      final user = await _twitterSignInProvider.signInWithTwitter(context);
+      if (user != null) {
+        await ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content:
+                  Text('Authentication successful! User: ${user.displayName}')),
+        );
+
+        String _user = '${user.displayName}';
+        List<String>? username;
+        user.displayName == ""
+            ? username = []
+            : username = user.displayName?.split(" ");
+        print(user.email);
+
+        GoRouter.of(context).go('/dashboard/${username?[0]}/${user.email}',
+            extra: user.photoURL);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Authentication failed')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -491,26 +529,50 @@ class _SignUpState extends State<SignUp> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Image.asset(
-                                              'assets/google.png',
-                                              width:
-                                                  50, // Set width to cover the entire screen width
-                                              height:
-                                                  50, // Set how the image should be inscribed into the box
-                                              alignment: Alignment
-                                                  .bottomLeft, // Set the alignment of the image within its bounds
-                                            ),
                                             GestureDetector(
                                                 onTap: () async {
                                                   User? user =
-                                                      await _twitterSignInProvider
-                                                          .signInWithTwitter(
-                                                              context);
+                                                      await _authService
+                                                          .signInWithGoogle();
+                                                  print(
+                                                      '\n\n\n ${user} \n\n\n');
                                                   if (user != null) {
-                                                    print(
-                                                        'Google Sign-In Successful: ${user.email}');
+                                                    await ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      SnackBar(
+                                                          content: Text(
+                                                              'Signed in as ${user.displayName}')),
+                                                    );
+                                                    String? value =
+                                                        user.displayName;
+                                                    List<String>? username =
+                                                        value?.split(" ");
+                                                    GoRouter.of(context).go(
+                                                        '/dashboard/${username?[0]}/${user.email}',
+                                                        extra: user.photoURL);
+                                                  } else {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      SnackBar(
+                                                          content: Text(
+                                                              'Sign in failed')),
+                                                    );
                                                   }
                                                 },
+                                                child: Image.asset(
+                                                  'assets/google.png',
+                                                  width:
+                                                      50, // Set width to cover the entire screen width
+                                                  height:
+                                                      50, // Set how the image should be inscribed into the box
+                                                  alignment: Alignment
+                                                      .bottomLeft, // Set the alignment of the image within its bounds
+                                                )),
+                                            GestureDetector(
+                                                onTap: () =>
+                                                    _authenticate(context),
                                                 child: Image.asset(
                                                   'assets/twitter.png',
                                                   width:

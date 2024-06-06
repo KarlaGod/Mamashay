@@ -1,51 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-
 <dict>
-
-	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleDisplayName</key>
-	<string>Mamashay</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>mamashay</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
+<key>CLIENT_ID</key>
+<string>
+856735068586-n6a1jiha8rsibonch69b146hnus0b6sv.apps.googleusercontent.com
+</string>
+<key>REVERSED_CLIENT_ID</key>
+<string>
+com.googleusercontent.apps.856735068586-n6a1jiha8rsibonch69b146hnus0b6sv
+</string>
+<key>ANDROID_CLIENT_ID</key>
+<string>
+856735068586-gf53g669jenl1b30g837oms9m82tua68.apps.googleusercontent.com
+</string>
+<key>API_KEY</key>
+<string>AIzaSyDag8C9ITPYyRU1PemdrcGKSEjJ5Xx0pSI</string>
+<key>GCM_SENDER_ID</key>
+<string>856735068586</string>
+<key>PLIST_VERSION</key>
+<string>1</string>
+<key>BUNDLE_ID</key>
+<string>com.example.mamashay</string>
+<key>PROJECT_ID</key>
+<string>mamashay-9b77e</string>
+<key>STORAGE_BUCKET</key>
+<string>mamashay-9b77e.appspot.com</string>
+<key>IS_ADS_ENABLED</key>
+<false/>
+<key>IS_ANALYTICS_ENABLED</key>
+<false/>
+<key>IS_APPINVITE_ENABLED</key>
+<true/>
+<key>IS_GCM_ENABLED</key>
+<true/>
+<key>IS_SIGNIN_ENABLED</key>
+<true/>
+<key>GOOGLE_APP_ID</key>
+<string>1:856735068586:ios:71eed51bff77f69524fbd3</string>
 </dict>
 </plist>
