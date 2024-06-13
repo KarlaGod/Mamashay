@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import '../main.dart'; // Import your main screen
 import 'dart:ui';
@@ -9,6 +10,7 @@ import 'widgets/_custom_button_widget.dart';
 import 'widgets/_button_switch_widget.dart';
 import 'textSpan.dart';
 import '../SignUp/GoogleAuth.dart';
+import '../userOperations/creatUser.dart';
 // import 'package:firebase_core/firebase_core.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
@@ -35,6 +37,8 @@ class _SignUpState extends State<SignUp> {
   String? _password = '';
   String? _phone_number = '';
   String? _email = '';
+  String? photoURL = '';
+  String? url = '';
   final TwitterSignInProvider _twitterSignInProvider = TwitterSignInProvider();
   final GoogleAuthService _authService = GoogleAuthService();
 
@@ -355,9 +359,27 @@ class _SignUpState extends State<SignUp> {
                                                             .save();
                                                         // Process the form data
 
+                                                        createUser(
+                                                            email: _email ?? "",
+                                                            photoURL: photoURL ??
+                                                                "assets/senior.png",
+                                                            password:
+                                                                _password ?? "",
+                                                            displayName: _name,
+                                                            phoneNumber:
+                                                                _phone_number);
+
                                                         print(_name);
                                                         print(_password);
                                                       }
+                                                      url = "false";
+                                                      GoRouter.of(context).go(
+                                                          '/dashboard/${Uri.encodeComponent(_name ?? "")}/${Uri.encodeComponent(_email ?? "")}',
+                                                          extra: {
+                                                            'photoURL':
+                                                                photoURL,
+                                                            'url': url,
+                                                          });
                                                     },
                                                     style: ElevatedButton
                                                         .styleFrom(

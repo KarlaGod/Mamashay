@@ -1,3 +1,5 @@
+// import 'dart:ui_web';
+
 import 'package:flutter/material.dart';
 import './screen.dart'; // Import your main screen
 import 'package:go_router/go_router.dart';
@@ -146,11 +148,20 @@ final router = GoRouter(
       builder: (context, state) {
         final user = state.pathParameters['user']!;
         final email = state.pathParameters['email']!;
-        final String photoURL = state.extra as String;
+        final Map<String, String?> extraParams =
+            state.extra as Map<String, String?>;
+        final photoURL = extraParams['photoURL'] ?? '';
+        final url = extraParams['url'] ?? '';
 
-        return Dashboard(user: user, email: email, photoURL: photoURL);
+        return Dashboard(
+          user: user,
+          email: email,
+          photoURL: photoURL,
+          url: url,
+        );
       },
     ),
+
     GoRoute(
       path: '/settings',
       builder: (context, state) {
@@ -166,15 +177,20 @@ final router = GoRouter(
     GoRoute(
       path: '/chat_notifications',
       builder: (context, state) {
-        return ChatNotifications();
+        final userId = state.pathParameters['userId'];
+        return ChatNotifications(userId: userId ?? "");
       },
     ),
     GoRoute(
-      path: '/chat',
+      path: '/chat/:chatId',
       builder: (context, state) {
-        return Chat();
+        final chatId = state.pathParameters['chatId'];
+        final userId = ''; // Provide the userId here
+        final otherUserId = ''; // Provide the otherUserId here
+        return ChatScreen(
+            chatId: chatId ?? "", userId: userId, otherUserId: otherUserId);
       },
-    )
+    ),
   ],
 );
 

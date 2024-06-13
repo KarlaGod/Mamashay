@@ -4,30 +4,30 @@ import 'package:go_router/go_router.dart';
 import '_widgets/bio.dart';
 import '../invoice/_invoice_popup.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../review/_review/_review_buttom_sheet.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:io';
+import './chatModel.dart';
 
-class Message {
-  final String text;
-  final bool isMe;
+class ChatScreen extends StatefulWidget {
+  final String chatId;
+  final String userId;
+  final String otherUserId;
 
-  Message(this.text, this.isMe);
-}
+  ChatScreen({
+    required this.chatId,
+    required this.userId,
+    required this.otherUserId,
+  });
 
-class Chat extends StatefulWidget {
   @override
   ChatWidgetState createState() => ChatWidgetState();
 }
 
-class ChatWidgetState extends State<Chat> {
-  final List<Message> messages = [
-    Message('Hello!', false),
-    Message('Hi there!', true),
-    Message(
-        'How are you???????????????????????????????????????????????????????????????????????????????????',
-        false),
-    Message('I\'m fine, thank you!', true),
-  ];
+class ChatWidgetState extends State<ChatScreen> {
+  final User? _user = FirebaseAuth.instance.currentUser;
+
   final ScrollController _scrollController = ScrollController();
   TextEditingController _controller = TextEditingController();
   File? _image;
@@ -594,37 +594,60 @@ class ChatWidgetState extends State<Chat> {
                           DescriptionWidget(),
                         ])),
                     Expanded(
-                      child: ListView.builder(
-                        controller: _scrollController,
-                        itemCount: messages.length,
-                        itemBuilder: (context, index) {
-                          final message = messages[index];
-                          return ListTile(
-                            title: Align(
-                              alignment: message.isMe
-                                  ? Alignment.centerRight
-                                  : Alignment.centerLeft,
-                              child: Container(
-                                constraints: BoxConstraints(
-                                  minWidth: 50, // Minimum width
-                                  maxWidth: 200, // Maximum width
+                      child: StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('chats')
+                            .doc(widget.chatId)
+                            .collection('messages')
+                            .orderBy('timestamp', descending: true)
+                            .snapshots(),
+                        builder:
+                            (ctx, AsyncSnapshot<QuerySnapshot> chatSnapshot) {
+                          if (chatSnapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(child: CircularProgressIndicator());
+                          }
+                          final chatDocs = chatSnapshot.data?.docs;
+                          return ListView.builder(
+                            controller: _scrollController,
+                            reverse: true,
+                            itemCount: chatDocs?.length,
+                            itemBuilder: (ctx, index) {
+                              final messageData = chatDocs?[index].data()
+                                  as Map<String, dynamic>;
+                              final message = chatDocs![index];
+                              return ListTile(
+                                title: Align(
+                                  alignment:
+                                      message['senderId'] == widget.userId
+                                          ? Alignment.centerRight
+                                          : Alignment.centerLeft,
+                                  child: Container(
+                                    constraints: BoxConstraints(
+                                      minWidth: 50,
+                                      maxWidth: 200,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color:
+                                          message['senderId'] == widget.userId
+                                              ? Color.fromRGBO(107, 123, 66, 1)
+                                              : Colors.grey[200],
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    padding: EdgeInsets.all(8),
+                                    child: Text(
+                                      message['text'],
+                                      style: TextStyle(
+                                        color:
+                                            message['senderId'] == widget.userId
+                                                ? Colors.white
+                                                : Colors.black,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                                decoration: BoxDecoration(
-                                  color: message.isMe
-                                      ? Color.fromRGBO(107, 123, 66, 1)
-                                      : Colors.grey[200],
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                padding: EdgeInsets.all(8),
-                                child: Text(
-                                  message.text,
-                                  style: TextStyle(
-                                      color: message.isMe
-                                          ? Colors.white
-                                          : Colors.black),
-                                ),
-                              ),
-                            ),
+                              );
+                            },
                           );
                         },
                       ),
@@ -767,7 +790,6 @@ class ChatWidgetState extends State<Chat> {
                                     String enteredText = _controller.text;
                                     sendMessage(enteredText);
                                     _controller.clear();
-                                    print(messages.length);
                                   }),
                             ],
                           ),
@@ -778,12 +800,24 @@ class ChatWidgetState extends State<Chat> {
   }
 
   void sendMessage(String message) {
-    setState(() {
-      messages.add(Message(message, true));
+    // FirebaseFirestore.instance.collection('chats').add({
+    //   'text': _controller.text,
+    //   'createdAt': Timestamp.now(),
+    //   'userId': _user?.uid,
+    //   'userName': _user?.email,
+    // });
+
+    if (_controller.text.isEmpty) return;
+
+    FirebaseFirestore.instance
+        .collection('chats')
+        .doc(widget.chatId)
+        .collection('messages')
+        .add({
+      'text': _controller.text,
+      'senderId': widget.userId,
+      'timestamp': Timestamp.now(),
     });
-    print('Message added: $message');
-    print(
-        'Current scroll extent: ${_scrollController.position.maxScrollExtent}');
 
     // Scroll to the end of the list after adding a new message
     _scrollController.animateTo(
@@ -791,5 +825,6 @@ class ChatWidgetState extends State<Chat> {
       duration: Duration(milliseconds: 300),
       curve: Curves.easeOut,
     );
+    setState(() {});
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -12,13 +13,15 @@ class Dashboard extends StatefulWidget {
   _DashboardState createState() => _DashboardState();
   final String? user;
   final String? email;
-  final String? photoURL;
+  final String photoURL;
+  final String url;
 
   const Dashboard(
       {Key? key,
       required this.user,
       required this.email,
-      required this.photoURL})
+      required this.photoURL,
+      required this.url})
       : super(key: key);
 }
 
@@ -60,14 +63,25 @@ class _DashboardState extends State<Dashboard> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  ClipRRect(
-                                      borderRadius: BorderRadius.circular(15),
-                                      child: Image.network(
-                                        widget.photoURL!,
-                                        width: 2 * 15,
-                                        height: 2 * 15,
-                                        fit: BoxFit.cover,
-                                      )),
+                                  widget.url == "true"
+                                      ? ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          child: Image.network(
+                                            widget.photoURL!,
+                                            width: 2 * 15,
+                                            height: 2 * 15,
+                                            fit: BoxFit.cover,
+                                          ))
+                                      : ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          child: Image.asset(
+                                            "assets/senior.png",
+                                            width: 2 * 15,
+                                            height: 2 * 15,
+                                            fit: BoxFit.cover,
+                                          )),
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,

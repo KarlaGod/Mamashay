@@ -6,18 +6,24 @@ class ChatNotificationDiv extends StatelessWidget {
   final String messager;
   final String details;
   final String time;
+  final String chatId;
+  final String userId;
+  final String otherUserId;
 
   ChatNotificationDiv(
       {required this.ImageUrl,
       required this.messager,
       required this.details,
-      required this.time});
+      required this.time,
+      required this.chatId,
+      required this.userId,
+      required this.otherUserId});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          GoRouter.of(context).go('/chat');
+          GoRouter.of(context).go('/chat/:${chatId}');
         },
         child: Container(
             child: Padding(

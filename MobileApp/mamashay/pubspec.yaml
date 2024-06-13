@@ -39,6 +39,7 @@ dependencies:
   cloud_firestore: ^4.17.4
   flutter_web_auth: ^0.4.0
   uni_links: ^0.5.1
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:
