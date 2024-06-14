@@ -10,6 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import '../SignUp/GoogleAuth.dart';
+import './email_password_signIn.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -18,11 +19,44 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final _SignInKey = GlobalKey<FormState>();
-  String? _name = '';
-  String? _password = '';
+  String email = '';
+  String _password = '';
+  String? url = '';
   final TwitterSignInProvider _twitterSignInProvider = TwitterSignInProvider();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleAuthService _authService = GoogleAuthService();
+
+  Future<void> signIn(
+      BuildContext context, String email, String _password) async {
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: _password,
+      );
+
+      User? user = userCredential.user;
+      print(user);
+      if (user != null) {
+        // Navigate to the next screen upon successful sign-in
+
+        url = "false";
+        GoRouter.of(context).go(
+            '/dashboard/${Uri.encodeComponent(user.displayName ?? "")}/${Uri.encodeComponent(user.email!)}',
+            extra: {
+              'photoURL': "",
+              'url': url,
+            });
+      }
+    } catch (e) {
+      // Handle sign-in errors here
+      print('Failed to sign in: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text('Failed to sign in. Please check your credentials.')),
+      );
+    }
+  }
 
   Future<void> _authenticate(BuildContext context) async {
     try {
@@ -47,8 +81,13 @@ class _SignInState extends State<SignIn> {
             : username = user.displayName?.split(" ");
         print(user.email);
 
-        GoRouter.of(context).go('/dashboard/${username?[0]}/${user.email}',
-            extra: user.photoURL);
+        url = "true";
+        GoRouter.of(context).go(
+            '/dashboard/${Uri.encodeComponent(username![0] ?? "")}/${Uri.encodeComponent(user.email!)}',
+            extra: {
+              'photoURL': user.photoURL,
+              'url': url,
+            });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Authentication failed')),
@@ -149,18 +188,18 @@ class _SignInState extends State<SignIn> {
                                             Color.fromRGBO(172, 194, 112, 1)),
                                     borderRadius: BorderRadius.circular(15.0),
                                   ),
-                                  labelText: 'Username',
+                                  labelText: 'Email',
                                   labelStyle: TextStyle(
                                       color: Color.fromRGBO(172, 194, 112, 1)),
                                 ),
                                 validator: (value) {
                                   if (value == null) {
-                                    return 'Please enter your password';
+                                    return 'Please enter your email';
                                   }
                                   return null;
                                 },
                                 onSaved: (value) {
-                                  _name = value;
+                                  email = value!;
                                 },
                               ),
                             )),
@@ -201,7 +240,7 @@ class _SignInState extends State<SignIn> {
                                   return null;
                                 },
                                 onSaved: (value) {
-                                  _password = value;
+                                  _password = value!;
                                 },
                               ),
                             )),
@@ -221,20 +260,10 @@ class _SignInState extends State<SignIn> {
                                                           24.0),
                                                   child: ElevatedButton(
                                                     onPressed: () {
-                                                      if (_SignInKey
-                                                                  .currentState !=
-                                                              null &&
-                                                          _SignInKey
-                                                              .currentState!
-                                                              .validate()) {
-                                                        _SignInKey.currentState!
-                                                            .save();
-                                                        // Process the form data
-                                                        GoRouter.of(context)
-                                                            .go('/dashboard');
-                                                        print(_name);
-                                                        print(_password);
-                                                      }
+                                                      // Process the form data
+
+                                                      signInWithEmailPassword(
+                                                          email, _password);
                                                     },
                                                     style: ElevatedButton
                                                         .styleFrom(
@@ -418,9 +447,14 @@ class _SignInState extends State<SignIn> {
                                                       user.displayName;
                                                   List<String>? username =
                                                       value?.split(" ");
+                                                  url = "true";
                                                   GoRouter.of(context).go(
-                                                      '/dashboard/${username?[0]}/${user.email}',
-                                                      extra: user.photoURL);
+                                                      '/dashboard/${Uri.encodeComponent(username![0] ?? "")}/${Uri.encodeComponent(user.email!)}',
+                                                      extra: {
+                                                        'photoURL':
+                                                            user.photoURL,
+                                                        'url': url,
+                                                      });
                                                 } else {
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(

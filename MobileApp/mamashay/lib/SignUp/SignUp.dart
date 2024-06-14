@@ -65,8 +65,13 @@ class _SignUpState extends State<SignUp> {
             : username = user.displayName?.split(" ");
         print(user.email);
 
-        GoRouter.of(context).go('/dashboard/${username?[0]}/${user.email}',
-            extra: user.photoURL);
+        url = "true";
+        GoRouter.of(context).go(
+            '/dashboard/${Uri.encodeComponent(username![0] ?? "")}/${Uri.encodeComponent(user.email!)}',
+            extra: {
+              'photoURL': photoURL,
+              'url': url,
+            });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Authentication failed')),
@@ -570,9 +575,18 @@ class _SignUpState extends State<SignUp> {
                                                         user.displayName;
                                                     List<String>? username =
                                                         value?.split(" ");
+                                                    // GoRouter.of(context).go(
+                                                    //     '/dashboard/${username?[0]}/${user.email}',
+                                                    //     extra: user.photoURL);
+
+                                                    url = "true";
                                                     GoRouter.of(context).go(
-                                                        '/dashboard/${username?[0]}/${user.email}',
-                                                        extra: user.photoURL);
+                                                        '/dashboard/${Uri.encodeComponent(username![0] ?? "")}/${Uri.encodeComponent(user.email!)}',
+                                                        extra: {
+                                                          'photoURL':
+                                                              user.photoURL,
+                                                          'url': url,
+                                                        });
                                                   } else {
                                                     ScaffoldMessenger.of(
                                                             context)

@@ -251,15 +251,15 @@ class _ChatNotificationState extends State<ChatNotifications> {
                         otherUserId: chat.otherUserId,
                       ))
                   .toList(),
-              // ChatNotificationDiv(
-              //   ImageUrl: 'assets/senior.png',
-              //   messager: "",
-              //   time: "8:00 pm",
-              //   details: "",
-              //   chatId: '0',
-              //   userId: widget.userId,
-              //   otherUserId: '0',
-              // )
+              ChatNotificationDiv(
+                ImageUrl: 'assets/senior.png',
+                messager: "",
+                time: "8:00 pm",
+                details: "",
+                chatId: '0',
+                userId: widget.userId,
+                otherUserId: '0',
+              )
             ],
           ),
         ),

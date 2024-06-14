@@ -9,6 +9,8 @@ import '../review/_review/_review_buttom_sheet.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:io';
 import './chatModel.dart';
+import '../userOperations/chatQuery/create_chat.dart';
+import 'dart:async';
 
 class ChatScreen extends StatefulWidget {
   final String chatId;
@@ -27,10 +29,20 @@ class ChatScreen extends StatefulWidget {
 
 class ChatWidgetState extends State<ChatScreen> {
   final User? _user = FirebaseAuth.instance.currentUser;
-
+  final FirestoreService _firestoreService = FirestoreService();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final ScrollController _scrollController = ScrollController();
   TextEditingController _controller = TextEditingController();
+  List<Map<String, dynamic>> _chats = [];
+  List<Map<String, dynamic>> messagesList = [];
+  String? _currentChatId;
   File? _image;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchChats();
+  }
 
   Future<void> _pickImage() async {
     final picker = ImagePicker();
@@ -41,6 +53,46 @@ class ChatWidgetState extends State<ChatScreen> {
         _image = File(pickedFile.path);
       });
     }
+  }
+
+  //A function for converting from 'List<Map<String, dynamic>>' to 'Stream<Object?>?' inside streambuilder widget
+  Stream<Object?>? convertListToStream(List<Map<String, dynamic>> list) {
+    final controller = StreamController<Object?>();
+    for (var item in list) {
+      controller.add(item);
+    }
+    controller.close();
+    return controller.stream;
+  }
+
+  //A function for creating new chat
+  void _createChat(String message) {
+    String userId1 = widget.userId;
+    String userId2 = 'user2Id';
+
+    _firestoreService.addChat(userId1, userId2, message);
+  }
+
+  //A function for fetching chats
+  void _fetchChats() async {
+    // Example user IDs
+    String userId1 = widget.userId;
+    String userId2 = 'user2Id';
+
+    List<Map<String, dynamic>> chats =
+        await _firestoreService.getChats(userId1, userId2);
+
+    setState(() {
+      _chats = chats;
+      if (_chats.isNotEmpty) {
+        _currentChatId = _chats.first['id'];
+
+        print(
+            "child ID isnt emptyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy............................");
+      } else {
+        _currentChatId = null;
+      }
+    });
   }
 
   void _showSlideTransitionDialog(BuildContext context) {
@@ -594,63 +646,84 @@ class ChatWidgetState extends State<ChatScreen> {
                           DescriptionWidget(),
                         ])),
                     Expanded(
-                      child: StreamBuilder(
-                        stream: FirebaseFirestore.instance
-                            .collection('chats')
-                            .doc(widget.chatId)
-                            .collection('messages')
-                            .orderBy('timestamp', descending: true)
-                            .snapshots(),
-                        builder:
-                            (ctx, AsyncSnapshot<QuerySnapshot> chatSnapshot) {
-                          if (chatSnapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Center(child: CircularProgressIndicator());
-                          }
-                          final chatDocs = chatSnapshot.data?.docs;
-                          return ListView.builder(
-                            controller: _scrollController,
-                            reverse: true,
-                            itemCount: chatDocs?.length,
-                            itemBuilder: (ctx, index) {
-                              final messageData = chatDocs?[index].data()
-                                  as Map<String, dynamic>;
-                              final message = chatDocs![index];
-                              return ListTile(
-                                title: Align(
-                                  alignment:
-                                      message['senderId'] == widget.userId
-                                          ? Alignment.centerRight
-                                          : Alignment.centerLeft,
-                                  child: Container(
-                                    constraints: BoxConstraints(
-                                      minWidth: 50,
-                                      maxWidth: 200,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color:
-                                          message['senderId'] == widget.userId
-                                              ? Color.fromRGBO(107, 123, 66, 1)
-                                              : Colors.grey[200],
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                    padding: EdgeInsets.all(8),
-                                    child: Text(
-                                      message['text'],
-                                      style: TextStyle(
-                                        color:
-                                            message['senderId'] == widget.userId
-                                                ? Colors.white
-                                                : Colors.black,
+                      child: _currentChatId == null
+                          ? Center(child: Text('No chats available'))
+                          : StreamBuilder<List<Map<String, dynamic>>>(
+                              stream: Stream.value(
+                                  _chats), // Pass your data list here
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                }
+                                if (!snapshot.hasData ||
+                                    snapshot.data!.isEmpty) {
+                                  return Center(
+                                      child: Text('No messages available'));
+                                }
+
+                                // Extract messages from snapshot
+                                List<Map<String, dynamic>> messages =
+                                    snapshot.data!;
+
+                                return ListView.builder(
+                                  controller: _scrollController,
+                                  reverse:
+                                      true, // To display messages from bottom to top
+                                  itemCount: messages.length,
+                                  itemBuilder: (context, index) {
+                                    var messageData = messages[index];
+                                    var text = messageData['message'] ?? "";
+
+                                    var createdAt =
+                                        (messageData['createdAt'] as Timestamp?)
+                                            ?.toDate();
+
+                                    return ListTile(
+                                      subtitle: Text(
+                                        'Created at: ${createdAt?.toString() ?? 'Unknown'}',
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 10,
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
+                                      title: Align(
+                                        alignment: messageData['senderId'] ==
+                                                widget.userId
+                                            ? Alignment.centerRight
+                                            : Alignment.centerLeft,
+                                        child: Container(
+                                          constraints: BoxConstraints(
+                                            minWidth: 50,
+                                            maxWidth: 200,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: messageData['senderId'] ==
+                                                    widget.userId
+                                                ? Color.fromRGBO(
+                                                    107, 123, 66, 1)
+                                                : Colors.grey[200],
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                          ),
+                                          padding: EdgeInsets.all(8),
+                                          child: Text(
+                                            messageData['message'],
+                                            style: TextStyle(
+                                              color: messageData['senderId'] ==
+                                                      widget.userId
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            ),
                     ),
                     Container(
                         decoration: BoxDecoration(
@@ -809,15 +882,18 @@ class ChatWidgetState extends State<ChatScreen> {
 
     if (_controller.text.isEmpty) return;
 
-    FirebaseFirestore.instance
-        .collection('chats')
-        .doc(widget.chatId)
-        .collection('messages')
-        .add({
-      'text': _controller.text,
-      'senderId': widget.userId,
-      'timestamp': Timestamp.now(),
-    });
+    // FirebaseFirestore.instance
+    //     .collection('chats')
+    //     .doc(widget.chatId)
+    //     .collection('messages')
+    //     .add({
+    //   'text': _controller.text,
+    //   'senderId': widget.userId,
+    //   'timestamp': Timestamp.now(),
+    // });
+
+    _createChat(_controller.text);
+    _fetchChats();
 
     // Scroll to the end of the list after adding a new message
     _scrollController.animateTo(
