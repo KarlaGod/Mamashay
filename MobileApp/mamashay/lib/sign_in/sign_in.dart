@@ -10,7 +10,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import '../SignUp/GoogleAuth.dart';
-import './email_password_signIn.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -19,41 +20,59 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final _SignInKey = GlobalKey<FormState>();
-  String email = '';
-  String _password = '';
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   String? url = '';
+
   final TwitterSignInProvider _twitterSignInProvider = TwitterSignInProvider();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleAuthService _authService = GoogleAuthService();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<void> signIn(
-      BuildContext context, String email, String _password) async {
+  Future<void> _saveUserData(User user) async {
+    DocumentReference userRef = _firestore.collection('users').doc(user.uid);
+    DocumentSnapshot userDoc = await userRef.get();
+    if (!userDoc.exists) {
+      await userRef.set({
+        'name': user.displayName,
+        'email': user.email,
+        'profilePicture': user.photoURL,
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+    }
+  }
+
+  Future<void> _signIn() async {
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: _password,
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
       );
 
       User? user = userCredential.user;
-      print(user);
+      print(userCredential);
       if (user != null) {
-        // Navigate to the next screen upon successful sign-in
-
-        url = "false";
+        String displayName = user.displayName ?? 'User';
+        String userEmail = user.email ?? 'user@gmail.com';
+        _saveUserData(user);
         GoRouter.of(context).go(
-            '/dashboard/${Uri.encodeComponent(user.displayName ?? "")}/${Uri.encodeComponent(user.email!)}',
-            extra: {
-              'photoURL': "",
-              'url': url,
-            });
+          '/dashboard/${Uri.encodeComponent(displayName)}/${Uri.encodeComponent(userEmail)}',
+          extra: {
+            'photoURL': user.photoURL ?? "false", // Handle nullable photoURL
+            'url': 'some_url', // Replace with actual URL if needed
+          },
+        );
+      } else {
+        setState(() {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Authentication failed')),
+          );
+        });
       }
     } catch (e) {
-      // Handle sign-in errors here
-      print('Failed to sign in: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text('Failed to sign in. Please check your credentials.')),
+        SnackBar(content: Text('Error: $e')),
       );
     }
   }
@@ -68,6 +87,7 @@ class _SignInState extends State<SignIn> {
 
       final user = await _twitterSignInProvider.signInWithTwitter(context);
       if (user != null) {
+        _saveUserData(user);
         await ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
               content:
@@ -192,15 +212,7 @@ class _SignInState extends State<SignIn> {
                                   labelStyle: TextStyle(
                                       color: Color.fromRGBO(172, 194, 112, 1)),
                                 ),
-                                validator: (value) {
-                                  if (value == null) {
-                                    return 'Please enter your email';
-                                  }
-                                  return null;
-                                },
-                                onSaved: (value) {
-                                  email = value!;
-                                },
+                                controller: _emailController,
                               ),
                             )),
                             SizedBox(
@@ -233,15 +245,7 @@ class _SignInState extends State<SignIn> {
                                   labelStyle: TextStyle(
                                       color: Color.fromRGBO(172, 194, 112, 1)),
                                 ),
-                                validator: (value) {
-                                  if (value == null) {
-                                    return 'Please enter your password';
-                                  }
-                                  return null;
-                                },
-                                onSaved: (value) {
-                                  _password = value!;
-                                },
+                                controller: _passwordController,
                               ),
                             )),
                             Padding(
@@ -262,8 +266,7 @@ class _SignInState extends State<SignIn> {
                                                     onPressed: () {
                                                       // Process the form data
 
-                                                      signInWithEmailPassword(
-                                                          email, _password);
+                                                      _signIn();
                                                     },
                                                     style: ElevatedButton
                                                         .styleFrom(
@@ -436,6 +439,7 @@ class _SignInState extends State<SignIn> {
                                                     .signInWithGoogle();
                                                 print('\n\n\n ${user} \n\n\n');
                                                 if (user != null) {
+                                                  _saveUserData(user);
                                                   await ScaffoldMessenger.of(
                                                           context)
                                                       .showSnackBar(

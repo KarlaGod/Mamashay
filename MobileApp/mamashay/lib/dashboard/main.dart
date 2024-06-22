@@ -7,6 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'dart:ui';
 import '_widgets/vendors/_VendorScroll.dart';
 import '_widgets/products/productScroll.dart';
+import '_widgets/firestore_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -29,6 +31,84 @@ class _DashboardState extends State<Dashboard> {
   final _SignInKey = GlobalKey<FormState>();
   String? _name = '';
   String? _password = '';
+  final FirestoreService _firestoreService = FirestoreService();
+  List<Map<String, dynamic>> _users = [];
+  List<Map<String, dynamic>> _products = [];
+  bool _isLoading = true;
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+
+  Future<void> _createProduct(String name, String description, String imageURL,
+      String price, String userID) async {
+    try {
+      // Reference to the Firestore instance
+      DocumentReference userRef = _db.collection('users').doc(userID);
+
+      // Fetch the user document
+      DocumentSnapshot userDoc = await userRef.get();
+
+      // If the user document doesn't exist, create it
+
+      print(userDoc.data());
+      if (userDoc.exists) {
+        // Reference to the products collection
+        CollectionReference productsRef = _db.collection('products');
+
+        // Add a new product to the products collection
+        await productsRef.add({
+          'name': name,
+          'description': description,
+          'imageURL': imageURL,
+          'price': price,
+          'userId': userID,
+          'createdAt': FieldValue.serverTimestamp(),
+        });
+
+        print(
+            'Product created successfully.............................................................................................');
+      }
+    } catch (e) {
+      print('Error creating product: $e');
+    }
+  }
+
+  Future<void> _fetchUsers() async {
+    try {
+      List<Map<String, dynamic>> users = await _firestoreService.getUsers();
+      print(users);
+      setState(() {
+        _users = users;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to load users')),
+      );
+    }
+  }
+
+  Future<void> _fetchProducts() async {
+    try {
+      List<Map<String, dynamic>> products =
+          await _firestoreService.getProducts();
+
+      setState(() {
+        _products = products;
+        print("...........................................");
+        print("...........................................");
+        print(_products);
+        print("...........................................");
+        print("...........................................");
+        _isLoading = false;
+      });
+    } catch (e) {
+      print("...........................................");
+      print(e);
+      print("...........................................");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +120,14 @@ class _DashboardState extends State<Dashboard> {
     //     ),
     //   );
     // });
+    _fetchUsers();
+    _fetchProducts();
+    // _createProduct(
+    //     "Amala & Ewedu",
+    //     "THis is a palatable food, good for the body",
+    //     "https://www.google.com/url?sa=i&url=https%3A%2F%2Fopensauce.vendease.com%2Fculture%2Fthe-yassification-of-amala-by-upscale-restaurants-is-ruining-its-authenticity%2F&psig=AOvVaw2XPHI7jMJdM4uHXwCk6J_5&ust=1719141357893000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMCmpeKK74YDFQAAAAAdAAAAABAE",
+    //     "200",
+    //     "ELI22LU3KBMa39meoDq7ZANXLZp2");
 
     return Scaffold(
         appBar: null,
@@ -376,7 +464,11 @@ class _DashboardState extends State<Dashboard> {
                     onTap: () {
                       GoRouter.of(context).go('/chat_notifications');
                     },
-                    child: Vendors()),
+                    child: _isLoading
+                        ? Center(child: CircularProgressIndicator())
+                        : Vendors(
+                            users: _users,
+                          )),
                 SizedBox(
                   height: 30,
                 ),

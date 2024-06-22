@@ -18,6 +18,7 @@ import '../userOperations/creatUser.dart';
 
 import './twitterAuth.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
@@ -165,7 +166,7 @@ class _SignUpState extends State<SignUp> {
                                 ),
                                 validator: (value) {
                                   if (value == null) {
-                                    return 'Please enter your password';
+                                    return 'Please enter your name';
                                   }
                                   return null;
                                 },

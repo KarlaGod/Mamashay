@@ -32,11 +32,13 @@ import 'package:flutter_web_auth/flutter_web_auth.dart';
 
 void main() async {
 // ...
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(MyApp());
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+    runApp(MyApp());
+  } catch (e) {
+    print('Failed to initialize Firebase: $e');
+  }
 }
 
 // void main() async {
