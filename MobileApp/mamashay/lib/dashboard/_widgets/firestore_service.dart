@@ -18,6 +18,36 @@ class FirestoreService {
     }
   }
 
+  Future<Map<String, dynamic>?> getUserById(String userId) async {
+    try {
+      // Fetch the document with the specified userId from the 'users' collection
+      DocumentSnapshot docSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get();
+
+      // Check if the document exists
+      if (docSnapshot.exists) {
+        // Get the document data and add the document ID to the map
+        final data = await docSnapshot.data() as Map<String, dynamic>;
+        print(data);
+        data['id'] = docSnapshot.id;
+        return data;
+      } else {
+        // Return null if the document does not exist
+        print(
+            "user does not exist..............................................................");
+
+        return null;
+      }
+    } catch (e) {
+      // Log the error for debugging purposes
+      print('Error getting user by ID: $e');
+      // Rethrow the error to allow it to be handled further up the call stack if necessary
+      throw e;
+    }
+  }
+
   Future<List<Map<String, dynamic>>> getProducts() async {
     try {
       QuerySnapshot querySnapshot = await _db.collection('products').get();

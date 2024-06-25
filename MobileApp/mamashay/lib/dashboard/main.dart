@@ -33,10 +33,13 @@ class _DashboardState extends State<Dashboard> {
   String? _password = '';
   final FirestoreService _firestoreService = FirestoreService();
   List<Map<String, dynamic>> _users = [];
+  Map<String, dynamic>? _user;
   List<Map<String, dynamic>> _products = [];
   bool _isLoading = true;
+  bool _isLoadingProducts = true;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
+  // A function created for the purpose of creating new products
   Future<void> _createProduct(String name, String description, String imageURL,
       String price, String userID) async {
     try {
@@ -48,7 +51,6 @@ class _DashboardState extends State<Dashboard> {
 
       // If the user document doesn't exist, create it
 
-      print(userDoc.data());
       if (userDoc.exists) {
         // Reference to the products collection
         CollectionReference productsRef = _db.collection('products');
@@ -71,10 +73,11 @@ class _DashboardState extends State<Dashboard> {
     }
   }
 
+  //A function created for fetching users from firestore Database
   Future<void> _fetchUsers() async {
     try {
       List<Map<String, dynamic>> users = await _firestoreService.getUsers();
-      print(users);
+
       setState(() {
         _users = users;
         _isLoading = false;
@@ -89,21 +92,72 @@ class _DashboardState extends State<Dashboard> {
     }
   }
 
+  Future<Map<String, dynamic>?> _fetchUser(String userID) async {
+    try {
+      Map<String, dynamic>? user = await _firestoreService.getUserById(userID);
+
+      _user = user;
+      return user; // Added return statement
+    } catch (e) {
+      print("Error fetching user: $e"); // Improved error handling
+      return null; // Return null in case of an error
+    }
+  }
+
+  // Future<void> _fetchProducts2() async {
+  //   try {
+  //     // Fetch products
+  //     List<Map<String, dynamic>> products =
+  //         await _firestoreService.getProducts();
+
+  //     // Fetch user data for each product in parallel
+  //     await Future.forEach(products, (Map<String, dynamic> product) async {
+  //       product["userData"] =
+  //           await _firestoreService.getUserById(product["userId"]);
+  //     });
+
+  //     // Update the state with the fetched products and user data
+  //     setState(() {
+  //       _products = products;
+  //       _isLoading = false;
+  //     });
+  //   } catch (e) {
+  //     print("...........................................");
+  //     print(e);
+  //     print("...........................................");
+  //     setState(() {
+  //       _isLoading = false; // Stop loading indicator in case of an error
+  //     });
+  //   }
+  // }
+
+  //A function created for fetching products Database
   Future<void> _fetchProducts() async {
     try {
       List<Map<String, dynamic>> products =
           await _firestoreService.getProducts();
 
+      // _products.clear();
+
+      for (Map<String, dynamic> product in products) {
+        product["userData"] =
+            await _firestoreService.getUserById(product["userId"]);
+        // _products.add(product);
+      }
+      _products = products;
+      print(products);
       setState(() {
         _products = products;
-        print("...........................................");
-        print("...........................................");
-        print(_products);
-        print("...........................................");
-        print("...........................................");
-        _isLoading = false;
+
+        _isLoadingProducts = false;
       });
     } catch (e) {
+      setState(() {
+        _isLoadingProducts = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to load users')),
+      );
       print("...........................................");
       print(e);
       print("...........................................");
@@ -123,9 +177,9 @@ class _DashboardState extends State<Dashboard> {
     _fetchUsers();
     _fetchProducts();
     // _createProduct(
-    //     "Amala & Ewedu",
+    //     "Jellof Rice",
     //     "THis is a palatable food, good for the body",
-    //     "https://www.google.com/url?sa=i&url=https%3A%2F%2Fopensauce.vendease.com%2Fculture%2Fthe-yassification-of-amala-by-upscale-restaurants-is-ruining-its-authenticity%2F&psig=AOvVaw2XPHI7jMJdM4uHXwCk6J_5&ust=1719141357893000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMCmpeKK74YDFQAAAAAdAAAAABAE",
+    //     "https://cdn.jwplayer.com/v2/media/BRU94itM/poster.jpg?width=720",
     //     "200",
     //     "ELI22LU3KBMa39meoDq7ZANXLZp2");
 
@@ -590,7 +644,9 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       ],
                     )),
-                Products(),
+                _isLoading
+                    ? Center(child: CircularProgressIndicator())
+                    : Products(products: _products),
               ]),
             )));
   }

@@ -3,10 +3,23 @@ import 'package:go_router/go_router.dart';
 import 'package:mamashay/dashboard/_widgets/products/_popup.dart';
 
 class Product extends StatelessWidget {
-  // final String ImageUrl;
-  // final String name;
+  final String name;
+  final String photoURL;
+  final String price;
+  final String description;
+  final String userPhotoURL;
+  final String displayName;
+  final String userId;
 
-  // Product({required this.ImageUrl, required this.name});
+  Product({
+    required this.photoURL,
+    required this.name,
+    required this.price,
+    required this.description,
+    required this.userPhotoURL,
+    required this.displayName,
+    required this.userId,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +40,8 @@ class Product extends StatelessWidget {
                       children: [
                         ClipRRect(
                             borderRadius: BorderRadius.circular(15),
-                            child: Image.asset(
-                              'assets/man.png',
+                            child: Image.network(
+                              userPhotoURL,
                               width: 2 * 10,
                               height: 2 * 10,
                               fit: BoxFit.cover,
@@ -38,7 +51,7 @@ class Product extends StatelessWidget {
                         ),
                         Text(
                           textAlign: TextAlign.center,
-                          'Fredo Miller',
+                          displayName,
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
@@ -51,8 +64,9 @@ class Product extends StatelessWidget {
                     ),
                     ClipRRect(
                         borderRadius: BorderRadius.circular(7),
-                        child: Image.asset(
-                          'assets/chicken.png',
+                        child: Image.network(
+                          photoURL,
+                          // 'assets/chicken.png',
                           width: 2 * 70,
                           height: 2 * 40,
                           fit: BoxFit.cover,
@@ -62,7 +76,8 @@ class Product extends StatelessWidget {
                     ),
                     Text(
                         textAlign: TextAlign.center,
-                        'Jollof Rice & Chicken',
+                        name,
+                        // 'Jollof Rice & Chicken',
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -119,7 +134,7 @@ class Product extends StatelessWidget {
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                       Text(
                         // textAlign: TextAlign.left,
-                        'N7000',
+                        'N' + price,
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w700,
@@ -144,7 +159,15 @@ class Product extends StatelessWidget {
                                       return FractionallySizedBox(
                                         heightFactor:
                                             0.75, // Half of the screen height
-                                        child: PopUp(),
+                                        child: PopUp(
+                                          name: name,
+                                          photoURL: photoURL,
+                                          description: description,
+                                          price: price,
+                                          userId: userId,
+                                          userPhotoURL: userPhotoURL,
+                                          displayName: displayName,
+                                        ),
                                       );
                                     });
                               },

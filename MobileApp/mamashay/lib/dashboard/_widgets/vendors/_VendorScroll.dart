@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import './_vendor.dart'; // Import your custom Vendor widget
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Vendors extends StatelessWidget {
   final List<Map<String, dynamic>> users;
@@ -21,11 +20,10 @@ class Vendors extends StatelessWidget {
           Map<String, dynamic> user = users[index];
 
           return Vendor(
-            ImageUrl: user["profilePicture"] == null
-                ? './assets/man.png'
-                : user["profilePicture"],
+            imageUrl: user["profilePicture"] ?? './assets/man.png',
             name: user["name"] == null ? "New User" : user['name'],
-            id: user['id'],
+            id: "aaaa",
+            email: user["email"] == null ? "Newuser@gmail.com" : user['email'],
             isUrl: user["profilePicture"] == null ? "false" : "true",
           );
         },

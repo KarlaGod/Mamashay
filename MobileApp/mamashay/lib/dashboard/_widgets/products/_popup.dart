@@ -1,7 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../chat/chat.dart';
 
 class PopUp extends StatefulWidget {
+  final String name;
+  final String photoURL;
+  final String price;
+  final String description;
+  final String userPhotoURL;
+  final String displayName;
+  final String userId;
+
+  PopUp({
+    required this.photoURL,
+    required this.name,
+    required this.price,
+    required this.description,
+    required this.userPhotoURL,
+    required this.displayName,
+    required this.userId,
+  });
   @override
   PopUpWidgetState createState() => PopUpWidgetState();
 }
@@ -38,8 +56,8 @@ class PopUpWidgetState extends State<PopUp> {
                           children: [
                             ClipRRect(
                                 borderRadius: BorderRadius.circular(15),
-                                child: Image.asset(
-                                  'assets/senior.png',
+                                child: Image.network(
+                                  widget.userPhotoURL,
                                   width: 2 * 15,
                                   height: 2 * 15,
                                   fit: BoxFit.cover,
@@ -48,7 +66,7 @@ class PopUpWidgetState extends State<PopUp> {
                               padding: EdgeInsets.fromLTRB(8, 0, 10,
                                   0), // Add padding of 20.0 to all sides
                               child: Text(
-                                'Emeka Jordan',
+                                widget.displayName,
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w400,
@@ -159,8 +177,8 @@ class PopUpWidgetState extends State<PopUp> {
                   borderRadius: BorderRadius.circular(
                       15.0), // Optional: Add border radius
                   image: DecorationImage(
-                    image: AssetImage(
-                        'assets/chicken.png'), // Replace 'your_image.jpg' with your image asset
+                    image: NetworkImage(widget
+                        .photoURL), // Replace 'your_image.jpg' with your image asset
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -179,7 +197,7 @@ class PopUpWidgetState extends State<PopUp> {
                         children: [
                           Text(
                             // textAlign: TextAlign.left,
-                            'N17,000.00',
+                            'N' + widget.price,
                             style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.w700,
@@ -269,7 +287,7 @@ class PopUpWidgetState extends State<PopUp> {
               child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 Text(
                   // textAlign: TextAlign.left,
-                  'Homemade Goat Meat Pepper Soup, White \nRice, Snail Stew, Fresh Veggies Included. \nFor Breakfast, Lunch Or Dinner...',
+                  widget.description,
                   style: TextStyle(
                       fontSize: 19,
                       fontWeight: FontWeight.w600,
@@ -491,6 +509,11 @@ class PopUpWidgetState extends State<PopUp> {
                             child: ElevatedButton(
                           onPressed: () {
                             _message(true);
+                            final ChatScreen _chat = ChatScreen(
+                              userId: widget.userId,
+                              otherUserId: widget.userId,
+                              chatId: "",
+                            );
                           },
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all<
