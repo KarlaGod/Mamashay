@@ -1,17 +1,16 @@
 import 'dart:async';
-import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mamashay/orders/_widgets/product_view.dart';
 import 'dart:ui';
-import '../../orders/main.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import '../../../dashboard/_widgets/firestore_service.dart';
 
-import '../../dashboard/_widgets/firestore_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-class UserProfile extends StatefulWidget {
+class MainUserProfile extends StatefulWidget {
   @override
   _DashboardState createState() => _DashboardState();
   final String? name;
@@ -20,7 +19,7 @@ class UserProfile extends StatefulWidget {
   final String photoURL;
   final String url;
 
-  const UserProfile(
+  const MainUserProfile(
       {Key? key,
       required this.name,
       required this.email,
@@ -30,7 +29,7 @@ class UserProfile extends StatefulWidget {
       : super(key: key);
 }
 
-class _DashboardState extends State<UserProfile> {
+class _DashboardState extends State<MainUserProfile> {
   final FirestoreService _firestoreService = FirestoreService();
   // List<Map<String, dynamic>> _users = [];
   Map<String, dynamic>? _user;
@@ -39,6 +38,19 @@ class _DashboardState extends State<UserProfile> {
   // A function created for the purpose of creating new products
 
   //A function created for fetching users from firestore Database
+
+  File? _image;
+
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
 
   Future<Map<String, dynamic>?> _fetchUser(String userID) async {
     try {
@@ -324,7 +336,7 @@ class _DashboardState extends State<UserProfile> {
                               ),
                             ),
                             child: Text(
-                              'Message',
+                              'Edit Profile',
                               style: TextStyle(
                                 fontSize: 16.0, // You can adjust the font size
                                 color: Colors.white,
@@ -456,7 +468,70 @@ class _DashboardState extends State<UserProfile> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(15, 30, 15, 0),
+                    padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
+                    child: Container(
+                        // width: 200,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border(
+                            left: BorderSide(
+                              color: Color.fromARGB(125, 231, 230, 230),
+                              width: 1.0,
+                            ),
+                            right: BorderSide(
+                              color: Color.fromARGB(125, 231, 230, 230),
+                              width: 1.0,
+                            ),
+                            top: BorderSide(
+                              color: Color.fromARGB(125, 231, 230, 230),
+                              width: 1.0,
+                            ),
+                            bottom: BorderSide(
+                              color: Color.fromARGB(125, 231, 230, 230),
+                              width: 1.0,
+                            ),
+                          ),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15),
+                            bottomRight: Radius.circular(15),
+                            bottomLeft: Radius.circular(15),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                child: AspectRatio(
+                                  aspectRatio: 8 / 2,
+                                  // Define your aspect ratio
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        _pickImage();
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                              15.0), // Optional: Add border radius
+                                          image: DecorationImage(
+                                            image: AssetImage(
+                                                'assets/upload_image_banner.png'), // Replace 'your_image.jpg' with your image asset
+                                            // fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      )),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ))),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
                   child: Container(
                       // width: 200,
                       height: 50,
@@ -502,7 +577,7 @@ class _DashboardState extends State<UserProfile> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            "Available Products",
+                                            "Your Shop",
                                             style: TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold,
@@ -517,26 +592,129 @@ class _DashboardState extends State<UserProfile> {
                 SizedBox(
                   height: 15,
                 ),
-                Container(
-                    height: 600,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          ProductView(),
-                          ProductView(),
-                          ProductView(),
-                          ProductView(),
-                          ProductView(),
-                          ProductView(),
-                          ProductView(),
-                          ProductView(),
-                          ProductView(),
-                          ProductView(),
-                          ProductView(),
-                          ProductView(),
-                        ],
+                Padding(
+                  padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  child: Container(
+                      // width: 200,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                          left: BorderSide(
+                            color: Color.fromARGB(125, 231, 230, 230),
+                            width: 1.0,
+                          ),
+                          right: BorderSide(
+                            color: Color.fromARGB(125, 231, 230, 230),
+                            width: 1.0,
+                          ),
+                          top: BorderSide(
+                            color: Color.fromARGB(125, 231, 230, 230),
+                            width: 1.0,
+                          ),
+                          bottom: BorderSide(
+                            color: Color.fromARGB(125, 231, 230, 230),
+                            width: 1.0,
+                          ),
+                        ),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15),
+                          bottomRight: Radius.circular(15),
+                          bottomLeft: Radius.circular(15),
+                        ),
                       ),
-                    ))
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                child: GestureDetector(
+                                    onTap: () {},
+                                    child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width -
+                                                  60,
+                                              height: 25,
+                                              decoration: BoxDecoration(
+                                                  border: Border(
+                                                      bottom: BorderSide(
+                                                          color: Color.fromRGBO(
+                                                              204,
+                                                              204,
+                                                              204,
+                                                              0.3)))),
+                                              child: Text(
+                                                "My Account",
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Color.fromRGBO(
+                                                        107, 123, 66, 1)),
+                                              )),
+                                          Container(
+                                            child: Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    5, 20, 10, 10),
+                                                child: Container(
+                                                    width: 100,
+                                                    height: 100,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      color: Color.fromRGBO(
+                                                          107, 123, 66, 0.06),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsets.all(20),
+                                                      child: Column(
+                                                        children: [
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20),
+                                                            child: Image.asset(
+                                                              "assets/person.png",
+                                                              width: 2 * 20,
+                                                              height: 2 * 20,
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 20,
+                                                          ),
+                                                          Text(
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            "Personal Data",
+                                                            style: TextStyle(
+                                                                color: Color
+                                                                    .fromRGBO(
+                                                                        179,
+                                                                        179,
+                                                                        179,
+                                                                        1)),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ))),
+                                          )
+                                        ])))
+                          ],
+                        ),
+                      )),
+                ),
               ]),
             ]))));
   }

@@ -24,6 +24,7 @@ import './splash_screen/pageview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import './users/profile/main.dart';
 import './splash_screen/loginSignupSlide.dart';
+import './users/main_user/profile/main.dart';
 
 void main() async {
 // ...
@@ -163,6 +164,27 @@ final router = GoRouter(
       path: '/settings',
       builder: (context, state) {
         return Settings();
+      },
+    ),
+
+    GoRoute(
+      path: '/userprofile/:name/:email',
+      builder: (context, state) {
+        final user = state.pathParameters['name'];
+        // final id = state.pathParameters['id']!;
+        final email = state.pathParameters['email'];
+        final Map<String, String?> extraParams =
+            state.extra as Map<String, String?>;
+        final photoURL = extraParams['photoURL'];
+        final url = extraParams['url'];
+
+        return MainUserProfile(
+          name: user,
+          email: email,
+          // id: id,
+          photoURL: photoURL!,
+          url: url!,
+        );
       },
     ),
     GoRoute(

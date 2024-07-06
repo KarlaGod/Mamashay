@@ -206,24 +206,48 @@ class _DashboardState extends State<Dashboard> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   widget.url == "true"
-                                      ? ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                          child: Image.network(
-                                            widget.photoURL!,
-                                            width: 2 * 15,
-                                            height: 2 * 15,
-                                            fit: BoxFit.cover,
-                                          ))
-                                      : ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                          child: Image.asset(
-                                            "assets/senior.png",
-                                            width: 2 * 15,
-                                            height: 2 * 15,
-                                            fit: BoxFit.cover,
-                                          )),
+                                      ? IconButton(
+                                          onPressed: () {
+                                            GoRouter.of(context).go(
+                                              '/userprofile/${Uri.encodeComponent(widget.user!)}/${Uri.encodeComponent(widget.email!)}',
+                                              extra: {
+                                                'photoURL': widget
+                                                    .photoURL, // Handle nullable photoURL
+                                                'url': widget
+                                                    .url, // Replace with actual URL if needed
+                                              },
+                                            );
+                                          },
+                                          icon: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              child: Image.network(
+                                                widget.photoURL!,
+                                                width: 2 * 15,
+                                                height: 2 * 15,
+                                                fit: BoxFit.cover,
+                                              )))
+                                      : IconButton(
+                                          onPressed: () {
+                                            GoRouter.of(context).go(
+                                              '/userprofile/${Uri.encodeComponent(widget.user!)}/${Uri.encodeComponent(widget.email!)}',
+                                              extra: {
+                                                'photoURL': widget
+                                                    .photoURL, // Handle nullable photoURL
+                                                'url': widget
+                                                    .url, // Replace with actual URL if needed
+                                              },
+                                            );
+                                          },
+                                          icon: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              child: Image.asset(
+                                                "assets/senior.png",
+                                                width: 2 * 15,
+                                                height: 2 * 15,
+                                                fit: BoxFit.cover,
+                                              ))),
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
