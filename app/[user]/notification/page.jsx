@@ -15,7 +15,7 @@ const page = () => {
             navLinks.map((link, index) => {
               return(
                 <div className='flex' key={index}>
-                  <Link href={link.link} className='p-2 bg-sign rounded-full flex justify-center h-7 w-7'><Image src={link.icon} alt='...' width={15} height={15} /></Link><div className='h-2 w-2 -ml-2 bg-yellow rounded-full'></div>
+                  <Link href={link.link} className='p-2 bg-sign rounded-full flex justify-center items-center h-10 w-10 after:h-2 after:w-2 after:absolute after:bg-yellow after:-mt-8 after:ml-6 after:rounded-full'><Image src={link.icon} alt='...' width={15} height={15} className='w-5 h-5' /></Link>
                 </div>
               )
             })
@@ -32,7 +32,7 @@ const page = () => {
               return(
                 <div className='bg-fborder rounded-lg flex justify-between items-center p-3 my-1' key={index}>
                   <div className='flex'>
-                  <p className='p-2 border bg-primary rounded-full flex justify-center h-fit w-fit mr-2'><Image src={notify.icon} alt='...' width={20} height={20} className='h-auto' /></p> 
+                  <p className='p-2 border bg-primary rounded-full flex justify-center items-center h-10 w-10 mr-2'><Image src={notify.icon} alt='...' width={20} height={20} className='h-5 w-5' /></p> 
                   <div>
                     <h1 className='text-sm font-semibold'>{notify.title}</h1>
                     <p className='text-xs'>{notify.message}</p>
@@ -57,7 +57,7 @@ const page = () => {
               return(
                 <div className='flex justify-between items-center p-3 my-1' key={index}>
                   <div className='flex'>
-                  <p className='p-2 border bg-primary rounded-full flex justify-center h-fit w-fit mr-2'><Image src={notify.icon} alt='...' width={20} height={20} className='h-auto' /></p> 
+                  <p className='p-2 border bg-primary rounded-full flex justify-center items-center h-10 w-10 mr-2'><Image src={notify.icon} alt='...' width={20} height={20} className='h-5 w-5' /></p> 
                   <div>
                     <h1 className='text-sm font-semibold'>{notify.title}</h1>
                     <p className='text-xs'>{notify.message}</p>

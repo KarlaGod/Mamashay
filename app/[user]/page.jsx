@@ -44,10 +44,10 @@ const Page = () => {
                 alt="..."
                 width={40}
                 height={40}
-                className="rounded-full"
+                className="rounded-full h-14 w-14"
               />
             </div>
-            <div className="border-l border-colort h-fit p-2">
+            <div className="after:content-[''] after:w-[.1rem] after:h-6 after:bg-colort after:absolute after:-mt-8 after:-ms-3 h-fit p-2">
               <h1 className="text-sm font-semibold">Emeka Jordan</h1>
               <p className="text-xs">User</p>
             </div>
@@ -55,25 +55,24 @@ const Page = () => {
           <div className="flex gap-2 p-3">
             <Link
               href="../user/chats"
-              className="p-2 bg-sign rounded-full flex justify-center h-fit"
+              className="p-2 bg-sign rounded-full flex justify-center items-center h-10 w-10 after:h-2 after:w-2 after:absolute after:bg-yellow after:-mt-8 after:ml-6 after:rounded-full"
             >
-              <Image src={message} alt="..." width={13} height={13} />
+              <Image src={message} alt="..." width={13} height={13} className="h-5 w-5" />
             </Link>
-            <div className="h-2 w-2 -ml-5 bg-yellow rounded-full"></div>
+            
             <Link
               href="../user/notification"
-              className="p-2 bg-sign rounded-full flex justify-center h-fit"
+              className="p-2 bg-sign rounded-full flex justify-center items-center h-10 w-10 after:h-2 after:w-2 after:absolute after:bg-yellow after:-mt-8 after:ml-6 after:rounded-full"
             >
-              <Image src={notification} alt="..." width={10} height={10} />
+              <Image src={notification} alt="..." width={10} height={10} className="h-5 w-5" />
             </Link>
-            <div className="h-2 w-2 -ml-5 bg-yellow rounded-full"></div>
+            
             <Link
               href="../user/settings"
-              className="p-2 bg-sign rounded-full flex justify-center h-fit"
+              className="p-2 bg-sign rounded-full flex justify-center items-center h-10 w-10 after:h-2 after:w-2 after:absolute after:bg-yellow after:-mt-8 after:ml-6 after:rounded-full"
             >
-              <Image src={setting} alt="..." width={13} height={13} />
+              <Image src={setting} alt="..." width={13} height={13} className="h-5 w-5" />
             </Link>
-            <div className="h-2 w-2 -ml-5 bg-yellow rounded-full"></div>
           </div>
         </header>
 
@@ -98,7 +97,7 @@ const Page = () => {
           onClick={() => setVisible(true)}
         >
           <div className="flex p-3 gap-2">
-            <div className="p-2 bg-primary rounded-full flex justify-center w-8 h-8">
+            <div className="p-2 bg-primary rounded-full flex justify-center items-center w-14 h-11">
               <Image src={filter} alt="..." width={15} height={15} />
             </div>
             <input
@@ -129,7 +128,7 @@ const Page = () => {
                   )
                 );
               }}
-              className="p-2 bg-primary rounded-full flex justify-center w-8 h-8"
+              className="p-2 bg-primary rounded-full flex justify-center items-center w-14 h-11"
             >
               <Image src={searc} alt="..." width={15} height={15} />
             </div>
@@ -160,7 +159,7 @@ const Page = () => {
             {vendors.map((vendor, index) => {
               return (
                 <div
-                  className="flex-none bg-fborder place-items-center mx-1 px-2 py-3 w-16 grid rounded-lg"
+                  className="flex-none bg-fborder place-items-center mx-1 px-2 py-3 h-32 w-24 grid rounded-lg"
                   key={index}
                 >
                   <Image
@@ -168,7 +167,7 @@ const Page = () => {
                     alt="..."
                     width={40}
                     height={40}
-                    className="rounded-full flex justify-center"
+                    className="rounded-full flex justify-center w-16 h-16"
                   />
                   <p className="text-xs mt-2">{vendor.name}</p>
                 </div>
@@ -183,19 +182,19 @@ const Page = () => {
           >
             <Link
               href="../user/chats"
-              className="flex px-5 py-2 justify-center items-center bg-fborder w-1/2 rounded-lg"
+              className="flex px-5 py-2 justify-center items-center bg-fborder h-14 w-1/2 rounded-lg"
             >
-              <Image src={message} alt="..." width={13} height={13} />
-              <p className="border-l border-colort text-sm text-primary ml-2 pl-2">
+              <Image src={message} alt="..." width={13} height={13} className="h-6 w-6" />
+              <p className="border-l border-colort text-md text-primary ml-2 pl-2">
                 Messages
               </p>
             </Link>
             <Link
               href="../user/orders"
-              className="flex px-5 py-2 justify-center items-center bg-fborder w-1/2 rounded-lg"
+              className="flex px-5 py-2 justify-center items-center bg-fborder h-14 w-1/2 rounded-lg"
             >
-              <Image src={cart} alt="..." width={13} height={13} />
-              <p className="border-l border-colort text-sm text-primary ml-2 pl-2">
+              <Image src={cart} alt="..." width={13} height={13} className="h-6 w-6" />
+              <p className="border-l border-colort text-md text-primary ml-2 pl-2">
                 Orders
               </p>
             </Link>
@@ -216,7 +215,7 @@ const Page = () => {
               return (
                 <div
                   key={index}
-                  className="flex-none bg-fborder p-2 mx-1 rounded-lg w-[130px]"
+                  className="flex-none bg-fborder p-2 mx-1 rounded-lg w-1/2 h-1/2"
                 >
                   <div className="flex items-center mb-2">
                     <Image
@@ -224,9 +223,9 @@ const Page = () => {
                       alt="..."
                       width={15}
                       height={15}
-                      className="rounded-full"
+                      className="rounded-full h-5 w-5"
                     />
-                    <p className="text-[10px] font-semibold ml-2 text-primary">
+                    <p className="text-xs font-semibold ml-2 text-primary">
                       {product.user}
                     </p>
                   </div>
@@ -235,7 +234,7 @@ const Page = () => {
                     alt="..."
                     width={130}
                     height={130}
-                    className="h-16 w-32"
+                    className="h-32 w-full"
                   />
                   <div>
                     <p className="text-[11px] font-bold mt-1 text-primary">

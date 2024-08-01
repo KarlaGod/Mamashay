@@ -20,7 +20,7 @@ const Page = () => {
             navLinks.map((link, index) => {
               return(
                 <div className='flex' key={index}>
-                  <Link href={link.link} className='p-2 bg-sign rounded-full flex justify-center h-7 w-7'><Image src={link.icon} alt='...' width={15} height={15} /></Link><div className={`h-2 w-2 -ml-2 bg-yellow rounded-full ${link ? 'hidden' : null }`}></div>
+                  <Link href={link.link} className='p-2 bg-sign rounded-full flex justify-center items-center h-10 w-10'><Image src={link.icon} alt='...' width={15} height={15} className='w-5 h-5' /></Link><div className={`h-2 w-2 -ml-2 bg-yellow rounded-full ${link ? 'hidden' : null }`}></div>
                 </div>
               )
             })
@@ -28,7 +28,7 @@ const Page = () => {
         </div>
       </div>
 
-      <div className='pt-24 px-3'>
+      <div className='pt-28 px-3'>
         <p className='py-3 border-b'>Language</p>
         <p className='py-3 border-b'>Updates</p>
         <p className='py-3 border-b'>Terms & Conditions</p>
@@ -38,9 +38,9 @@ const Page = () => {
         <p className='py-3 border-b'>App Version - 1.0</p>
       </div>
 
-      <div className='grid items-end justify-center text-center relative pb-5'>
-        <Image src={name} alt='...' width={140} height={140} className='-mb-8 ml-3' />
-        <div className='border-b w-fit px-5 text-xs'>
+      <div className='grid items-end w-full justify-center text-center fixed bottom-10'>
+        <Image src={name} alt='...' width={140} height={140} className='ml-2' />
+        <div className='border-b w-full px-5 text-xs'>
           <p className='w-fit px-1'>App Version - 1.0A</p>
           <p className='w-fit -mb-3 px-1 bg-secondary'>All rights reserved</p>
         </div>

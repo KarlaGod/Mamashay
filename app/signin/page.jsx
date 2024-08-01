@@ -45,7 +45,7 @@ const Page = () => {
                   <div className='bg-tertiary flex lg:hidden rounded-full' onClick={() => setShowModal(true)}><Image src={sprint} alt='...' width={20} height={20} className='h-10 w-10 p-2' /></div>
               </div>
           </form>
-          <p className='text-primary text-xs font-bold bg-secondary w-fit px-1 -mb-2'>Sign in with</p>
+          <p className='text-primary text-xs font-bold bg-secondary w-fit px-1 -mb-2 mx-auto'>Sign in with</p>
         </div>
         <div className='flex gap-3 mt-5'>
           <div className='p-2 border border-colort rounded-full flex justify-center'><Image src={google} alt='...' width={20} height={20} /></div>
