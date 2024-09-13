@@ -14,7 +14,7 @@ const Start = () => {
           <Image src={name} alt='...' width={250} height={250} className='h-20 w-60' />
         </div>
         <div className='flex justify-center'>
-          <button onClick={() => router.push('../signin')} className='py-2 px-5 bg-tertiary rounded-full'>Get Started</button>
+          <button onClick={() => router.push('../signin')} className='h-12 w-4/5 bg-tertiary rounded-full'>Get Started</button>
         </div>
     </main>
   )

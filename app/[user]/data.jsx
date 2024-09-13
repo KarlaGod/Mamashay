@@ -4,8 +4,8 @@ export const register = [
     password: "12345",
   },
   {
-    username: "blac",
-    password: "123",
+    username: "karla",
+    password: "1234",
   },
   {
     username: "saggio",

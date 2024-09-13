@@ -17,7 +17,8 @@ module.exports = {
         yellow: '#FBC134',
       },
       fontSize: {
-        sm: '14px'
+        xs: '14px',
+        sm: '16px',
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

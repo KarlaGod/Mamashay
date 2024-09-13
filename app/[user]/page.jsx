@@ -223,9 +223,9 @@ const Page = () => {
                       alt="..."
                       width={15}
                       height={15}
-                      className="rounded-full h-5 w-5"
+                      className="rounded-full h-8 w-8"
                     />
-                    <p className="text-xs font-semibold ml-2 text-primary">
+                    <p className="text-sm font-semibold ml-2 text-primary">
                       {product.user}
                     </p>
                   </div>
@@ -237,35 +237,35 @@ const Page = () => {
                     className="h-32 w-full"
                   />
                   <div>
-                    <p className="text-[11px] font-bold mt-1 text-primary">
+                    <p className="text-xs font-bold mt-1 text-primary">
                       {product.food}
                     </p>
                     <div className="flex items-center mt-1">
-                      <p className="text-[9px] font-bol pr-1 border-r mr-1 overflow-hidden">
+                      <p className="text-xs font-bol pr-1 border-r mr-1 overflow-hidden">
                         {product.ingredients}
                       </p>
-                      <p className="flex items-center text-[8px]">
+                      <p className="flex items-center text-xs">
                         <Image
                           src={product.star}
                           alt="..."
                           width={13}
                           height={13}
-                          className="pr-1"
+                          className="pr-1 h-4 w-4"
                         />{" "}
                         {product.rating}
                       </p>
                     </div>
                     <div className="flex items-center">
-                      <div className="px-1 mr-2 text-[8px] my-2 font-semibol text-secondary bg-tertiary rounded-sm">
+                      <div className="px-1 mr-2 text-[12px] my-2 font-semibol text-secondary bg-tertiary rounded-sm">
                         BONUS
                       </div>
-                      <p className="text-[8px]">{product.bonus}</p>
+                      <p className="text-[12px]">{product.bonus}</p>
                     </div>
                     <p className="text-sm font-semibold text-black">
                       N{product.price}.00
                     </p>
                     <button
-                      className="text-center bg-tertiary w-full py-1 mt-2 text-secondary rounded-md"
+                      className="text-center bg-tertiary w-full h-12 mt-2 text-secondary rounded-md"
                       onClick={() => setShowModal(true)}
                     >
                       Buy
