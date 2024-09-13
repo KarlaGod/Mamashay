@@ -66,7 +66,7 @@ const Page = () => {
                 </div>
 
                 <div
-                  className={`flex gap-2 py-5 overflow-x-scroll text-[8px] ${
+                  className={`flex gap-2 py-5 overflow-x-scroll text-xs ${
                     !toggle ? "flex-wrap" : ""
                   }`}
                 >
@@ -94,7 +94,7 @@ const Page = () => {
                 </div>
 
                 <div className="text-xs flex justify-between items-center pb-3 gap-3">
-                  <p className={`text-[9px] ${!toggle ? "w-full" : "w-4/5"}`}>
+                  <p className={`text-[12px] ${!toggle ? "w-full" : "w-4/5"}`}>
                     <span className="font-bold">Desciption: </span>
                     {c.description}
                   </p>

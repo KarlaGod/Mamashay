@@ -80,7 +80,7 @@ const Page = () => {
         <div
           className={`${
             visible ? "hidden" : "flex"
-          } justify-center items-center pt-24 min-h-60`}
+          } justify-center items-center pt-24 min-h-80`}
         >
           <Image
             src={name}
@@ -134,15 +134,18 @@ const Page = () => {
             </div>
           </div>
           <div className={`flex p-3 ${!visible ? "hidden" : ""} gap-3`}>
-            <button className="p-2 border-2 border-tertiary outline-tertiary bg-secondary w-fit text-xs rounded-full">
+            <button className="h-12 px-2 border-2 border-tertiary outline-tertiary bg-secondary w-fit text-xs rounded-full">
               Regulars
             </button>
-            <button className="p-2 border-2 border-tertiary outline-tertiary bg-secondary w-fit text-xs rounded-full">
+            <button className="h-12 px-2 border-2 border-tertiary outline-tertiary bg-secondary w-fit text-xs rounded-full">
               Event
             </button>
-            <button className="p-2 border-2 border-tertiary outline-tertiary bg-secondary w-fit text-xs rounded-full">
+            <button onClick={() => setVisible(!visible)} className="h-12 px-2 border-2 border-tertiary outline-tertiary bg-secondary w-fit text-xs rounded-full">
               Special
             </button>
+            <div onClick={()=> setVisible(false)} className="h-12 w-full text-xs flex items-center">
+              <p className="w-full flex justify-end">k</p>
+            </div>
           </div>
         </div>
 
@@ -155,7 +158,7 @@ const Page = () => {
             <div className="h-2 w-2 bg-yellow rounded-full mr-1"></div>{" "}
             Favourite Vendors
           </h1>
-          <div className="flex py-2 overflow-x-scroll">
+          <div className="flex py-2 overflow-x-scroll .no-scrollbar">
             {vendors.map((vendor, index) => {
               return (
                 <div
@@ -210,7 +213,7 @@ const Page = () => {
             <div className="h-2 w-2 bg-yellow rounded-full mr-1"></div>{" "}
             Favourite Products
           </h1>
-          <div className="flex py-2 overflow-x-scroll">
+          <div className="flex py-2 overflow-x-scroll .no-scrollbar">
             {products.map((product, index) => {
               return (
                 <div
