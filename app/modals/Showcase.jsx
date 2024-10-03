@@ -23,7 +23,7 @@ const Page = ({isVisible, onClose}) => {
                             <div className='flex justify-between mb-2'>
                                 <div className='flex items-center'>
                                     <Image src={show.profile} alt='...' width={30} height={30} className='rounded-full' />
-                                    <p className='font-bold border-l border-colort ml-2 pl-2'>{(show.user).slice(0,4)}'s Kitchen</p>
+                                    <p className='font-bold border-l border-colort ml-2 pl-2'>{(show.user).slice(0,4)}&apos;s Kitchen</p>
                                 </div>
                                 <div className='flex gap-2'>
                                     <div className='border-2 border-primary p-1 rounded-full'>
