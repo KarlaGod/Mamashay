@@ -9,7 +9,7 @@ import setting from "@/public/homepage-img/settings.svg";
 import name from "@/public/sign-up-img/greyname.svg";
 import filter from "@/public/homepage-img/filter.svg";
 import searc from "@/public/homepage-img/search.svg";
-import cart from "@/public/homepage-img/cart.svg";
+import cart from "@/public/homepage-img/Cart.svg";
 import food from "@/public/homepage-img/goatmeatsoup.png";
 import arrow from "@/public/homepage-img/arrow.svg";
 import join from "@/public/homepage-img/join.svg";
