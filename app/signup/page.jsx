@@ -11,15 +11,34 @@ import { useRouter } from 'next/navigation'
 const Page = () => {
   const [showModal, setShowModal] = useState(false);
 
-  const [signup, setSignup] = useState({username: '', telephone: '', email: '', password: '', cpassword: ''});
+  const [signUp, setSignUp] = useState({username: '', telephone: '', email: '', password: '', cpassword: ''});
 
   const router = useRouter();
 
-  // const validateStyle = () => {
-  //   if(signup.username < 6 || signup.username > 12){
-      
-  //   }
-  // }
+  const handleInput = (e) => {
+    const input = {...signUp, [e.target.name]: e.target.value};
+    setSignUp(input);
+  }
+
+  const validateInput = () => {
+    const err = {};
+
+    if(signUp.username === '') {
+      err.name = 'Username must not be blank'
+    } else if(signUp.username < 6 || signUp.username > 12){
+      err.name = 'Username must be 6 - 12 character'
+    }
+
+    if(signUp.telephone === '') {
+      err.telephone = 'Please enter your Phone number'
+    } else if(signUp.telephone < 11 || signUp.telephone > 11) {
+      err.telephone = 'Phone Number must be 11 digits'
+    }
+  }
+
+  const handleSubmit = () => {
+    //
+  }
 
   return (
     <Fragment>
@@ -27,31 +46,31 @@ const Page = () => {
         <div className='border-b border-colort w-4/5'>
           <div className='flex gap-10 justify-center pt-10'>
               <Link href='../signin' className='font-bold text-colort'>Sign In</Link>
-              <Link href='../signup' className='font-bold text-primary border-b-2 pb-1 border-primary'>Sign Up</Link>
+              <Link href='../signUp' className='font-bold text-primary border-b-2 pb-1 border-primary'>Sign Up</Link>
           </div>
           <form action="" className='grid gap-5 py-10 relative'>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="username" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Username(blacdav)</label>
-                  <input type="text" name="username" id="username" value={signup.username} onChange={(e) => setSignup({...signup, username: e.target.value.trim()})} className='border border-colort px-5 h-12 rounded-full text-lg text-colort' />
+                  <input type="text" name="username" id="username" value={signUp.username} onChange={(e) => setSignup({...signUp, username: e.target.value.trim()})} className='border border-colort px-5 h-12 rounded-full text-lg text-colort' />
               </div>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="password" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Phone Number</label>
-                  <input type="tel" name="telephone" id="telephone" value={signup.telephone} onChange={(e) => setSignup({...signup, telephone: e.target.value.trim()})} className='border border-colort px-5 h-12 rounded-full text-lg text-colort' />
+                  <input type="tel" name="telephone" id="telephone" value={signUp.telephone} onChange={(e) => setSignup({...signUp, telephone: e.target.value.trim()})} className='border border-colort px-5 h-12 rounded-full text-lg text-colort' />
               </div>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="password" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Email Address</label>
-                  <input type="email" name="email" id="email" value={signup.email} onChange={(e) => setSignup({...signup, email: e.target.value.trim()})} className='border border-colort px-5 h-12 rounded-full text-lg text-colort' />
+                  <input type="email" name="email" id="email" value={signUp.email} onChange={(e) => setSignup({...signUp, email: e.target.value.trim()})} className='border border-colort px-5 h-12 rounded-full text-lg text-colort' />
               </div>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="password" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Password</label>
-                  <input type="password" name="password" id="password" value={signup.password} onChange={(e) => setSignup({...signup, password: e.target.value.trim()})} className='border border-colort px-5 h-12 rounded-full text-lg text-colort' />
+                  <input type="password" name="password" id="password" value={signUp.password} onChange={(e) => setSignup({...signUp, password: e.target.value.trim()})} className='border border-colort px-5 h-12 rounded-full text-lg text-colort' />
               </div>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="password" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Confirm Password</label>
-                  <input type="password" name="cpassword" id="cpassword" value={signup.cpassword} onChange={(e) => setSignup({...signup, cpassword: e.target.value.trim()})} className='border border-colort px-5 h-12 rounded-full text-lg text-colort' />
+                  <input type="password" name="cpassword" id="cpassword" value={signUp.cpassword} onChange={(e) => setSignup({...signUp, cpassword: e.target.value.trim()})} className='border border-colort px-5 h-12 rounded-full text-lg text-colort' />
               </div>
               <div className='flex gap-3'>
-                  <button type="submit" onClick={(e) => {e.preventDefault(); console.log(signup); router.push('../signin')}} className='bg-tertiary py-2 px-5 w-4/5 md:w-full h-12 rounded-full'>Sign Up</button>
+                  <button type="submit" onClick={(e) => {e.preventDefault(); console.log(signUp); router.push('../signin')}} className='bg-tertiary py-2 px-5 w-4/5 md:w-full h-12 rounded-full'>Sign Up</button>
                   <div className='bg-tertiary w-1/5 h-12 flex md:hidden justify-center items-center lg:hidden rounded-full' onClick={() => setShowModal(true)}><Image src={sprint} alt='...' width={20} height={20} className='h-12 w-12 p-2' /></div>
               </div>
           </form>
