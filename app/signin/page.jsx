@@ -2,7 +2,7 @@
 import React, { useState, Fragment } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import name from '@/public/sign-up-img/greyname.svg'
+import name from '@/public/sign-up-img/circle-name.png'
 // import circle from '@/public/sign-up-img/circle.png'
 // import sprint from '@/public/sign-up-img/finger.svg'
 import sprint from '../../public/sign-up-img/finger.svg'
@@ -22,8 +22,8 @@ const Page = () => {
   return (
     <Fragment>
       <main className='min-h-screen flex flex-col items-center justify-center bg-secondary'>
-        <div className='circle rounded-full overflow-hidden'>
-          <Image src={name} alt='...' width={200} height={200} className='h-20 w-36 p-2' />
+        <div className='rounded-full overflow-hidden'>
+          <Image src={name} alt='...' width={200} height={200} className='h-100 w-100 p-2' />
           {/* <Image src={circle} alt='...'  /> */}
         </div>
 
