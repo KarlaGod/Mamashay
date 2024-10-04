@@ -12,28 +12,52 @@ const Page = () => {
   const [showModal, setShowModal] = useState(false);
 
   const [signUp, setSignUp] = useState({username: '', telephone: '', email: '', password: '', cpassword: ''});
+  const [error, setError] = useState({});
 
   const router = useRouter();
 
   const handleInput = (e) => {
-    const input = {...signUp, [e.target.name]: e.target.value};
+    const input = {...signUp, [e.target.name]: e.target.value.trim()};
     setSignUp(input);
+    setError(validateInput(signUp));
   }
 
-  const validateInput = () => {
+  const validateInput = (signUp) => {
     const err = {};
 
     if(signUp.username === '') {
-      err.name = 'Username must not be blank'
-    } else if(signUp.username < 6 || signUp.username > 12){
-      err.name = 'Username must be 6 - 12 character'
+      err.username = 'Username must not be blank'
+    } else if(signUp.username.length < 6 || signUp.username.length > 12){
+      err.username = 'Username must be 6 - 12 character'
     }
 
     if(signUp.telephone === '') {
       err.telephone = 'Please enter your Phone number'
-    } else if(signUp.telephone < 11 || signUp.telephone > 11) {
+    } else if(signUp.telephone.length < 11 || signUp.telephone.length > 11) {
       err.telephone = 'Phone Number must be 11 digits'
     }
+
+    if(signUp.email === '') {
+      err.email = 'Please enter your email'
+    } else if(!signUp.email.includes('@') && !signUp.email.includes('.')) {
+      err.email = 'Email pattern is not correct'
+    }
+
+    if(signUp.password === '') {
+      err.password = 'Please enter your password'
+    } else if(signUp.password.length < 4 || signUp.password.length > 8) {
+      err.password = 'Password must be 4 - 8 characters'
+    }
+
+    if(signUp.cpassword === '') {
+      err.cpassword = 'Please confirm your password'
+    } else if(!signUp.cpassword.includes(signUp.password)) {
+      err.cpassword = 'Passwod Mismatch'
+    }
+
+    console.log(signUp)
+
+    return err;
   }
 
   const handleSubmit = () => {
@@ -51,23 +75,28 @@ const Page = () => {
           <form action="" className='grid gap-5 py-10 relative'>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="username" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Username(blacdav)</label>
-                  <input type="text" name="username" id="username" value={signUp.username} onChange={(e) => setSignup({...signUp, username: e.target.value.trim()})} className='border border-colort px-5 h-12 rounded-full text-lg text-colort' />
+                  <input type="text" name="username" id="username" value={signUp.username} onChange={handleInput} className={`border ${error.username ? 'border-red-600' : 'border-colort'} outline-none px-5 h-12 rounded-full text-lg text-colort`} />
+                  <small className="text-red-600 ml-4">{error.username}</small>
               </div>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="password" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Phone Number</label>
-                  <input type="tel" name="telephone" id="telephone" value={signUp.telephone} onChange={(e) => setSignup({...signUp, telephone: e.target.value.trim()})} className='border border-colort px-5 h-12 rounded-full text-lg text-colort' />
+                  <input type="tel" name="telephone" id="telephone" value={signUp.telephone} onChange={handleInput} className={`border ${error.telephone ? 'border-red-600' : 'border-colort'} outline-none px-5 h-12 rounded-full text-lg text-colort`} />
+                  <small className="text-red-600 ml-4">{error.telephone}</small>
               </div>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="password" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Email Address</label>
-                  <input type="email" name="email" id="email" value={signUp.email} onChange={(e) => setSignup({...signUp, email: e.target.value.trim()})} className='border border-colort px-5 h-12 rounded-full text-lg text-colort' />
+                  <input type="email" name="email" id="email" value={signUp.email} onChange={handleInput} className={`border ${error.email ? 'border-red-600' : 'border-colort'} outline-none px-5 h-12 rounded-full text-lg text-colort`} />
+                  <small className="text-red-600 ml-4">{error.email}</small>
               </div>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="password" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Password</label>
-                  <input type="password" name="password" id="password" value={signUp.password} onChange={(e) => setSignup({...signUp, password: e.target.value.trim()})} className='border border-colort px-5 h-12 rounded-full text-lg text-colort' />
+                  <input type="password" name="password" id="password" value={signUp.password} onChange={handleInput} className={`border ${error.password ? 'border-red-600' : 'border-colort'} outline-none px-5 h-12 rounded-full text-lg text-colort`} />
+                  <small className="text-red-600 ml-4">{error.password}</small>
               </div>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="password" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Confirm Password</label>
-                  <input type="password" name="cpassword" id="cpassword" value={signUp.cpassword} onChange={(e) => setSignup({...signUp, cpassword: e.target.value.trim()})} className='border border-colort px-5 h-12 rounded-full text-lg text-colort' />
+                  <input type="password" name="cpassword" id="cpassword" value={signUp.cpassword} onChange={handleInput} className={`border ${error.cpassword ? 'border-red-600' : 'border-colort'} outline-none px-5 h-12 rounded-full text-lg text-colort`} />
+                  <small className="text-red-600 ml-4">{error.cpassword}</small>
               </div>
               <div className='flex gap-3'>
                   <button type="submit" onClick={(e) => {e.preventDefault(); console.log(signUp); router.push('../signin')}} className='bg-tertiary py-2 px-5 w-4/5 md:w-full h-12 rounded-full'>Sign Up</button>
