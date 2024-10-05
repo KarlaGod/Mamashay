@@ -68,12 +68,17 @@ const Page = () => {
     }
   }
 
-  const postFormData = () => {
+  const postFormData = async () => {
     try {
-      const res = fetch('url', {
-        'method': 'POST'
+      const res = await fetch('url', {
+        method: 'POST',
+        body: JSON.stringify(signUp),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
-      const data = res.json();
+      const data = await res.json();
+      console.log(data);
     } catch(error) {
       console.error(`Network Error`)
     }
@@ -91,7 +96,7 @@ const Page = () => {
               <Link href='../signin' className='font-bold text-colort'>Sign In</Link>
               <Link href='../signUp' className='font-bold text-primary border-b-2 pb-1 border-primary'>Sign Up</Link>
           </div>
-          <form action="" className='grid gap-5 py-10 relative'>
+          <form action="" className='grid gap-3 py-5 relative'>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="username" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Username(blacdav)</label>
                   <input type="text" name="username" id="username" value={signUp.username} onChange={handleInput} className={`border ${error.username ? 'border-red-600' : 'border-colort'} outline-none px-5 h-12 rounded-full text-lg text-colort`} />

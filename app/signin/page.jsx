@@ -3,8 +3,6 @@ import React, { useState, Fragment } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import name from '@/public/sign-up-img/circle-name.png'
-// import circle from '@/public/sign-up-img/circle.png'
-// import sprint from '@/public/sign-up-img/finger.svg'
 import sprint from '../../public/sign-up-img/finger.svg'
 import google from '@/public/sign-up-img/google+.svg'
 import twitter from '@/public/sign-up-img/twitter.svg'
@@ -28,8 +26,7 @@ const Page = () => {
     <Fragment>
       <main className='min-h-screen flex flex-col items-center justify-center bg-secondary'>
         <div className='rounded-full overflow-hidden'>
-          <Image src={name} alt='...' width={200} height={200} className='h-full w-full p-2' />
-          {/* <Image src={circle} alt='...'  /> */}
+          <Image src={name} alt='...' width={150} height={150} className='h-full w-full p-2' />
         </div>
 
         <div className='border-b border-colort w-4/5'>
