@@ -1,5 +1,5 @@
 "use client"
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import sprint from '@/public/sign-up-img/finger.svg'
@@ -19,7 +19,6 @@ const Page = () => {
   const handleInput = (e) => {
     const input = {...signUp, [e.target.name]: e.target.value.trim()};
     setSignUp(input);
-    setError(validateInput(signUp));
   }
 
   const validateInput = (signUp) => {
@@ -60,9 +59,29 @@ const Page = () => {
     return err;
   }
 
-  const handleSubmit = () => {
-    //
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(signUp);
+
+    if(Object.keys(validateInput(signUp)).length === 0) {
+      router.push('../signin');
+    }
   }
+
+  const postFormData = () => {
+    try {
+      const res = fetch('url', {
+        'method': 'POST'
+      });
+      const data = res.json();
+    } catch(error) {
+      console.error(`Network Error`)
+    }
+  }
+
+  useEffect(() => {
+    setError(validateInput(signUp));
+  }, [signUp]);
 
   return (
     <Fragment>
@@ -99,7 +118,7 @@ const Page = () => {
                   <small className="text-red-600 ml-4">{error.cpassword}</small>
               </div>
               <div className='flex gap-3'>
-                  <button type="submit" onClick={(e) => {e.preventDefault(); console.log(signUp); router.push('../signin')}} className='bg-tertiary py-2 px-5 w-4/5 md:w-full h-12 rounded-full'>Sign Up</button>
+                  <button type="submit" onClick={handleSubmit} className='bg-tertiary py-2 px-5 w-4/5 md:w-full h-12 rounded-full'>Sign Up</button>
                   <div className='bg-tertiary w-1/5 h-12 flex md:hidden justify-center items-center lg:hidden rounded-full' onClick={() => setShowModal(true)}><Image src={sprint} alt='...' width={20} height={20} className='h-12 w-12 p-2' /></div>
               </div>
           </form>

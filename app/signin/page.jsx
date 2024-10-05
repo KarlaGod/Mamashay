@@ -15,15 +15,20 @@ import { register } from '../[user]/data'
 const Page = () => {
   const [showModal, setShowModal] = useState(false);
 
-  const [signin, setSignin] = useState({username: '', password: ''});
+  const [signIn, setSignIn] = useState({username: '', password: ''});
 
   const router = useRouter();
+
+  const handleInput = (e) => {
+    const input = {...signIn, [e.target.name]: e.target.value.trim()};
+    setSignIn(input);
+  }
 
   return (
     <Fragment>
       <main className='min-h-screen flex flex-col items-center justify-center bg-secondary'>
         <div className='rounded-full overflow-hidden'>
-          <Image src={name} alt='...' width={200} height={200} className='h-100 w-100 p-2' />
+          <Image src={name} alt='...' width={200} height={200} className='h-full w-full p-2' />
           {/* <Image src={circle} alt='...'  /> */}
         </div>
 
@@ -35,14 +40,14 @@ const Page = () => {
           <form action="" className='grid gap-5 py-10' method='POST'>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="username" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Username(blacdav)</label>
-                  <input type="text" name="username" id="username" value={signin.username} onChange={(e) => setSignin({...signin, username: e.target.value.trim()})} className='border border-colort text-colort text-lg h-12 px-5 rounded-full' />
+                  <input type="text" name="username" id="username" value={signIn.username} onChange={handleInput} className='border border-colort text-colort text-lg h-12 px-5 rounded-full' />
               </div>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="password" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Password</label>
-                  <input type="text" name="password" id="password" value={signin.password} onChange={(e) => setSignin({...signin, password: e.target.value.trim()})} className='border border-colort text-colort text-lg h-12 px-5 rounded-full' />
+                  <input type="text" name="password" id="password" value={signIn.password} onChange={handleInput} className='border border-colort text-colort text-lg h-12 px-5 rounded-full' />
               </div>
               <div className='flex gap-3'>
-                  <button type="submit" onClick={(e) => {e.preventDefault(); register.find((reg) => { reg.username === signin.username && reg.password === signin.password ? router.push('./user', { replace: true }) : console.log('failed') }); }} className='bg-tertiary py-2 px-5 w-4/5 md:w-full h-12 rounded-full'>Sign In</button>
+                  <button type="submit" onClick={(e) => {e.preventDefault(); register.find((reg) => { reg.username === signIn.username && reg.password === signIn.password ? router.push('./user', { replace: true }) : console.log('failed') }); }} className='bg-tertiary py-2 px-5 w-4/5 md:w-full h-12 rounded-full'>Sign In</button>
                   <div className='bg-tertiary flex md:hidden justify-center items-center lg:hidden h-12 w-1/5 rounded-full' onClick={() => setShowModal(true)}><Image src={sprint} alt='...' width={10} height={10} className='h-12 w-12 p-2' /></div>
               </div>
           </form>
