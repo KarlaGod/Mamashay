@@ -32,7 +32,7 @@ const Page = () => {
         <header
           className={`${
             visible ? "hidden" : "flex"
-          } justify-between bg-fborder h-[12%] w-screen px-3 pt-1 items-end fixed`}
+          } justify-between bg-fborder h-[12%] w-screen px-3 items-end fixed`}
         >
           <div
             className="flex items-center"
@@ -52,24 +52,24 @@ const Page = () => {
               <p className="text-xs">User</p>
             </div>
           </div>
-          <div className="flex gap-2 p-3">
+          <div className="flex gap-2 p-2 pb-4">
             <Link
               href="../user/chats"
-              className="p-2 bg-sign rounded-full flex justify-center items-center h-10 w-10 after:h-2 after:w-2 after:absolute after:bg-yellow after:-mt-8 after:ml-6 after:rounded-full"
+              className="p-2 bg-sign rounded-full flex justify-center items-center h-8 w-8 after:h-2 after:w-2 after:absolute after:bg-yellow after:-mt-5 after:ml-6 after:rounded-full"
             >
               <Image src={message} alt="..." width={13} height={13} className="h-5 w-5" />
             </Link>
             
             <Link
               href="../user/notification"
-              className="p-2 bg-sign rounded-full flex justify-center items-center h-10 w-10 after:h-2 after:w-2 after:absolute after:bg-yellow after:-mt-8 after:ml-6 after:rounded-full"
+              className="p-2 bg-sign rounded-full flex justify-center items-center h-8 w-8 after:h-2 after:w-2 after:absolute after:bg-yellow after:-mt-5 after:ml-6 after:rounded-full"
             >
               <Image src={notification} alt="..." width={10} height={10} className="h-5 w-5" />
             </Link>
             
             <Link
               href="../user/settings"
-              className="p-2 bg-sign rounded-full flex justify-center items-center h-10 w-10 after:h-2 after:w-2 after:absolute after:bg-yellow after:-mt-8 after:ml-6 after:rounded-full"
+              className="p-2 bg-sign rounded-full flex justify-center items-center h-8 w-8 after:h-2 after:w-2 after:absolute after:bg-yellow after:-mt-5 after:ml-6 after:rounded-full"
             >
               <Image src={setting} alt="..." width={13} height={13} className="h-5 w-5" />
             </Link>
@@ -244,10 +244,10 @@ const Page = () => {
                       {product.food}
                     </p>
                     <div className="flex items-center mt-1">
-                      <p className="text-xs font-bol pr-1 border-r mr-1 overflow-hidden">
+                      <p className="text-[12px] pr-1 border-r mr-1 overflow-hidden">
                         {product.ingredients}
                       </p>
-                      <p className="flex items-center text-xs">
+                      <p className="flex items-center text-[12px]">
                         <Image
                           src={product.star}
                           alt="..."

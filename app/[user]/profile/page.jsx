@@ -90,14 +90,14 @@ const page = () => {
           {chat.map((c, index) => {
             return (
               <div key={index}>
-                <div className="text-sm flex justify-between items-center pb-3 gap-3">
+                <div className="text-sm hidden justify-between items-center pb-3 gap-3">
                   <p className="text-sm w-full">
                     <span className="font-bold">Desciption: </span>
                     {c.description}
                   </p>
                 </div>
 
-                <div className="grid gap-2 text-sm">
+                <div className="hidden gap-2 text-sm">
                   <Link
                     href="tel:+2348077116265"
                     className="flex rounded-ful gap-2"
@@ -125,12 +125,12 @@ const page = () => {
           })}
         </div>
 
-        <div className="w-full flex gap-2 mt-3 h-36 bg-fborder place-items-center items-center justify-center rounded-lg">
+        <div className="w-full hidden gap-2 mt-3 h-36 bg-fborder place-items-center items-center justify-center rounded-lg">
           <Image src={scan} alt="..." width={25} height={25} />
           <p className="grid items-start text-secondary text-sm">Upload business banner here</p>
         </div>
 
-        <div className="hidden gap-2 w-full">
+        <div className="grid gap-2 w-full">
           <Link href="#" className="bg-fborder p-2 w-full rounded-lg">
             <p className="text-xs font-semibold text-primary mb-2 w-4/5">
               Check Our What is Going On In Our Community
@@ -174,10 +174,10 @@ const page = () => {
       </div>
 
       <div className="px-3">
-        <button className="w-full hidden rounded-lg p-2 text-primary font-bold bg-fborder">
+        <button className="w-full grid rounded-lg p-2 text-primary font-bold bg-fborder">
           Become A Vendor
         </button>
-        <button className="w-full flex justify-center items-center gap-2 rounded-lg p-2 bg-fborder">
+        <button className="w-full hidden justify-center items-center gap-2 rounded-lg p-2 bg-fborder">
           <Image
             src={shop}
             alt="..."

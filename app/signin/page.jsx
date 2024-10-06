@@ -22,6 +22,32 @@ const Page = () => {
     setSignIn(input);
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    register.find((reg) => {
+      if(reg.username === signIn.username && reg.password === signIn.password) {
+        router.push('./user', { replace: true })
+      } else {
+        console.log('failed')
+      }
+    })
+  }
+
+  const geUser = async () => {
+    const res = await fetch('url', {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    if(!res.ok) {
+      throw new Error(`Network response was not Okay`)
+    }
+
+    const data = res.json();
+  }
+
   return (
     <Fragment>
       <main className='min-h-screen flex flex-col items-center justify-center bg-secondary'>
@@ -44,7 +70,7 @@ const Page = () => {
                   <input type="text" name="password" id="password" value={signIn.password} onChange={handleInput} className='border border-colort text-colort text-lg h-12 px-5 rounded-full' />
               </div>
               <div className='flex gap-3'>
-                  <button type="submit" onClick={(e) => {e.preventDefault(); register.find((reg) => { reg.username === signIn.username && reg.password === signIn.password ? router.push('./user', { replace: true }) : console.log('failed') }); }} className='bg-tertiary py-2 px-5 w-4/5 md:w-full h-12 rounded-full'>Sign In</button>
+                  <button type="submit" onClick={handleSubmit} className='bg-tertiary py-2 px-5 w-4/5 md:w-full h-12 rounded-full'>Sign In</button>
                   <div className='bg-tertiary flex md:hidden justify-center items-center lg:hidden h-12 w-1/5 rounded-full' onClick={() => setShowModal(true)}><Image src={sprint} alt='...' width={10} height={10} className='h-12 w-12 p-2' /></div>
               </div>
           </form>

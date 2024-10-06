@@ -18,14 +18,16 @@ const Page = () => {
   return (
     <main className='min-h-screen bg-secondary text-colort'>
       <div className='bg-fborder pb-3 fixed'>
-        <div className='flex justify-between items-center pt-5 pb-3 h-[12%] w-screen'>
+        <div className='flex justify-between items-center pt-5 h-[12%] w-screen'>
           <h1 className='flex items-center text-primary text-xl font-semibold pl-2'><div onClick={() => window.history.back()}><Image src={back} alt='...' width={25} height={25} className='pr-3' /></div> Chats</h1>
           <div className='flex gap-2 p-3'>
             {
               navLinks2.map((link, index) => {
                 return(
                   <div className='flex' key={index}>
-                    <Link href={link.link} className='p-2 bg-sign rounded-full flex justify-center h-7 w-7'><Image src={link.icon} alt='...' width={13} height={13} /></Link><div className='h-2 w-2 -ml-2 bg-yellow rounded-full'></div>
+                    <Link href={link.link} className='p-2 bg-sign rounded-full flex justify-center h-7 w-7'>
+                      <Image src={link.icon} alt='...' width={13} height={13} />
+                    </Link><div className='h-2 w-2 -ml-2 bg-yellow rounded-full'></div>
                   </div>
                 )
               })

@@ -50,7 +50,7 @@ const Page = () => {
 
     if(signUp.cpassword === '') {
       err.cpassword = 'Please confirm your password'
-    } else if(!signUp.cpassword.includes(signUp.password)) {
+    } else if(signUp.cpassword !== signUp.password) {
       err.cpassword = 'Passwod Mismatch'
     }
 
@@ -64,6 +64,7 @@ const Page = () => {
     console.log(signUp);
 
     if(Object.keys(validateInput(signUp)).length === 0) {
+      // postFormData();
       router.push('../signin');
     }
   }
