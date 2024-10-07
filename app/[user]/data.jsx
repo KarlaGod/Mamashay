@@ -368,30 +368,6 @@ import place from "@/public/homepage-img/location.svg";
 import phone from "@/public/homepage-img/phone.svg";
 import calender from "@/public/homepage-img/calender.svg";
 import heart from "@/public/homepage-img/heart.svg";
-
-export const showcase = [
-  {
-    img: img,
-    profile: profile,
-    user: "Blacdav",
-    starg: starg,
-    star: star,
-    share: share,
-    bonus: "1 Can Cocacola, 2 Orange Fruits, Takeaway",
-    price: "17,000",
-    food: "Homemade Goat Meat Pepper Soup, White Rice, Snail Stew, Fresh Veggies Included. For Breakfast, Lunch Or Dinner",
-    location: place,
-    address: "Rumoudara, Port Harcourt",
-    tel: phone,
-    teln: "+2348077116265",
-    calender: calender,
-    like: heart,
-    add_doc: plus,
-    placeholderimg: placeholder,
-    send: send,
-  },
-];
-
 import shop from "@/public/homepage-img/store.svg";
 import down from "@/public/homepage-img/down.svg";
 import plus from "@/public/homepage-img/add.svg";
@@ -413,8 +389,7 @@ export const chat = [
     location: place,
     address: "Rumoudara, Port Harcourt",
     down: down,
-    description:
-      "We sell homemade food, drinks and snacks, we also have event packages as well. You can always contact us from Monday to Saturday for our services, and we will respond immediately.",
+    description:"We sell homemade food, drinks and snacks, we also have event packages as well. You can always contact us from Monday to Saturday for our services, and we will respond immediately.",
     add_doc: plus,
     placeholderimg: placeholder,
     send: send,

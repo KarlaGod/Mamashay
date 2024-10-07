@@ -258,7 +258,7 @@ const Page = () => {
             {searchResult.map((order, index) => {
               return (
                 <div
-                  onClick={() => setShowModal(true)}
+                  onClick={() => {setShowModal(true); setSelect(order)}}
                   key={index}
                   className="flex bg-fborder p-3 mb-2 rounded-lg"
                 >

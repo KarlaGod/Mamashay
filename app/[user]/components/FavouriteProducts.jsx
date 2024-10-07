@@ -1,9 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
 import { products } from '../data'
-import Showcase from "../../modals/Showcase"
+// import Showcase from "../../modals/Showcase"
 
-const FavouriteProducts = ({ modal, select, setSelect }) => {
+const FavouriteProducts = ({ modal, setSelect }) => {
     return (
         <div>
             <div className="flex py-2 overflow-x-scroll .no-scrollbar">
