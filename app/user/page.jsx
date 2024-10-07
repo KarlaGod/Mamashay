@@ -33,9 +33,9 @@ const Page = () => {
     <Fragment>
       <main className="min-h-screen bg-secondary text-colort">
         {/* Header of the Page */}
-        <header className={`${visible ? "hidden" : "grid"} h-[16%] w-screen px-3`}>
+        <header className={`${visible ? "hidden" : "grid"} h-[16%] w-screen fixed top-0`}>
           <section
-            className={`flex justify-between bg-fborder h-[12%] w-screen px-3`}
+            className={`flex justify-between bg-fborder w-screen px-3`}
           >
             <div
               className="flex items-center"
@@ -55,7 +55,7 @@ const Page = () => {
                 <p className="text-xs">User</p>
               </div>
             </div>
-            <div className="flex gap-2 p-2 pb-4">
+            <div className="flex gap-2 p-2 items-center mt-2">
               <Link
                 href="../user/chats"
                 className="p-2 bg-sign rounded-full flex justify-center items-center h-8 w-8 after:h-2 after:w-2 after:absolute after:bg-yellow after:-mt-5 after:ml-6 after:rounded-full"
@@ -78,7 +78,7 @@ const Page = () => {
               </Link>
             </div>
           </section>
-          <div className="flex justify-end pe-5 bg-primary text-secondary">
+          <div className="flex justify-end pe-5 py-5 text-secondary">
             <ConnectButton />
           </div>
         </header>
@@ -87,7 +87,7 @@ const Page = () => {
         <div
           className={`${
             visible ? "hidden" : "flex"
-          } justify-center items-center pt-24 min-h-80`}
+          } justify-center items-center pt-36 min-h-80`}
         >
           <Image
             src={name}
