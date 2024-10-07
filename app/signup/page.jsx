@@ -91,9 +91,9 @@ const Page = () => {
 
   return (
     <Fragment>
-      <main className='min-h-screen flex flex-col items-center justify-center bg-secondary'>
+      <main className='min-h-dvh flex flex-col items-center justify-center bg-secondary'>
         <div className='border-b border-colort w-4/5'>
-          <div className='flex gap-10 justify-center pt-10'>
+          <div className='flex gap-10 justify-center'>
               <Link href='../signin' className='font-bold text-colort'>Sign In</Link>
               <Link href='../signUp' className='font-bold text-primary border-b-2 pb-1 border-primary'>Sign Up</Link>
           </div>

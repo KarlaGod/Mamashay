@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link';
-import { showcase } from '../[user]/data';
+import { showcase } from '../user/data';
 import starg from "@/public/homepage-img/starg.svg";
 import share from "@/public/homepage-img/share.svg";
 import phone from "@/public/homepage-img/phone.svg";
@@ -24,7 +24,7 @@ const Page = ({isVisible, onClose, showcase}) => {
 
   return ( 
     <div className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex text-xs text-colort justify-center items-end z-20' id="wrapper" onClick={handleClose}>
-        <section className='w-[100%] h-[75%] pt-5 px-5 absolute bottom-0 bg-secondary grid rounded-t-3xl'>
+        <section className='w-[100%] h-[65%] pt-5 px-5 absolute bottom-0 bg-secondary grid rounded-t-3xl'>
             <div className='overflow-y-scroll overflow-x-none w-full'>
                 <div className='flex justify-between mb-2'>
                     <div className='flex items-center'>

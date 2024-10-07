@@ -8,7 +8,7 @@ import google from '@/public/sign-up-img/google+.svg'
 import twitter from '@/public/sign-up-img/twitter.svg'
 import Print from '../modals/Printsi'
 import { useRouter } from 'next/navigation'
-import { register } from '../[user]/data'
+import { register } from '../user/data'
 
 const Page = () => {
   const [showModal, setShowModal] = useState(false);
@@ -50,13 +50,13 @@ const Page = () => {
 
   return (
     <Fragment>
-      <main className='min-h-screen flex flex-col items-center justify-center bg-secondary no-scrollbar'>
+      <main className='min-h-dvh flex flex-col items-center justify-center bg-secondary no-scrollbar'>
         <div className='rounded-full overflow-hidden'>
           <Image src={name} alt='...' width={150} height={150} className='h-full w-full p-2' />
         </div>
 
         <div className='border-b border-colort w-4/5'>
-          <div className='flex gap-10 justify-center pt-10'>
+          <div className='flex gap-10 justify-center pt-5'>
               <Link href='../signin' className='font-bold text-primary border-b-2 pb-1 border-primary'>Sign In</Link>
               <Link href='../signup' className='font-bold text-colort'>Sign Up</Link>
           </div>
