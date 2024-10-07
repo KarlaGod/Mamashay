@@ -13,6 +13,8 @@ import cart from "@/public/homepage-img/Cart.svg";
 import food from "@/public/homepage-img/goatmeatsoup.png";
 import arrow from "@/public/homepage-img/arrow.svg";
 import join from "@/public/homepage-img/join.svg";
+import FavouriteProducts from "./components/FavouriteProducts";
+import FavouriteVendors from "./components/FavouriteVendors";
 import { products, vendors } from "./data";
 import Showcase from "../modals/Showcase";
 import { useRouter } from "next/navigation";
@@ -22,6 +24,7 @@ const Page = () => {
   const [visible, setVisible] = useState(false);
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState(products);
+  const [select, setSelect] = useState({});
 
   const router = useRouter();
 
@@ -158,25 +161,7 @@ const Page = () => {
             <div className="h-2 w-2 bg-yellow rounded-full mr-1"></div>{" "}
             Favourite Vendors
           </h1>
-          <div className="flex py-2 overflow-x-scroll .no-scrollbar">
-            {vendors.map((vendor, index) => {
-              return (
-                <div
-                  className="flex-none bg-fborder place-items-center mx-1 px-2 py-3 h-32 w-24 grid rounded-lg"
-                  key={index}
-                >
-                  <Image
-                    src={vendor.profile}
-                    alt="..."
-                    width={40}
-                    height={40}
-                    className="rounded-full flex justify-center w-16 h-16"
-                  />
-                  <p className="text-xs mt-2">{vendor.name}</p>
-                </div>
-              );
-            })}
-          </div>
+          <FavouriteVendors />
 
           {/* Buttons for message and orders */}
           <div
@@ -213,71 +198,7 @@ const Page = () => {
             <div className="h-2 w-2 bg-yellow rounded-full mr-1"></div>{" "}
             Favourite Products
           </h1>
-          <div className="flex py-2 overflow-x-scroll .no-scrollbar">
-            {products.map((product, index) => {
-              return (
-                <div
-                  key={index}
-                  className="flex-none bg-fborder p-2 mx-1 rounded-lg w-1/2 h-1/2"
-                >
-                  <div className="flex items-center mb-2">
-                    <Image
-                      src={product.profile}
-                      alt="..."
-                      width={15}
-                      height={15}
-                      className="rounded-full h-8 w-8"
-                    />
-                    <p className="text-sm font-semibold ml-2 text-primary">
-                      {product.user}
-                    </p>
-                  </div>
-                  <Image
-                    src={product.img}
-                    alt="..."
-                    width={130}
-                    height={130}
-                    className="h-32 w-full"
-                  />
-                  <div>
-                    <p className="text-xs font-bold mt-1 text-primary">
-                      {product.food}
-                    </p>
-                    <div className="flex items-center mt-1">
-                      <p className="text-[12px] pr-1 border-r mr-1 overflow-hidden">
-                        {product.ingredients}
-                      </p>
-                      <p className="flex items-center text-[12px]">
-                        <Image
-                          src={product.star}
-                          alt="..."
-                          width={13}
-                          height={13}
-                          className="pr-1 h-4 w-4"
-                        />{" "}
-                        {product.rating}
-                      </p>
-                    </div>
-                    <div className="flex items-center">
-                      <div className="px-1 mr-2 text-[12px] my-2 font-semibol text-secondary bg-tertiary rounded-sm">
-                        BONUS
-                      </div>
-                      <p className="text-[12px]">{product.bonus}</p>
-                    </div>
-                    <p className="text-sm font-semibold text-black">
-                      N{product.price}.00
-                    </p>
-                    <button
-                      className="text-center bg-tertiary w-full h-12 mt-2 text-secondary rounded-md"
-                      onClick={() => setShowModal(true)}
-                    >
-                      Buy
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <FavouriteProducts modal={setShowModal} select={select} setSelect={setSelect} />
         </div>
 
         {/* For You */}
@@ -388,7 +309,7 @@ const Page = () => {
           </div>
         </div>
       </main>
-      <Showcase isVisible={showModal} onClose={() => setShowModal(false)} />
+      <Showcase showcase={select} isVisible={showModal} onClose={() => setShowModal(false)} />
     </Fragment>
   );
 };

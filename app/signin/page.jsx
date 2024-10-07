@@ -50,7 +50,7 @@ const Page = () => {
 
   return (
     <Fragment>
-      <main className='min-h-screen flex flex-col items-center justify-center bg-secondary'>
+      <main className='min-h-screen flex flex-col items-center justify-center bg-secondary no-scrollbar'>
         <div className='rounded-full overflow-hidden'>
           <Image src={name} alt='...' width={150} height={150} className='h-full w-full p-2' />
         </div>
