@@ -1,21 +1,30 @@
 "use client"
-import React, { useState, Fragment } from 'react'
-import Link from 'next/link'
+import React, { useState, useEffect, Fragment } from 'react'
+// import Link from 'next/link'
 import Image from 'next/image'
 import name from '@/public/sign-up-img/circle-name.png'
-import sprint from '../../public/sign-up-img/finger.svg'
+// import sprint from '../../public/sign-up-img/finger.svg'
 import google from '@/public/sign-up-img/google+.svg'
 import twitter from '@/public/sign-up-img/twitter.svg'
 import Print from '../modals/Printsi'
 import { useRouter } from 'next/navigation'
 import { register } from '../user/data'
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useAccount } from 'wagmi'
 
 const Page = () => {
   const [showModal, setShowModal] = useState(false);
 
   const [signIn, setSignIn] = useState({username: '', password: ''});
 
+  const { address, isConnected } = useAccount();
   const router = useRouter();
+
+  useEffect(() => {
+    if(isConnected) {
+      router.push('/user');
+    }
+  }, [router, isConnected])
 
   const handleInput = (e) => {
     const input = {...signIn, [e.target.name]: e.target.value.trim()};
@@ -56,11 +65,15 @@ const Page = () => {
         </div>
 
         <div className='border-b border-colort w-4/5'>
-          <div className='flex gap-10 justify-center pt-5'>
+          <div className="flex flex-col w-full h-60 items-center justify-center">
+            <p className="font-bold text-primary pb-5 text-center">Connect your wallet to Sign In</p>
+            <ConnectButton />
+          </div>
+          {/* <div className='flex gap-10 justify-center pt-5'>
               <Link href='../signin' className='font-bold text-primary border-b-2 pb-1 border-primary'>Sign In</Link>
               <Link href='../signup' className='font-bold text-colort'>Sign Up</Link>
-          </div>
-          <form action="" className='grid gap-5 py-10' method='POST'>
+          </div> */}
+          {/* <form action="" className='grid gap-5 py-10' method='POST'>
               <div className='flex flex-col text-xs'>
                   <label htmlFor="username" className='text-colort -mb-2 ml-4 z-10 bg-secondary w-fit px-1'>Username(blacdav)</label>
                   <input type="text" name="username" id="username" value={signIn.username} onChange={handleInput} className='border border-colort text-colort text-lg h-12 px-5 rounded-full' />
@@ -73,7 +86,7 @@ const Page = () => {
                   <button type="submit" onClick={handleSubmit} className='bg-tertiary py-2 px-5 w-4/5 md:w-full h-12 rounded-full'>Sign In</button>
                   <div className='bg-tertiary flex md:hidden justify-center items-center lg:hidden h-12 w-1/5 rounded-full' onClick={() => setShowModal(true)}><Image src={sprint} alt='...' width={10} height={10} className='h-12 w-12 p-2' /></div>
               </div>
-          </form>
+          </form> */}
           <p className='text-primary text-xs font-bold bg-secondary w-fit px-1 -mb-2 mx-auto'>Sign in with</p>
         </div>
         <div className='flex gap-3 mt-5'>

@@ -18,7 +18,7 @@ const Providers = ({ children }) => {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider>
+        <RainbowKitProvider modalSize="compact" >
           { children }
         </RainbowKitProvider>
       </QueryClientProvider>
