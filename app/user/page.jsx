@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import message from "@/public/homepage-img/message.svg";
@@ -14,8 +14,6 @@ import FavouriteProducts from "./components/FavouriteProducts";
 import FavouriteVendors from "./components/FavouriteVendors";
 import { products, vendors } from "./data";
 import Showcase from "../modals/Showcase";
-import { useRouter } from "next/navigation";
-import { useAccount } from 'wagmi';
 import Header from "./components/Header";
 
 const Page = () => {
@@ -24,15 +22,6 @@ const Page = () => {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState(products);
   const [select, setSelect] = useState({});
-
-  const { address, isConnected } = useAccount();
-  const router = useRouter();
-
-  // useEffect(() => {
-  //   if(!isConnected) {
-  //     router.push('/signin');
-  //   }
-  // }, [router, isConnected])
 
   return (
     <Fragment>

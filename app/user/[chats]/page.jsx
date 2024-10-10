@@ -7,6 +7,7 @@ import { chats, navLinks2 } from '../data'
 import { usePathname } from 'next/navigation'
 import search from '@/public/homepage-img/search2.svg'
 import { useRouter } from 'next/navigation'
+import Header from '../components/Header'
 // import { vendors } from '../data'
 
 const Page = () => {
@@ -18,22 +19,7 @@ const Page = () => {
   return (
     <main className='min-h-screen bg-secondary text-colort'>
       <div className='bg-fborder pb-3 fixed'>
-        <div className='flex justify-between items-center pt-5 h-[12%] w-screen'>
-          <h1 className='flex items-center text-primary text-xl font-semibold pl-2'><div onClick={() => window.history.back()}><Image src={back} alt='...' width={25} height={25} className='pr-3' /></div> Chats</h1>
-          <div className='flex gap-2 p-3'>
-            {
-              navLinks2.map((link, index) => {
-                return(
-                  <div className='flex' key={index}>
-                    <Link href={link.link} className='p-2 bg-sign rounded-full flex justify-center h-7 w-7'>
-                      <Image src={link.icon} alt='...' width={13} height={13} />
-                    </Link><div className='h-2 w-2 -ml-2 bg-yellow rounded-full'></div>
-                  </div>
-                )
-              })
-            }
-          </div>
-        </div>
+        <Header />
         <div className='bg-secondary p-2 mx-2 flex rounded-full text-xs items-center text-colort'>
           <Image src={search} alt='...' width={15} height={15} className='mx-3 stroke-[#999999]' />
           <input type="search" name="search" id="search" placeholder='Search any message here' className='outline-none w-full bg-secondary' />
@@ -41,7 +27,7 @@ const Page = () => {
       </div>
 
       {/* Chat Lists */}
-      <div className='px-3 pt-32 pb-4 md:pt-28'>
+      <div className='px-3 pt-16 pb-4 md:pt-28'>
         <div>
           {
             chats.map((chat, index) => {
