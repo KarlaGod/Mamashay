@@ -1,62 +1,56 @@
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-contract MMA is
-	ERC721,
-	ERC721Enumerable,
-	ERC721URIStorage,
-	Ownable
-{
-	using Counters for Counters.Counter;
+import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
-	Counters.Counter public tokenIdCounter;
+contract MMA is ERC721Enumerable, ERC721URIStorage, Ownable {
+    uint256 public constant MAX_SUPPLY = 10000;
+    mapping(address => bool) public hasMinted;  // Track if a user has minted an NFT
 
-	constructor() ERC721("MAMA", "MMA") {}
+    constructor() ERC721("MAMA", "MMA") {}
 
-	function _baseURI() internal pure override returns (string memory) {
-		return "https://ipfs.io/ipfs/";
-	}
+    function mintNFT(string memory tokenURI) public {
+        require(totalSupply() < MAX_SUPPLY, "All NFTs have been minted");
+        require(!hasMinted[msg.sender], "You have already minted an NFT");
 
-	function mintItem(address to, string memory uri) public returns (uint256) {
-		tokenIdCounter.increment();
-		uint256 tokenId = tokenIdCounter.current();
-		_safeMint(to, tokenId);
-		_setTokenURI(tokenId, uri);
-		return tokenId;
-	}
+        uint256 tokenId = totalSupply() + 1;
+        _mint(msg.sender, tokenId);
+        _setTokenURI(tokenId, tokenURI);
 
-	// The following functions are overrides required by Solidity.
+        hasMinted[msg.sender] = true;  // Mark user as having minted
+    }
 
-	function _beforeTokenTransfer(
-		address from,
-		address to,
-		uint256 tokenId,
-		uint256 quantity
-	) internal override(ERC721, ERC721Enumerable) {
-		super._beforeTokenTransfer(from, to, tokenId, quantity);
-	}
+    // Overrides
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId,
+        uint256 batchSize
+    ) internal override(ERC721, ERC721Enumerable) {
+        super._beforeTokenTransfer(from, to, tokenId, batchSize);
+    }
 
-	function _burn(
-		uint256 tokenId
-	) internal override(ERC721, ERC721URIStorage) {
-		super._burn(tokenId);
-	}
+    function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
+        super._burn(tokenId);
+    }
 
-	function tokenURI(
-		uint256 tokenId
-	) public view override(ERC721, ERC721URIStorage) returns (string memory) {
-		return super.tokehttps://ipfs.io/ipfs/nURI(tokenId);
-	}
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (string memory)
+    {
+        return super.tokenURI(tokenId);
+    }
 
-	function supportsInterface(
-		bytes4 interfaceId
-	)
-		public
-		view
-		override(ERC721, ERC721Enumerable, ERC721URIStorage)
-		returns (bool)
-	{
-		return super.supportsInterface(interfaceId);
-	}
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(ERC721, ERC721Enumerable)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
+    }
 }
