@@ -31,8 +31,25 @@ contract ERC20MamaTest is Test {
     }
 
     function test_transferFrom() public {
-        MamaToken Mama = new MamaToken(2000, 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4);
-        bool value = Mama.transferFrom(0x5B38Da6a701c568545dCfcB03FcB875f56beddC4, 0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB, 2);
-        assertEq(value, true);
-    }
+    // Arrange: Deploy the token contract
+    MamaToken mama = new MamaToken(2000, address(this)); // Mint to the deploying address
+
+    // Assume we are transferring 2 tokens from the deploying address (this)
+    address from = address(this);
+    address to = address(0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB);
+    uint256 amount = 2;
+
+    // Act: Approve the transfer
+    mama.approve(address(this), amount); // Allow the contract (or this address) to spend tokens
+
+    // Now perform the transferFrom
+    bool value = mama.transferFrom(from, to, amount);
+
+    // Assert: Check the return value of transferFrom
+    assertEq(value, true);
+
+    // Additionally, check the balances to ensure the
+    assertEq(mama.balanceOf(to), amount);
+}
+
 }

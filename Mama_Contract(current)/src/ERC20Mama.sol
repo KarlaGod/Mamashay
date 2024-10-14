@@ -1,31 +1,35 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "../node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
-// import "../node_modules/@openzeppelin/contracts/utils/SafeMath /SafeMath .sol";
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import "./safeMath.sol";
 
-contract MamaToken is ERC20, Ownable(msg.sender) {
-    
+contract MamaToken is ERC20 {
     using SafeMath for uint256;
+
     mapping (address => uint) _balances;
     event log(string message, address sender, address recipient, uint256 amount);
     address _contractOwner;
-    
+
     receive() external payable {
         emit log("Amount received", msg.sender, address(this), msg.value);
         _transfer(address(this), _contractOwner, msg.value);
     }
+
     fallback() external payable {
         emit log("Amount received", msg.sender, address(this), msg.value);
-
     }
 
     constructor(uint256 initialSupply, address _owner) ERC20("Mama", "MMA") {
         _mint(msg.sender, initialSupply);
         _balances[_owner] = initialSupply;
         _contractOwner = _owner;
+    }
+
+    function mint(address reciever, uint256 value) public payable{
+        _mint(reciever, value);
     }
 
     function transfer(address to, uint256 amount) public override returns (bool) {
@@ -42,7 +46,10 @@ contract MamaToken is ERC20, Ownable(msg.sender) {
         return true;
     }
 
-    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual { }
+    // Corrected _beforeTokenTransfer with override specifier
+    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual override {
+        super._beforeTokenTransfer(from, to, amount);
+    }
 
     function burn(uint256 amount) public returns (bool value) {
         _burn(msg.sender, amount);
@@ -56,7 +63,7 @@ contract MamaToken is ERC20, Ownable(msg.sender) {
         value = true;
     }
 
-    function getBalance(address _acct) public view returns (uint){
+    function getBalance(address _acct) public view returns (uint) {
         return _balances[_acct];
     }
 }

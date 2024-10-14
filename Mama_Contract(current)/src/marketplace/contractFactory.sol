@@ -1,86 +1,119 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.26;
-import {Ecommerce} from "./BukShop.sol";
-import {IERC20} from "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol";
+
+import {Ecommerce} from "./marketplace.sol";
+import {IMamaToken} from "../interfaces/IMamaToken.sol";
 
 contract MamashayFactory {
     
+    // State variables
     address payable public owner;
-    Ecommerce[] public ecomerceContract;
-    IERC20 BorderlessToken;
-    event EcomerceCreated(address indexed tokenContract ,address indexed owner);
+    Ecommerce[] public ecommerceContracts; // Array of Ecommerce contracts
+    IMamaToken public mamaToken; // Reference to MamaToken contract
 
-    constructor(address _BorderlessToken) {
+    // Mapping to store the names of NFTs minted by each Ecommerce contract
+    mapping(address => string) public nftNames; // Mapping from contract address to NFT name
+
+    // Event for when a new Ecommerce marketplace is created
+    event EcommerceCreated(address indexed marketplaceAddress, string nftName, address indexed owner);
+
+    // Constructor to initialize the factory with a MamaToken
+    constructor(address _mamaToken) {
         owner = payable(msg.sender);
-        BorderlessToken = IERC20(_BorderlessToken);
+        mamaToken = IMamaToken(_mamaToken); // Initialize with MamaToken
     }
 
-    function createMamashay(address _borderlessToken) public payable returns (address) {
-        Ecommerce new_Mamashay = new Ecommerce(_borderlessToken);
-        ecomerceContract.push(new_Mamashay);
-        emit EcomerceCreated(address(new_Mamashay), msg.sender);
-        return address(new_Mamashay);
+    // -------------------------------
+    // Function to create a new Ecommerce marketplace
+    // -------------------------------
+    function createMamashay() public returns (address) {
+        Ecommerce newMarketplace = new Ecommerce(address(mamaToken));
+        ecommerceContracts.push(newMarketplace);
+        
+        // Ensure getNFTName() is valid before setting it
+        string memory nftName = newMarketplace.getNFTName();
+        require(bytes(nftName).length > 0, "Invalid NFT name");
+        nftNames[address(newMarketplace)] = nftName;
+
+        emit EcommerceCreated(address(newMarketplace), nftName, msg.sender);
+        return address(newMarketplace);
     }
 
-    function PublishProduct(
-        address VendorMarketplace,
-        uint _id,
-        string memory _name,
-        string memory _vendorName,
-        uint _price,
-        string memory _Category
-        ) public payable{
-
-        PublishProduct(
-        uint _id,
-        string memory _name,
-        string memory _vendorName,
-        uint _price,
-        string memory _Category
-        )
-          
-    }
-    //function for approving products
-    function ApproveProduct(uint _id) public onlyOwner{
-        Product storage book = products[_id];
-        require(book.ProductState == State.pending || book.ProductState == State.disapproved, "Product is already approved");
-        book.ProductState = State.approved;
-        emit productApproval(msg.sender, book.price, book.id);
-    }
-
-    // function for buying products
-    function buyProduct(uint _amount, uint bookID) public payable returns (bool){
-        require(_amount >= products[bookID].price, "Insufficient funds");
-        require(products[bookID].ProductState == State.approved, "Product is not approved");
-        MMA.approve(address(this), _amount);
-        MMA.transferFrom(msg.sender, address(this), _amount);
-        purchasedProducts.push(products[bookID]);
-        emit ProductPurchase(msg.sender, _amount, products[bookID].price, products[bookID].id);
-        return true;
-    }
+    // -------------------------------
+    // Product Management Functions
+    // -------------------------------
     
-    //function for deleting products
-    function DeleteProduct(uint _id) public onlyOwner {
-        require(_id < products.length, "Product ID is invalid");
-        products[_id] = products[products.length - 1]; 
-        products.pop();
-        emit productDelete(msg.sender, products[_id].price, products[_id].id);
+    // Function to publish a product in a specified vendor's marketplace
+    function publishProduct(
+        address vendorMarketplace,
+        uint256 id,
+        string memory name,
+        string memory vendorName,
+        uint256 price,
+        string memory category
+    ) public {
+        require(vendorMarketplace != address(0), "Invalid marketplace address");
+        require(ecommerceContracts.length > 0, "No Ecommerce contracts created"); // Check if the marketplace exists
+        Ecommerce(vendorMarketplace).PublishProduct(id, name, vendorName, price, category);
     }
 
-    //function to withdraw all token in the contract
-    function Withdraw() public onlyOwner{
-        MMA.transfer(msg.sender, MMA.balanceOf(address(this)));
-        emit Completed(msg.sender, MMA.balanceOf(address(this)), MMA.balanceOf(address(this)), MMA.balanceOf(address(this)));
+    // Function to approve a product in a specified vendor's marketplace
+    function approveProduct(address vendorMarketplace, uint256 id) public {
+        require(vendorMarketplace != address(0), "Invalid marketplace address");
+        require(ecommerceContracts.length > 0, "No Ecommerce contracts created"); // Check if the marketplace exists
+        Ecommerce(vendorMarketplace).ApproveProduct(id);
     }
 
-    function CheckBalance() public view returns (uint){
-        return MMA.balanceOf(msg.sender);
+    // Function to buy a product from a specified vendor's marketplace
+    function buyProduct(
+        address vendorMarketplace,
+        uint256 amount,
+        uint256 bookID
+    ) public returns (bool) {
+        require(vendorMarketplace != address(0), "Invalid marketplace address");
+        require(ecommerceContracts.length > 0, "No Ecommerce contracts created"); // Check if the marketplace exists
+        return Ecommerce(vendorMarketplace).buyProduct(amount, bookID);
     }
 
-    function CheckProductLength() public view returns (uint){
-        return products.length;
+    // Function to delete a product in a specified vendor's marketplace
+    function deleteProduct(address vendorMarketplace, uint256 id) public {
+        require(vendorMarketplace != address(0), "Invalid marketplace address");
+        require(ecommerceContracts.length > 0, "No Ecommerce contracts created"); // Check if the marketplace exists
+        Ecommerce(vendorMarketplace).DeleteProduct(id);
     }
 
-    fallback() external payable { }
-    receive() external payable { }
+    // -------------------------------
+    // Token Management Functions
+    // -------------------------------
+    
+    // Function to withdraw all tokens from the contract
+    function withdraw() public {
+        uint256 balance = mamaToken.balanceOf(address(this));
+        require(balance > 0, "No tokens to withdraw");
+        mamaToken.transfer(msg.sender, balance);
+    }
+
+    // Function to check the balance of the sender
+    function checkBalance() public view returns (uint256) {
+        return mamaToken.balanceOf(msg.sender);
+    }
+
+    // -------------------------------
+    // Utility Functions
+    // -------------------------------
+
+    // Function to check the total number of Ecommerce contracts created
+    function checkEcommerceLength() public view returns (uint256) {
+        return ecommerceContracts.length;
+    }
+
+    // -------------------------------
+    // Fallback Functions
+    // -------------------------------
+
+    // Fallback function to accept Ether
+    fallback() external payable {}
+
+    // Receive function to accept Ether
+    receive() external payable {}
 }

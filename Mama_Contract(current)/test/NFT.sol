@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "forge-std/Test.sol";
-import "../src/ERC20Mama.sol";
+import {MMA} from "../src/NFT.sol";
 
 contract MMA_Test is Test {
     MMA public mma;
@@ -12,13 +12,13 @@ contract MMA_Test is Test {
     }
 
     function testMinting() public {
-        mma.mintNFT("https://example.com/metadata.json");
+        mma.mintItem(0x2d122fEF1613e82C0C90f443b59E54468e16525C, "https://example.com/metadata.json");
         assertEq(mma.totalSupply(), 1);
     }
 
     function testSingleMintPerUser() public {
-        mma.mintNFT("https://example.com/metadata.json");
-        vm.expectRevert("You have already minted an NFT");
-        mma.mintNFT("https://example.com/metadata.json");
+        mma.mintItem(0x2d122fEF1613e82C0C90f443b59E54468e16525C, "https://example.com/metadata.json");
+        vm.expectRevert("User has already minted an NFT");
+        mma.mintItem(0x2d122fEF1613e82C0C90f443b59E54468e16525C, "https://example.com/metadata.json");
     }
 }

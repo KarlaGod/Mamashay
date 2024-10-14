@@ -1,35 +1,48 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.2;
 
-import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract MMA is ERC721Enumerable, ERC721URIStorage, Ownable {
-    uint256 public constant MAX_SUPPLY = 10000;
-    mapping(address => bool) public hasMinted;  // Track if a user has minted an NFT
+contract MMA is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+    using Counters for Counters.Counter;
 
-    constructor() ERC721("MAMA", "MMA") {}
+    Counters.Counter private _tokenIdCounter;
 
-    function mintNFT(string memory tokenURI) public {
-        require(totalSupply() < MAX_SUPPLY, "All NFTs have been minted");
-        require(!hasMinted[msg.sender], "You have already minted an NFT");
+    // Mapping to store whether an address has minted an NFT
+    mapping(address => bool) private _hasMinted;
 
-        uint256 tokenId = totalSupply() + 1;
-        _mint(msg.sender, tokenId);
-        _setTokenURI(tokenId, tokenURI);
+    constructor() ERC721("Mama", "MMA") {}
 
-        hasMinted[msg.sender] = true;  // Mark user as having minted
+    function _baseURI() internal pure override returns (string memory) {
+        return "https://ipfs.io/ipfs/";
     }
 
-    // Overrides
+    // Function to mint an NFT, allowing only one mint per address
+    function mintItem(address to, string memory uri) public returns (uint256) {
+        require(!_hasMinted[to], "User has already minted an NFT");
+
+        _tokenIdCounter.increment();
+        uint256 tokenId = _tokenIdCounter.current();
+        _safeMint(to, tokenId);
+        _setTokenURI(tokenId, uri);
+
+        _hasMinted[to] = true;  // Mark user as minted
+
+        return tokenId;
+    }
+
+    // The following functions are overrides required by Solidity.
+
     function _beforeTokenTransfer(
         address from,
         address to,
-        uint256 tokenId,
-        uint256 batchSize
+        uint256 tokenId
     ) internal override(ERC721, ERC721Enumerable) {
-        super._beforeTokenTransfer(from, to, tokenId, batchSize);
+        super._beforeTokenTransfer(from, to, tokenId);
     }
 
     function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
