@@ -92,7 +92,6 @@ const Page = () => {
         <div className='flex gap-3 mt-5'>
           <div className='p-2 h-12 w-12 border border-colort rounded-full flex justify-center'><Image src={google} alt='...' width={20} height={20} /></div>
           <div className='p-2 h-12 w-12 border border-colort rounded-full flex justify-center'><Image src={twitter} alt='...' width={20} height={20} /></div>
- 
         </div>
       </main>
       <Print isVisible = {showModal} onClose = {() => setShowModal(false)} />

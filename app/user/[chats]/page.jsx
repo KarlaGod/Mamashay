@@ -1,33 +1,21 @@
 "use client"
 import React from 'react'
-import Link from 'next/link'
 import Image from 'next/image'
-import back from '@/public/homepage-img/back.svg'
 import { chats, navLinks2 } from '../data'
-import { usePathname } from 'next/navigation'
 import search from '@/public/homepage-img/search2.svg'
-import { useRouter } from 'next/navigation'
-import Header from '../components/Header'
-// import { vendors } from '../data'
 
 const Page = () => {
-  const pathname = usePathname();
-  const path = pathname === '@/app/modals/Showcase'
-
-  const router = useRouter()
-
   return (
-    <main className='min-h-screen bg-secondary text-colort'>
-      <div className='bg-fborder pb-3 fixed'>
-        <Header />
-        <div className='bg-secondary p-2 mx-2 flex rounded-full text-xs items-center text-colort'>
+    <section className='bg-secondary text-colort pt-16'>
+      <div className='bg-fborder pb-3 w-full'>
+        <div className='bg-secondary pt-2 p-2 mx-2 flex rounded-full text-xs items-center text-colort'>
           <Image src={search} alt='...' width={15} height={15} className='mx-3 stroke-[#999999]' />
           <input type="search" name="search" id="search" placeholder='Search any message here' className='outline-none w-full bg-secondary' />
         </div>
       </div>
 
       {/* Chat Lists */}
-      <div className='px-3 pt-16 pb-4 md:pt-28'>
+      <div className='px-3 py-4 md:pt-28'>
         <div>
           {
             chats.map((chat, index) => {
@@ -47,11 +35,9 @@ const Page = () => {
               )
             })
           }
-
-          
         </div>
       </div>
-    </main>
+    </section>
   )
 }
 

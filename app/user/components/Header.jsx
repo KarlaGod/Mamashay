@@ -15,7 +15,7 @@ import { usePathname } from 'next/navigation';
 
 const Header = ({ visible }) => {
     const router = useRouter()
-    const { isConnected } = useAccount();
+    // const { isConnected } = useAccount();
     const pathname = usePathname()
     const user = pathname === '/user'
     const chats = pathname === '/user/chats'
@@ -23,11 +23,11 @@ const Header = ({ visible }) => {
     const settings = pathname === '/user/settings'
     const shop = pathname === '/user/shop'
 
-    useEffect(() => {
-        if(!isConnected) {
-            router.push('/signin');
-        }
-    }, [isConnected, router]);
+    // useEffect(() => {
+    //     if(!isConnected) {
+    //         router.push('/signin');
+    //     }
+    // }, [isConnected, router]);
 
   return (
     <header className={`${visible ? "hidden" : "grid"} w-screen fixed top-0`}>

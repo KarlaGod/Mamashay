@@ -14,7 +14,7 @@ import FavouriteProducts from "./components/FavouriteProducts";
 import FavouriteVendors from "./components/FavouriteVendors";
 import { products, vendors } from "./data";
 import Showcase from "../modals/Showcase";
-import Header from "./components/Header";
+// import Header from "./components/Header";
 
 const Page = () => {
   const [showModal, setShowModal] = useState(false);
@@ -26,8 +26,6 @@ const Page = () => {
   return (
     <Fragment>
       <main className="min-h-screen bg-secondary text-colort">
-        <Header visible={visible} />
-
         {/* Logo Container */}
         <div
           className={`${

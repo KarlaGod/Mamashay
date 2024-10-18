@@ -6,9 +6,7 @@ import Header from '../components/Header'
 
 const page = () => {
   return (
-    <main className='min-h-screen bg-secondary text-colort'>
-      <Header />
-
+    <main className='min-h-screen bg-secondary text-colort'> 
       {/* Recent Notification */}
       <div className='px-3 pt-16 md:pt-28'>
         <h1 className='flex items-center text-sm font-bold my-2'><div className='h-2 w-2 bg-yellow rounded-full mr-1'></div> Recent Notifications</h1>
@@ -29,8 +27,6 @@ const page = () => {
               )
             })
           }
-
-          
         </div>
       </div>
 

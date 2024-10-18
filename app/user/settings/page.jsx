@@ -3,17 +3,14 @@ import React from 'react'
 import Image from 'next/image'
 import name from '@/public/sign-up-img/greyname.svg'
 import { usePathname } from 'next/navigation'
-import Header from '../components/Header'
 
 const Page = () => {
   const pathname = usePathname()
   const link = pathname === './settings'
 
   return (
-    <main className='min-h-screen grid bg-secondary text-colort'>
-      <Header />
-
-      <div className='pt-20 px-3'>
+    <section className='min-h-screen grid bg-secondary text-colort pt-20'>
+      <div className='px-3'>
         <p className='py-3 border-b'>Language</p>
         <p className='py-3 border-b'>Updates</p>
         <p className='py-3 border-b'>Terms & Conditions</p>
@@ -23,14 +20,14 @@ const Page = () => {
         <p className='py-3 border-b'>App Version - 1.0</p>
       </div>
 
-      <div className='grid items-end w-full justify-center text-center fixed bottom-10'>
-        <Image src={name} alt='...' width={140} height={140} className='ml-2' />
-        <div className='border-b w-full px-5 text-xs'>
+      <div className='grid items-end w-full justify-center mx-auto text-center absolute bottom-5'>
+        <Image src={name} alt='...' width={140} height={140} className='mx-auto' />
+        <div className='border-b w-full px-5 text-xs text-center'>
           <p className='w-fit px-1'>App Version - 1.0A</p>
-          <p className='w-fit -mb-3 px-1 bg-secondary'>All rights reserved</p>
+          <p className='w-fit px-1 bg-secondary'>All rights reserved</p>
         </div>
       </div>
-    </main>
+    </section>
   )
 }
 
