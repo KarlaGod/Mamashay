@@ -1,9 +1,7 @@
 "use client";
 import React from "react";
-import Link from "next/link";
+// import Link from "next/link";
 import Image from "next/image";
-import { navLinks } from "../data";
-import back from "@/public/homepage-img/back.svg";
 import plus from "@/public/homepage-img/addw.svg";
 import { orders } from "../data";
 import Header from "../components/Header";
@@ -13,14 +11,14 @@ const page = () => {
     <main className="min-h-screen bg2 text-colort bg-primary">
       <Header />
 
-      <div className={`flex p-3 pt-32 gap-3`}>
-        <button className="p-2 border-2 border-tertiary outline-tertiary bg-secondary w-fit text-xs rounded-full">
+      <div className={`flex p-3 pt-20 gap-3 w-full overflow-scroll *:text-nowrap`}>
+        <button className="py-2 px-4 border-2 border-tertiary outline-tertiary bg-secondary w-fit text-xs rounded-full">
           Regulars
         </button>
-        <button className="p-2 border-2 border-tertiary outline-tertiary bg-secondary w-fit text-xs rounded-full">
+        <button className="py-2 px-4 border-2 border-tertiary outline-tertiary bg-secondary w-fit text-xs rounded-full">
           Event Packages
         </button>
-        <button className="p-2 border-2 border-tertiary outline-tertiary bg-secondary w-fit text-xs rounded-full">
+        <button className="py-2 px-4 border-2 border-tertiary outline-tertiary bg-secondary w-fit text-xs rounded-full">
           Special Packages
         </button>
       </div>

@@ -1,5 +1,5 @@
 "use client"
-import React from "react"
+import React, { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { chat, navLinks } from "../data"
@@ -24,7 +24,9 @@ import faq from "@/public/homepage-img/faq.svg"
 import suggest from "@/public/homepage-img/suggest.svg"
 import contact from "@/public/homepage-img/contacts.svg"
 
-const page = () => {
+const Page = () => {
+  const [vendor, setVendor] = useState(false);
+
   return (
     <main className="min-h-screen pb-1 bg-secondary text-colort">
       <div className="pb-5 bg-primary h-32 grid items-center fixed">
@@ -72,11 +74,11 @@ const page = () => {
               </div>
               <button className="py-2 px-5 bg-tertiary h-10 rounded-full text-secondary w-fit">Edit Profile</button>
             </div>
-            <div className="grid">
+            <div className={`${vendor ? 'grid'  : 'hidden'}`}>
               <h1 className="text-lg font-semibold">Blac Kitchen</h1>
               <p className="text-sm text-tertiary">Online</p>
             </div>
-            <div className="hidden">
+            <div className={`${vendor ? 'hidden'  : 'grid'}`}>
               <h1 className="text-lg font-semibold">Emeka Jordan</h1>
               <p className="text-sm text-tertiary">User</p>
             </div>
@@ -86,18 +88,18 @@ const page = () => {
       </div>
 
       <div className={`px-3 pt-64 pb-4`}>
-        <div>
+        <div className={`${vendor ? 'grid'  : 'hidden'}`}>
           {chat.map((c, index) => {
             return (
               <div key={index}>
-                <div className="text-sm hidden justify-between items-center pb-3 gap-3">
+                <div className="text-sm grid justify-between items-center pb-3 gap-3">
                   <p className="text-sm w-full">
                     <span className="font-bold">Desciption: </span>
                     {c.description}
                   </p>
                 </div>
 
-                <div className="hidden gap-2 text-sm">
+                <div className="grid gap-2 text-sm">
                   <Link
                     href="tel:+2348077116265"
                     className="flex rounded-ful gap-2"
@@ -125,12 +127,15 @@ const page = () => {
           })}
         </div>
 
-        <div className="w-full hidden gap-2 mt-3 h-36 bg-fborder place-items-center items-center justify-center rounded-lg">
-          <Image src={scan} alt="..." width={25} height={25} />
-          <p className="grid items-start text-secondary text-sm">Upload business banner here</p>
+        <div className={`${vendor ? 'flex'  : 'hidden'} w-full gap-2 mt-3 h-36 bg-fborder items-center justify-center rounded-lg`}>
+          <div className="grid place-items-center">
+            <Image src={scan} alt="..." width={25} height={25} />
+            <input type="file" name="banner" id="banner" />
+            <p className="grid items-start text-secondary text-sm">Upload business banner here</p>
+          </div>
         </div>
 
-        <div className="grid gap-2 w-full">
+        <div className={`${vendor ? 'hidden'  : 'flex'} gap-2 w-full`}>
           <Link href="#" className="bg-fborder p-2 w-full rounded-lg">
             <p className="text-xs font-semibold text-primary mb-2 w-4/5">
               Check Our What is Going On In Our Community
@@ -174,10 +179,10 @@ const page = () => {
       </div>
 
       <div className="px-3">
-        <button className="w-full grid rounded-lg p-2 text-primary font-bold bg-fborder">
+        <button onClick={() => setTimeout(() => setVendor(true), 2000) } className={`${vendor ? 'hidden'  : 'grid'} w-full rounded-lg p-2 text-primary font-bold bg-fborder`}>
           Become A Vendor
         </button>
-        <button className="w-full hidden justify-center items-center gap-2 rounded-lg p-2 bg-fborder">
+        <Link href='/user/shop' className={`${vendor ? 'flex'  : 'hidden'} w-full justify-center items-center gap-2 rounded-lg p-2 bg-fborder`}>
           <Image
             src={shop}
             alt="..."
@@ -186,7 +191,7 @@ const page = () => {
             className="h-4 w-4"
           />
           <p className="text-primary text-center font-bold">Shop</p>
-        </button>
+        </Link>
       </div>
 
       {/* My Account */}
@@ -357,4 +362,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

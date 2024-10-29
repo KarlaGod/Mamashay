@@ -5,7 +5,7 @@ import Image from 'next/image'
 import sprint from '@/public/sign-up-img/finger.svg'
 import google from '@/public/sign-up-img/google+.svg'
 import twitter from '@/public/sign-up-img/twitter.svg'
-import Print from '../modals/Printsu'
+import Print from '../../modals/Printsu'
 import { useRouter } from 'next/navigation'
 
 const Page = () => {

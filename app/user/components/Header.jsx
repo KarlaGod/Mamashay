@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import profile from "@/public/homepage-img/profile.png";
-import message from "@/public/homepage-img/message.svg";
+import gift from "@/public/homepage-img/gift.png";
 import bell from "@/public/homepage-img/notification.svg";
 import setting from "@/public/homepage-img/settings.svg";
 import more from "@/public/homepage-img/more.svg";
@@ -18,7 +18,8 @@ const Header = ({ visible }) => {
     // const { isConnected } = useAccount();
     const pathname = usePathname()
     const user = pathname === '/user'
-    const chats = pathname === '/user/chats'
+    const message = pathname === '/user/chats'
+    const points = pathname === '/user/loyalty_points'
     const notification = pathname === '/user/notification'
     const settings = pathname === '/user/settings'
     const shop = pathname === '/user/shop'
@@ -51,20 +52,21 @@ const Header = ({ visible }) => {
                 </div>
               </div>
 
-              <h1 className={`${notification | settings | chats | shop ? 'flex' : 'hidden'} items-center text-primary text-xl font-semibold pt-5 pl-2`}>
-                <div onClick={() => window.history.back()}>
-                  <Image src={back} alt='...' width={25} height={25} className='pr-3' />
+              <h1 className={`${notification | settings | message | points | shop ? 'flex' : 'hidden'} items-center text-primary text-xl font-semibold pt-5 pl-2`}>
+                <div onClick={() => window.history.back()} className='flex items-center'>
+                  <Image src={back} alt='...' width={25} height={25} className='pe-3' />
+                  <Image src={gift} alt='gift logo' width={25} height={25} className={`${points ? 'block border-e-2 pe-1 me-1' : 'hidden'} border-e`} />
                 </div>
-                {notification ? 'Notifications' : chats ? 'Chats' : settings ? 'Settings' : shop ? 'Shop' : 'Nothing'}
+                {notification ? 'Notifications' : message ? 'Chats' : points ? 'Loyalty Points' : settings ? 'Settings' : shop ? 'Shop' : 'Nothing'}
               </h1>
             </div>
 
-            <div className="flex gap-2 p-2 items-center mt-2">
+            <div className={`${points ? 'hidden' : 'flex'} gap-2 p-2 items-center mt-2`}>
               <Link
-                href="../user/chats"
+                href="../user/loyalty_points"
                 className={`p-2 bg-sign rounded-full flex justify-center items-center h-8 w-8 after:h-2 after:w-2 after:absolute after:bg-yellow after:-mt-5 after:ml-6 after:rounded-full`}
               >
-                <Image src={message} alt="..." width={13} height={13} className="h-5 w-5" />
+                <Image src={gift} alt="..." width={13} height={13} className="h-5 w-5" />
               </Link>
               
               <Link
@@ -76,17 +78,21 @@ const Header = ({ visible }) => {
               
               <Link
                 href="../user/settings"
-                className={`${chats ? 'hidden' : 'flex'} p-2 bg-sign rounded-full justify-center items-center h-8 w-8 after:h-2 after:w-2 after:absolute after:bg-yellow after:-mt-5 after:ml-6 after:rounded-full`}
+                className={`${points ? 'hidden' : 'flex'} p-2 bg-sign rounded-full justify-center items-center h-8 w-8 after:h-2 after:w-2 after:absolute after:bg-yellow after:-mt-5 after:ml-6 after:rounded-full`}
               >
                 <Image src={setting} alt="..." width={13} height={13} className="h-5 w-5" />
               </Link>
 
               <Link
-                href="../user/chats"
-                className={`${chats ? 'flex' : 'hidden'} p-2 bg-sign rounded-full justify-center items-center h-8 w-8 after:h-2 after:w-2 after:absolute after:bg-yellow after:-mt-5 after:ml-6 after:rounded-full`}
+                href="../user/loyalty_points"
+                className={`${points ? 'flex' : 'hidden'} p-2 bg-sign rounded-full justify-center items-center h-8 w-8 after:h-2 after:w-2 after:absolute after:bg-yellow after:-mt-5 after:ml-6 after:rounded-full`}
               >
                 <Image src={more} alt="..." width={13} height={13} className="h-5 w-5" />
               </Link>
+            </div>
+
+            <div className={`${points ? 'flex' :  'hidden'} gap-2 p-2 items-center mt-2`}>
+              <ConnectButton />
             </div>
           </section>
           <div className={`${user ? 'flex' : 'hidden'} justify-end pe-5 py-5 text-secondary`}>

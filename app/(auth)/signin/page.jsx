@@ -1,22 +1,19 @@
 "use client"
 import React, { useState, useEffect, Fragment } from 'react'
-// import Link from 'next/link'
 import Image from 'next/image'
 import name from '@/public/sign-up-img/circle-name.png'
-// import sprint from '../../public/sign-up-img/finger.svg'
 import google from '@/public/sign-up-img/google+.svg'
 import twitter from '@/public/sign-up-img/twitter.svg'
-import Print from '../modals/Printsi'
+import Print from '../../modals/Printsi'
 import { useRouter } from 'next/navigation'
-import { register } from '../user/data'
+import { register } from '../../user/data'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount } from 'wagmi'
+// import { useSession, signIn } from "next-auth/react"
 
 const Page = () => {
   const [showModal, setShowModal] = useState(false);
-
-  const [signIn, setSignIn] = useState({username: '', password: ''});
-
+  // const { data: session } = useSession()
   const { address, isConnected } = useAccount();
   const router = useRouter();
 
@@ -25,23 +22,6 @@ const Page = () => {
       router.push('/user');
     }
   }, [router, isConnected])
-
-  const handleInput = (e) => {
-    const input = {...signIn, [e.target.name]: e.target.value.trim()};
-    setSignIn(input);
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    register.find((reg) => {
-      if(reg.username === signIn.username && reg.password === signIn.password) {
-        router.push('./user', { replace: true })
-      } else {
-        console.log('failed')
-      }
-    })
-  }
 
   const geUser = async () => {
     const res = await fetch('url', {
