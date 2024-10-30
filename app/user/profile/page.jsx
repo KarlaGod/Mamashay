@@ -23,9 +23,48 @@ import help from "@/public/homepage-img/help.svg"
 import faq from "@/public/homepage-img/faq.svg"
 import suggest from "@/public/homepage-img/suggest.svg"
 import contact from "@/public/homepage-img/contacts.svg"
+import { useAccount, useWriteContract } from 'wagmi'
+import MAMASHAY_NFT_ABI from '../abi.json'
+import abi from ''
 
 const Page = () => {
   const [vendor, setVendor] = useState(false);
+  const [minting, setMinting] = useState(false);
+
+  const { isConnected } = useAccount();
+
+  const { write } = useWriteContract({
+    // address: process.env.NEXT_PUBLIC_NFT_CONTRACT,
+    address: '0x8280Fe75185FB0B4628734710538934a1413428A',
+    abi: MAMASHAY_NFT_ABI,
+    functionName: 'mintItem',
+    onSuccess: () => {
+      setMinting(false);
+      alert('Mint successful!');
+    },
+    onError: (error) => {
+      setMinting(false);
+      console.error(error);
+      alert('Minting failed');
+    },
+  });
+
+  console.log("write function:", write);
+
+  const handleMint = async () => {
+    if (!isConnected) {
+      alert('Please connect your wallet first');
+      return;
+    }
+
+    if (write) {
+      setMinting(true);
+      write();
+    } else {
+      console.error("Write function is undefined");
+    }
+    // setVendor(true);
+  };
 
   return (
     <main className="min-h-screen pb-1 bg-secondary text-colort">
@@ -179,7 +218,7 @@ const Page = () => {
       </div>
 
       <div className="px-3">
-        <button onClick={() => setTimeout(() => setVendor(true), 2000) } className={`${vendor ? 'hidden'  : 'grid'} w-full rounded-lg p-2 text-primary font-bold bg-fborder`}>
+        <button onClick={handleMint} className={`${vendor ? 'hidden'  : 'grid'} w-full rounded-lg p-2 text-primary font-bold bg-fborder`}>
           Become A Vendor
         </button>
         <Link href='/user/shop' className={`${vendor ? 'flex'  : 'hidden'} w-full justify-center items-center gap-2 rounded-lg p-2 bg-fborder`}>

@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 const { ethers } = require('ethers');
 
 const INFURA_PROJECT_ID = "62ec278d3eb941748d8503e6cadaf637";
@@ -8,6 +8,7 @@ const provider = new ethers.InfuraProvider('sepolia', INFURA_PROJECT_ID);
 const wallet = new ethers.Wallet(PRIVATE_KEY, provider);
 
 const nftContractAddress = '0x8280Fe75185FB0B4628734710538934a1413428A';
+
 const nftContractABI = [
 	{
 		"inputs": [
