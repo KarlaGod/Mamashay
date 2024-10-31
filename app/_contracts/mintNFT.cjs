@@ -2,7 +2,7 @@
 const { ethers } = require('ethers');
 
 const INFURA_PROJECT_ID = "62ec278d3eb941748d8503e6cadaf637";
-const PRIVATE_KEY = "";
+const PRIVATE_KEY = "9f99ff0dedcbdbb98288753264e6c1d55011adb44b6d95bab080cd45ac2881f1";
 const provider = new ethers.InfuraProvider('sepolia', INFURA_PROJECT_ID);
 // const provider = new ethers.providers.InfuraProvider('mainnet', INFURA_PROJECT_ID);
 const wallet = new ethers.Wallet(PRIVATE_KEY, provider);

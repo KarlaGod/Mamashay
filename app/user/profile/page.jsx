@@ -24,20 +24,24 @@ import faq from "@/public/homepage-img/faq.svg"
 import suggest from "@/public/homepage-img/suggest.svg"
 import contact from "@/public/homepage-img/contacts.svg"
 import { useAccount, useWriteContract } from 'wagmi'
-import MAMASHAY_NFT_ABI from '../abi.json'
-import abi from ''
+import ABI from '../abi.json'
+// import { ethers } from 'ethers'
 
 const Page = () => {
   const [vendor, setVendor] = useState(false);
   const [minting, setMinting] = useState(false);
 
-  const { isConnected } = useAccount();
+  const { address: wallet, isConnected } = useAccount();
 
-  const { write } = useWriteContract({
+  const { write, error } = useWriteContract({
     // address: process.env.NEXT_PUBLIC_NFT_CONTRACT,
     address: '0x8280Fe75185FB0B4628734710538934a1413428A',
-    abi: MAMASHAY_NFT_ABI,
+    abi: ABI.nft_abi,
     functionName: 'mintItem',
+    args: [
+      wallet,
+      "https://rose-cheap-minnow-324.mypinata.cloud/ipfs/QmcPqzeVCUN5svMFsVxorph9zTeQ9bbSktK5L8yPs2A3hT"
+    ],
     onSuccess: () => {
       setMinting(false);
       alert('Mint successful!');
@@ -49,7 +53,8 @@ const Page = () => {
     },
   });
 
-  console.log("write function:", write);
+  // console.log("write function:", write);
+  console.log("write function:", error);
 
   const handleMint = async () => {
     if (!isConnected) {
@@ -58,7 +63,7 @@ const Page = () => {
     }
 
     if (write) {
-      setMinting(true);
+      // setMinting(true);
       write();
     } else {
       console.error("Write function is undefined");
