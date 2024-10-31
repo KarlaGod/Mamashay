@@ -40,7 +40,7 @@ const Page = () => {
     functionName: 'mintItem',
     args: [
       wallet,
-      "https://rose-cheap-minnow-324.mypinata.cloud/ipfs/QmcPqzeVCUN5svMFsVxorph9zTeQ9bbSktK5L8yPs2A3hT"
+      "https://rose-cheap-minnow-324.mypinata.cloud/ipfs/QmbJPNetTkQfFzev2yqVijReATEfSnxPvf2xajmJ6CGYXG"
     ],
     onSuccess: () => {
       setMinting(false);
@@ -68,7 +68,7 @@ const Page = () => {
     } else {
       console.error("Write function is undefined");
     }
-    // setVendor(true);
+    setVendor(true);
   };
 
   return (
