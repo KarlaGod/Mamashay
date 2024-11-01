@@ -55,9 +55,9 @@ const Page = () => {
       await tx.wait();
       setMinting(false);
       alert("Mint successful!");
+      setSendor(true)
     } catch (error) {
       setMinting(false);
-      
       console.error("Minting error:", error);
       alert("Minting failed");
     }
