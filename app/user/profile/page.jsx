@@ -47,8 +47,7 @@ const Page = () => {
       const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
       const tx = await contract.mintItem(
-        
-        "USER WALLET ADDRESS",
+        address,
         "https://rose-cheap-minnow-324.mypinata.cloud/ipfs/QmbJPNetTkQfFzev2yqVijReATEfSnxPvf2xajmJ6CGYXG"
       );
 
