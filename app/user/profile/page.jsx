@@ -24,36 +24,16 @@ import faq from "@/public/homepage-img/faq.svg";
 import suggest from "@/public/homepage-img/suggest.svg";
 import contact from "@/public/homepage-img/contacts.svg";
 import { ethers } from 'ethers';
-import { useAccount, useWriteContract } from "wagmi";
+import { useAccount } from "wagmi";
 import ABI from "../abi.json";
 
 const Page = () => {
   const [minting, setMinting] = useState(false);
-
-  const { address: wallet, isConnected } = useAccount();
-
-  const { write, error } = useWriteContract({
-    // address: process.env.NEXT_PUBLIC_NFT_CONTRACT,
-    address: '0x8280Fe75185FB0B4628734710538934a1413428A',
-    abi: ABI.nft_abi,
-    functionName: 'mintItem',
-    args: [
-      wallet,
-      "https://rose-cheap-minnow-324.mypinata.cloud/ipfs/QmcPqzeVCUN5svMFsVxorph9zTeQ9bbSktK5L8yPs2A3hT"
-    ],
-    onSuccess: () => {
-      setMinting(false);
-      alert('Mint successful!');
-    },
-    onError: (error) => {
-      setMinting(false);
-      console.error(error);
-      alert('Minting failed');
-    },
-  });
-
-  // console.log("write function:", write);
-  console.log("write function:", error);
+  const [vendor, setVendor] = useState(false);
+  const { address, isConnected } = useAccount();
+  
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
 
   const handleMint = async () => {
     if (!isConnected) {
@@ -61,13 +41,27 @@ const Page = () => {
       return;
     }
 
-    if (write) {
-      // setMinting(true);
-      write();
-    } else {
-      console.error("Write function is undefined");
+    try {
+      const contractAddress = "0x8280Fe75185FB0B4628734710538934a1413428A";
+      const contractABI = ABI.nft_abi;
+      const contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+      const tx = await contract.mintItem(
+        
+        "USER WALLET ADDRESS",
+        "https://rose-cheap-minnow-324.mypinata.cloud/ipfs/QmbJPNetTkQfFzev2yqVijReATEfSnxPvf2xajmJ6CGYXG"
+      );
+
+      setMinting(true);
+      await tx.wait();
+      setMinting(false);
+      alert("Mint successful!");
+    } catch (error) {
+      setMinting(false);
+      
+      console.error("Minting error:", error);
+      alert("Minting failed");
     }
-    // setVendor(true);
   };
 
   return (
