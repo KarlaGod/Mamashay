@@ -1,45 +1,38 @@
-"use client"
-import React, { useState } from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { chat, navLinks } from "../data"
-import back from "@/public/homepage-img/back.svg"
-import profile from "@/public/homepage-img/profile.png"
-import food from "@/public/homepage-img/goatmeatsoup.png"
-import arrow from "@/public/homepage-img/arrow.svg"
-import join from "@/public/homepage-img/join.svg"
-import bell from "@/public/homepage-img/bell.svg"
-import scan from "@/public/homepage-img/scan.svg"
-import shop from "@/public/homepage-img/store.svg"
-import profile2 from "@/public/homepage-img/profilew.svg"
-import heart from "@/public/homepage-img/heart.svg"
-import notify from "@/public/homepage-img/notify.svg"
-import setting from "@/public/homepage-img/settingw.svg"
-import cart from "@/public/homepage-img/cartw.svg"
-import location from "@/public/homepage-img/locationw.svg"
-import reviews from "@/public/homepage-img/reviews.svg"
-import order_man from "@/public/homepage-img/order.svg"
-import help from "@/public/homepage-img/help.svg"
-import faq from "@/public/homepage-img/faq.svg"
-import suggest from "@/public/homepage-img/suggest.svg"
-import contact from "@/public/homepage-img/contacts.svg"
-import { useAccount, useReadContract, useWriteContract } from 'wagmi'
-import ABI from '../abi.json'
-// import { ethers } from 'ethers'
+"use client";
+import React, { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { chat, navLinks } from "../data";
+import back from "@/public/homepage-img/back.svg";
+import profile from "@/public/homepage-img/profile.png";
+import food from "@/public/homepage-img/goatmeatsoup.png";
+import arrow from "@/public/homepage-img/arrow.svg";
+import join from "@/public/homepage-img/join.svg";
+import bell from "@/public/homepage-img/bell.svg";
+import scan from "@/public/homepage-img/scan.svg";
+import shop from "@/public/homepage-img/store.svg";
+import profile2 from "@/public/homepage-img/profilew.svg";
+import heart from "@/public/homepage-img/heart.svg";
+import notify from "@/public/homepage-img/notify.svg";
+import setting from "@/public/homepage-img/settingw.svg";
+import cart from "@/public/homepage-img/cartw.svg";
+import location from "@/public/homepage-img/locationw.svg";
+import reviews from "@/public/homepage-img/reviews.svg";
+import order_man from "@/public/homepage-img/order.svg";
+import help from "@/public/homepage-img/help.svg";
+import faq from "@/public/homepage-img/faq.svg";
+import suggest from "@/public/homepage-img/suggest.svg";
+import contact from "@/public/homepage-img/contacts.svg";
+import { ethers } from 'ethers';
+import { useAccount, useWriteContract } from "wagmi";
+import ABI from "../abi.json";
 
 const Page = () => {
-  const [vendor, setVendor] = useState(false);
   const [minting, setMinting] = useState(false);
 
   const { address: wallet, isConnected } = useAccount();
 
-  const { data } = useReadContract({
-    address: '0x8280Fe75185FB0B4628734710538934a1413428A',
-    abi: ABI.nft_abi,
-    functionName: 'mintItem',
-  })
-
-  const { write } = useWriteContract({
+  const { write, error } = useWriteContract({
     // address: process.env.NEXT_PUBLIC_NFT_CONTRACT,
     address: '0x8280Fe75185FB0B4628734710538934a1413428A',
     abi: ABI.nft_abi,
@@ -60,15 +53,16 @@ const Page = () => {
   });
 
   // console.log("write function:", write);
+  console.log("write function:", error);
 
   const handleMint = async () => {
     if (!isConnected) {
-      alert('Please connect your wallet first');
+      alert("Please connect your wallet first");
       return;
     }
 
     if (write) {
-      setMinting(true);
+      // setMinting(true);
       write();
     } else {
       console.error("Write function is undefined");
