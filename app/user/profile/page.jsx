@@ -23,7 +23,7 @@ import help from "@/public/homepage-img/help.svg"
 import faq from "@/public/homepage-img/faq.svg"
 import suggest from "@/public/homepage-img/suggest.svg"
 import contact from "@/public/homepage-img/contacts.svg"
-import { useAccount, useWriteContract } from 'wagmi'
+import { useAccount, useReadContract, useWriteContract } from 'wagmi'
 import ABI from '../abi.json'
 // import { ethers } from 'ethers'
 
@@ -33,7 +33,13 @@ const Page = () => {
 
   const { address: wallet, isConnected } = useAccount();
 
-  const { write, error } = useWriteContract({
+  const { data } = useReadContract({
+    address: '0x8280Fe75185FB0B4628734710538934a1413428A',
+    abi: ABI.nft_abi,
+    functionName: 'mintItem',
+  })
+
+  const { write } = useWriteContract({
     // address: process.env.NEXT_PUBLIC_NFT_CONTRACT,
     address: '0x8280Fe75185FB0B4628734710538934a1413428A',
     abi: ABI.nft_abi,
@@ -54,7 +60,6 @@ const Page = () => {
   });
 
   // console.log("write function:", write);
-  console.log("write function:", error);
 
   const handleMint = async () => {
     if (!isConnected) {
@@ -63,7 +68,7 @@ const Page = () => {
     }
 
     if (write) {
-      // setMinting(true);
+      setMinting(true);
       write();
     } else {
       console.error("Write function is undefined");
