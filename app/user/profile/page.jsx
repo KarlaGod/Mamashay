@@ -26,7 +26,6 @@ import contact from "@/public/homepage-img/contacts.svg";
 import { ethers } from 'ethers';
 import { useAccount } from "wagmi";
 import useEthereumProvider from './EthereumProvider.jsx'
-// import useEthereumProvider from '.../providers/EthereumProvider.jsx'
 import ABI from "../abi.json";
 
 const Page = () => {
@@ -35,7 +34,6 @@ const Page = () => {
   const { address, isConnected } = useAccount();
   const provider = useEthereumProvider();
   const [signer, setSigner] = useState(null);
-  // const [prov, setProv] = useState();
 
   useEffect(() => {
     if (provider) {
@@ -43,45 +41,33 @@ const Page = () => {
     }
   }, [provider]);
 
-  
-// const INFURA_PROJECT_ID = "62ec278d3eb941748d8503e6cadaf637";
-// const PRIVATE_KEY = "9f99ff0dedcbdbb98288753264e6c1d55011adb44b6d95bab080cd45ac2881f1";
-// const provider = new ethers.InfuraProvider('sepolia', INFURA_PROJECT_ID);
-  // const provider = new ethers.providers.Web3Provider(window.ethereum);
-  // const signer = provider.getSigner();
-  // const signer = new ethers.Wallet(PRIVATE_KEY, provider);
-
   const handleMint = async () => {
     if (!isConnected) {
       alert("Please connect your wallet first");
       return;
     }
 
-    // if(typeof window !== 'undefined' && window.ethereum){
-      try {
-        const contractAddress = process.env.NEXT_PUBLIC_NFT_CONTRACT;
-        
-        const contractABI = ABI.nft_abi;
-        const contract = new ethers.Contract(contractAddress, contractABI, signer);
-  
-        const tx = await contract.mintItem(
-          address,
-          process.env.NEXT_PUBLIC_NFT_URI,
-        );
-  
-        setMinting(true);
-        await tx.wait();
-        setMinting(false);
-        alert("Mint successful!");
-        setVendor(true)
-      } catch (error) {
-        setMinting(false);
-        console.error("Minting error:", error);
-        alert("Minting failed");
-      }
-    // } else {
-      // alert("Ethereum provider not found. Please install MetaMask or use a compatible browser.");
-    // }
+    try {
+      const contractAddress = process.env.NEXT_PUBLIC_NFT_CONTRACT;
+      const contractABI = ABI.nft_abi;
+      const contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+      const tx = await contract.mintItem(
+        address,
+        process.env.NEXT_PUBLIC_NFT_URI,
+      );
+
+      setMinting(true);
+      await tx.wait();
+      setMinting(false);
+      alert("Mint successful!");
+      setVendor(true)
+
+    } catch (error) {
+      setMinting(false);
+      console.error("Minting error:", error);
+      alert("Minting failed");
+    }
   };
 
   return (
