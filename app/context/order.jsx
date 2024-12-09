@@ -10,12 +10,12 @@ const ACTIONS = {
 
 const reducer = (state, action) => {
     switch(action.type) {
-        case ACTION.ADD_ORDER:
+        case ACTIONS.ADD_ORDER:
             return {
                ...state,
                 orders: [...state.orders, action.payload.order]
             }
-        case ACTION.REMOVE_ORDER:
+        case ACTIONS.REMOVE_ORDER:
             return {
                ...state,
                 orders: state.orders.filter(order => order.id !== action.payload.id)
