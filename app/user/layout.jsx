@@ -1,3 +1,4 @@
+import { OrderProvider } from "../context/order";
 import Header from "./components/Header";
 import ScreenSize from "./screenSize";
 
@@ -9,10 +10,12 @@ export const metadata = {
 export default function RootLayout({  children, visible  }) {
   return (
       <ScreenSize>
-        <main className='min-h-screen bg-secondary text-colort'>
-          <Header visible={visible} />
-          { children }
-        </main>
+        <OrderProvider>
+          <main className='min-h-screen bg-secondary text-colort'>
+            <Header visible={visible} />
+            { children }
+          </main>
+        </OrderProvider>
       </ScreenSize>
   );
 }
