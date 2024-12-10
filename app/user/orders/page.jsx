@@ -1,11 +1,18 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import back from '@/public/homepage-img/back.svg'
 import { navLinks, orders } from '../data'
+import { useOrder } from '@/app/context/order'
 
-const page = () => {
+const Page = () => {
+  const { state: { orderList } } = useOrder();
+
+  useEffect(() => {
+    console.log(orderList)
+  }, [orderList])
+
   return (
     <main className='min-h-screen bg-secondary text-colort'>
       <div className='flex justify-between pt-5 bg-fborder h-[12%] w-screen fixed'>
@@ -51,4 +58,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

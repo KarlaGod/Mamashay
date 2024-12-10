@@ -1,5 +1,6 @@
 "use client"
 import React, { useContext, useEffect, createContext, useReducer} from 'react'
+import { orders } from '../user/data';
 
 const OrderContext = createContext();
 
@@ -13,27 +14,23 @@ const reducer = (state, action) => {
         case ACTIONS.ADD_ORDER:
             return {
                ...state,
-                orders: [...state.orders, action.payload.order]
+                orderList: [...state.orderList, action.payload.order]
             }
         case ACTIONS.REMOVE_ORDER:
             return {
                ...state,
-                orders: state.orders.filter(order => order.id !== action.payload.id)
+                orderList: state.orderList.filter(order => order.id !== action.payload.id)
             }
         default:
             return state;
     }
 }
 
-const initialState = {
-    orders: []
-}
-
 export const OrderProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, dispatch] = useReducer(reducer, { order: orders, orderList: []});
     
-    const addOrder = (order) => {
-        dispatch({ type: ACTIONS.ADD_ORDER, payload: { order } })
+    const addOrder = (orders) => {
+        dispatch({ type: ACTIONS.ADD_ORDER, payload: { orders } })
     }
 
     const removeOrder = (id) => {
