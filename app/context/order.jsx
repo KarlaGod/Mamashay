@@ -1,6 +1,6 @@
 "use client"
-import React, { useContext, useEffect, createContext, useReducer} from 'react'
-import { orders } from '../user/data';
+import React, { useContext, useEffect, createContext, useReducer, useState} from 'react'
+import { products } from '../user/data';
 
 const OrderContext = createContext();
 
@@ -14,23 +14,24 @@ const reducer = (state, action) => {
         case ACTIONS.ADD_ORDER:
             return {
                ...state,
-                orderList: [...state.orderList, action.payload.order]
+                orderList: [...state.orderList, action.payload]
             }
         case ACTIONS.REMOVE_ORDER:
             return {
                ...state,
                 orderList: state.orderList.filter(order => order.id !== action.payload.id)
             }
-        default:
-            return state;
+        // default:
+        //     return state;
     }
 }
 
 export const OrderProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(reducer, { order: orders, orderList: []});
+    const [state, dispatch] = useReducer(reducer, { orderList: [] });
+    const [selectedProduct, setSelectedProduct] = useState();
     
-    const addOrder = (orders) => {
-        dispatch({ type: ACTIONS.ADD_ORDER, payload: { orders } })
+    const addOrder = (order) => {
+        dispatch({ type: ACTIONS.ADD_ORDER, payload: order })
     }
 
     const removeOrder = (id) => {
@@ -38,7 +39,7 @@ export const OrderProvider = ({ children }) => {
     }
 
   return (
-    <OrderContext.Provider value={{ addOrder, removeOrder, state }}>
+    <OrderContext.Provider value={{ addOrder, removeOrder, state, selectedProduct, setSelectedProduct }}>
       { children }
     </OrderContext.Provider>
   )

@@ -1,9 +1,12 @@
 import React from 'react'
 import Image from 'next/image'
+import { useOrder } from '@/app/context/order'
 import { products } from '../data'
 // import Showcase from "../../modals/Showcase"
 
 const FavouriteProducts = ({ modal, setSelect }) => {
+  const { addOrder, setSelectedProduct, selectedProduct } = useOrder();
+
     return (
         <div>
             <div className="flex py-2 overflow-x-scroll .no-scrollbar">
@@ -63,7 +66,8 @@ const FavouriteProducts = ({ modal, setSelect }) => {
                     </p>
                     <button
                       className="text-center bg-tertiary w-full h-12 mt-2 text-secondary rounded-md"
-                      onClick={() => {modal(true); setSelect(product)}}
+                      // onClick={() => {modal(true); setSelect(product)}}
+                      onClick={() => addOrder(product)}
                     >
                       Buy
                     </button>

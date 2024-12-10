@@ -7,7 +7,7 @@ import { navLinks, orders } from '../data'
 import { useOrder } from '@/app/context/order'
 
 const Page = () => {
-  const { state: { orderList } } = useOrder();
+  const { state: { orderList }, setSelectedProduct } = useOrder();
 
   useEffect(() => {
     console.log(orderList)
@@ -32,7 +32,7 @@ const Page = () => {
 
       <div className='px-3 pt-20 pb-4'>
           {
-            orders.map((order, index) => {
+            orderList.map((order, index) => {
               return(
                 <div key={index} className='flex bg-fborder p-3 mb-2 rounded-lg'>
                   <Image src={order.img} alt='...' width={100} height={100} />
